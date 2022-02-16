@@ -131,7 +131,7 @@ void Init_Port2(void) {
 // Description: This function will initialize all pins in port 3
 //
 //------------------------------------------------------------------------------
-void Init_Port3(char msclk) {
+void Init_Port3(char smclk) {
     P3OUT = RESET_STATE;            // P3 set Low
     P3DIR = RESET_STATE;            // Set P3 direction to input
     
@@ -158,9 +158,15 @@ void Init_Port3(char msclk) {
     P3OUT  |=  LCD_BACKLITE;        // On [High]
 
     // P3 PIN 4
-    P3SEL1 &= ~SMCLK_2355;          // SMCLK operation
-    P3SEL0 |=  SMCLK_2355;          // SMCLK operation
-    P3DIR  |=  SMCLK_2355;          // Direction must be High
+    /* if (smclk) { */
+    /*     P3SEL1 &= ~SMCLK_2355;          // SMCLK operation */
+    /*     P3SEL0 |=  SMCLK_2355;          // SMCLK operation */
+    /*     P3DIR  |=  SMCLK_2355;          // Direction must be High */
+    /* } else { */
+        P3SEL1 &= ~SMCLK_2355;          // SMCLK operation
+        P3SEL0 |=  SMCLK_2355;          // SMCLK operation
+        P3DIR  |=  SMCLK_2355;          // Direction must be High
+    /* } */
 
     // P3 PIN 5
     P3SEL1 &= ~DAC_CNTL;            // GPIO operation
@@ -199,10 +205,13 @@ void Init_Port4(void) {
     P4SEL0 &= ~SW1;                 // GPIO operation
     P4OUT  |=  SW1;                 // Configure pullup resistor
     P4DIR  &= ~SW1;                 // Input
+    // Pull Up Resistor
+    P4PUD  |=  SW1;                 // Configure pull-up resistor
     P4REN  |=  SW1;                 // Enable pullup resistor
-    // P4IES |= SW1;                  // P4.2 Hi/Lo edge interrupt
-    // P4IFG &= ~SW1;                 // Clear all P2.6 interrupt flags
-    // P4IE |= SW1;                   // P4.2 interrupt enabled
+    // Enable Interrupts
+    P4IFG  &= ~SW1;                 // Clear all P2.6 interrupt flags
+    P4IES  |=  SW1;                 // P4.2 Hi/Lo edge interrupt
+    P4IE   |=  SW1;                 // P4.2 interrupt enabled
     
     // P4 PIN 2
     P4SEL1 &= ~UCA1TXD;             // UART operation
@@ -312,3 +321,65 @@ void Init_Port6(void) {
     P6DIR  |=  GRN_LED;             // Output
     P6OUT  |=  GRN_LED;             // Off [High]
 }
+
+//------------------------------------------------------------------------------
+//
+// Description: This function calls the individual Switch Functions
+//
+//------------------------------------------------------------------------------
+void Switches_Process(void) {
+    Switch1_Process();
+    Switch2_Process();
+}
+
+//------------------------------------------------------------------------------
+//
+// Description: Switch 1 Configurations
+//
+//------------------------------------------------------------------------------
+void Switch1_Process(void) {
+    if (okay_to_look_at_switch1 && sw1_position) {
+        if (!(P4IN & SW1)) {
+            sw1_position = PRESSED;
+            okay_to_look_at_switch1 = NOT_OKAY;
+            count_debounce_SW1 = DEBOUNCE_RESTART;
+
+            // Do what you want with button press
+        }
+    }
+    if (count_debounce_SW1 <= DEBOUNCE_TIME) {
+        count_debounce_SW1++;
+    } else {
+        okay_to_look_at_switch1 = OKAY;
+        if (P4IN & SW1) {
+            sw1_position = RELEASED;
+        }
+    }
+}
+
+//------------------------------------------------------------------------------
+//
+// Description: Switch 2 Configurations
+//
+//------------------------------------------------------------------------------
+void Switch2_Process(void) {
+    if (okay_to_look_at_switch2 && sw2_position) {
+        if (!(P4IN & SW2)) {
+            sw1_position = PRESSED;
+            okay_to_look_at_switch2 = NOT_OKAY;
+            count_debounce_SW2 = DEBOUNCE_RESTART;
+
+            // Do what you want with button press
+        }
+    }
+    if (count_debounce_SW2 <= DEBOUNCE_TIME) {
+        count_debounce_SW2++;
+    } else {
+        okay_to_look_at_switch2 = OKAY;
+        if (P4IN & SW2) {
+            sw2_position = RELEASED;
+        }
+    }
+}
+
+
