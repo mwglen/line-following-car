@@ -42,10 +42,10 @@ void main(void){
 
   // Place the contents of what you want on the display, in between the quotes
   // Limited to 10 characters per line
-  strcpy(display_line[0], "   NCSU   ");
-  strcpy(display_line[1], " WOLFPACK ");
-  strcpy(display_line[2], "  ECE306  ");
-  strcpy(display_line[3], "  GP I/O  ");
+  strcpy(display_line[0], "          ");
+  strcpy(display_line[1], "  SYSTEM  ");
+  strcpy(display_line[2], " STARTED! ");
+  strcpy(display_line[3], "          ");
   display_changed = TRUE;
 
   // This function never returns
