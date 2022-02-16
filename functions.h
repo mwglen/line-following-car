@@ -2,11 +2,12 @@
 //
 //  Description: This file contains the Function prototypes
 //
-//  Jim Carlson
-//  Aug 2013
+//  Matthew Glen
+//  Feb 2022
 //  Built with IAR Embedded Workbench Version: V4.10A/W32 (5.40.1)
 //******************************************************************************
 // Functions
+void Carlson_StateMachine(void);
 
 // Initialization
 void Init_Conditions(void);
@@ -70,7 +71,7 @@ void lcd_write_line1(void);
 void lcd_write_line2(void);
 void lcd_write_line3(void);
 
-void lcd_command( char data);
+void lcd_command(char data);
 void LCD_test(void);
 void LCD_iot_meassage_print(int nema_index);
 

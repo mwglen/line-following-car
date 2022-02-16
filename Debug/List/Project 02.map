@@ -2,7 +2,7 @@
 #                                                                              #
 #      IAR Universal Linker V6.6.2.104                                         #
 #                                                                              #
-#           Link time     =  02/Feb/2022  18:01:13                             #
+#           Link time     =  25/Jan/2022  16:42:43                             #
 #           Target CPU    =  MSP430                                            #
 #           List file     =  "C:\Users\mwg22\Desktop\ECE-306_Code\Project_02\D #
 #                            ebug\List\Project 02.map"                         #
@@ -11,7 +11,7 @@
 #                            Format: ubrof10                                   #
 #                            UBROF version 10.0.6                              #
 #                            Using library modules for C-SPY (-rt)             #
-#           Command line  =  -f C:\Users\mwg22\AppData\Local\Temp\EW2BFB.tmp   #
+#           Command line  =  -f C:\Users\mwg22\AppData\Local\Temp\EW35C2.tmp   #
 #                            (C:\Users\mwg22\Desktop\ECE-306_Code\Project_02\D #
 #                            ebug\Obj\clocks.r43                               #
 #                            C:\Users\mwg22\Desktop\ECE-306_Code\Project_02\Co #
@@ -34,10 +34,10 @@
 #                            ebug\List\Project 02.map"                         #
 #                            -xesni                                            #
 #                            "-IC:\Program Files (x86)\IAR Systems\Embedded Wo #
-#                            rkbench 8.5_2\430\LIB\\"                          #
+#                            rkbench 8.5\430\LIB\\"                            #
 #                            -f                                                #
 #                            "C:\Program Files (x86)\IAR Systems\Embedded Work #
-#                            bench 8.5_2\430\config\linker\lnk430fr2355.xcl"   #
+#                            bench 8.5\430\config\linker\lnk430fr2355.xcl"     #
 #                            (-cmsp430 -QCODE_I=CODE_ID -QTLS16_I=TLS16_ID     #
 #                            -D__iar_HWMUL=4C0 -Z(CONST)INFO=1800-19FF         #
 #                            -Z(DATA)TINYRAM=0006-001F                         #
@@ -62,7 +62,7 @@
 #                            -Z(CODE)INTVEC=FFA2-FFFF                          #
 #                            -Z(CODE)RESET=FFFE-FFFF) -f                       #
 #                            "C:\Program Files (x86)\IAR Systems\Embedded Work #
-#                            bench 8.5_2\430\config\linker\multiplier32.xcl"   #
+#                            bench 8.5\430\config\linker\multiplier32.xcl"     #
 #                            (-e?Mul8Hw=?Mul8 -e?Mul16Hw=?Mul16                #
 #                            -e?Mul16to32uHw=?Mul16to32u                       #
 #                            -e?Mul16to32sHw=?Mul16to32s -e?Mul32Hw32=?Mul32   #
@@ -72,7 +72,7 @@
 #                            -e_Mul64fHw32Ptr=_Mul64fPtr) -D_STACK_SIZE=A0     #
 #                            -rt                                               #
 #                            "C:\Program Files (x86)\IAR Systems\Embedded Work #
-#                            bench 8.5_2\430\lib\dlib\dl430xlsfn.r43"          #
+#                            bench 8.5\430\lib\dlib\dl430xlsfn.r43"            #
 #                            -e_PrintfLarge=_Printf -e_ScanfLarge=_Scanf       #
 #                            -D_DATA16_HEAP_SIZE=A0 -s __program_start         #
 #                            -D_DATA20_HEAP_SIZE=50)                           #
@@ -182,7 +182,6 @@ clocks ( C:\Users\mwg22\Desktop\ECE-306_Code\Project_02\Debug\Obj\clocks.r43 )
         WDTCTL_H                            01CD
         WDTCTL_L                            01CC
 LCD ( C:\Users\mwg22\Desktop\ECE-306_Code\Project_02\Compiled\LCD.r43 )
-        _A_PAOUT_L                          0202
         _A_PBOUT_L                          0222
         _A_TB0CCTL2_L                       0386
         _A_TB0CCR2_L                        0396
@@ -235,9 +234,6 @@ LCD ( C:\Users\mwg22\Desktop\ECE-306_Code\Project_02\Compiled\LCD.r43 )
         SPI_B1_write                        8946
         ?setjmp_save_r4                     NOT NEEDED
         ?setjmp_save_r5                     NOT NEEDED
-        PAOUT                               0202
-        PAOUT_H                             0203
-        PAOUT_L                             0202
         PBOUT                               0222
         PBOUT_H                             0223
         PBOUT_L                             0222
@@ -263,7 +259,7 @@ LCD ( C:\Users\mwg22\Desktop\ECE-306_Code\Project_02\Compiled\LCD.r43 )
         UCB1IFG_H                           05ED
         UCB1IFG_L                           05EC
 main ( C:\Users\mwg22\Desktop\ECE-306_Code\Project_02\Debug\Obj\main.r43 )
-        _A_PAOUT_L                          NOT NEEDED
+        _A_PAOUT_L                          0202
         _A_PBOUT_L                          NOT NEEDED
         _A_PCOUT_L                          0242
         _A_PM5CTL0_L                        NOT NEEDED
@@ -438,28 +434,28 @@ timersB0 ( C:\Users\mwg22\Desktop\ECE-306_Code\Project_02\Compiled\timersB0.r43 
         TB0IV                               03AE
         TB0IV_H                             03AF
         TB0IV_L                             03AE
-?abort ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5_2\430\lib\dlib\dl430xlsfn.r43 )
+?abort ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
         abort                               NOT NEEDED
-?__dbg_break ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5_2\430\lib\dlib\dl430xlsfn.r43 )
+?__dbg_break ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
         __DebugBreak                        8A5A
-?__dwrite ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5_2\430\lib\dlib\dl430xlsfn.r43 )
+?__dwrite ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
         __dwrite                            NOT NEEDED
-?__exit ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5_2\430\lib\dlib\dl430xlsfn.r43 )
+?__exit ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
         __exit                              89DC
-?__write ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5_2\430\lib\dlib\dl430xlsfn.r43 )
+?__write ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
         __write                             NOT NEEDED
-?_exit ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5_2\430\lib\dlib\dl430xlsfn.r43 )
+?_exit ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
         _exit                               8A56
         __cstart_call_dtors                 NOT NEEDED
         __cstart_closeall                   NOT NEEDED
         __cstart_clearlocks                 NOT NEEDED
-?cppinit ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5_2\430\lib\dlib\dl430xlsfn.r43 )
+?cppinit ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
         __call_ctors                        NOT NEEDED
         __alloc_record_needed_destruction   NOT NEEDED
         __record_needed_destruction         NOT NEEDED
         __call_dtors                        NOT NEEDED
         __data16_vec_cctor                  NOT NEEDED
-?cstart ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5_2\430\lib\dlib\dl430xlsfn.r43 )
+?cstart ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
         __program_start                     8084
         ?cstart_begin                       8084
         ?cstart_call_mpu_init               NOT NEEDED
@@ -474,53 +470,53 @@ timersB0 ( C:\Users\mwg22\Desktop\ECE-306_Code\Project_02\Compiled\timersB0.r43 
         ?cstart_call_ctors                  NOT NEEDED
         ?cstart_call_main                   8094
         ?cstart_end                         809C
-lowinit ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5_2\430\lib\dlib\dl430xlsfn.r43 )
+lowinit ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
         __low_level_init                    NOT NEEDED
-?reset_vector ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5_2\430\lib\dlib\dl430xlsfn.r43 )
+?reset_vector ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
         ?reset_vector                       FFFE
-?exit ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5_2\430\lib\dlib\dl430xlsfn.r43 )
+?exit ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
         exit                                8A52
-?FrwpInit ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5_2\430\lib\dlib\dl430xlsfn.r43 )
+?FrwpInit ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
         __iar_430_frwp_init                 NOT NEEDED
-?malloc ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5_2\430\lib\dlib\dl430xlsfn.r43 )
+?malloc ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
         malloc                              NOT NEEDED
-?memcpy ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5_2\430\lib\dlib\dl430xlsfn.r43 )
+?memcpy ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
         memcpy                              NOT NEEDED
-?memmove ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5_2\430\lib\dlib\dl430xlsfn.r43 )
+?memmove ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
         memmove                             NOT NEEDED
-?memzero ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5_2\430\lib\dlib\dl430xlsfn.r43 )
+?memzero ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
         __data16_memzero                    8A02
         __data16_memcpy                     NOT NEEDED
         __data16_memmove                    NOT NEEDED
-?MpuInit ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5_2\430\lib\dlib\dl430xlsfn.r43 )
+?MpuInit ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
         __iar_430_mpu_init                  NOT NEEDED
         ?mpu1_4k_init                       NOT NEEDED
         ?mpu1_8k_init                       NOT NEEDED
         ?mpu1_16k_init                      NOT NEEDED
         ?mpu2_init                          NOT NEEDED
-?setjmp ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5_2\430\lib\dlib\dl430xlsfn.r43 )
+?setjmp ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
         setjmp                              NOT NEEDED
         ?setjmp_r5                          NOT NEEDED
         ?setjmp_r4                          NOT NEEDED
         ?setjmp_end                         NOT NEEDED
-?longjmp ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5_2\430\lib\dlib\dl430xlsfn.r43 )
+?longjmp ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
         longjmp                             NOT NEEDED
         ?longjmp_r5                         NOT NEEDED
         ?longjmp_r4                         NOT NEEDED
         ?longjmp_end                        NOT NEEDED
-?IndCallR11 ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5_2\430\lib\dlib\dl430xlsfn.r43 )
+?IndCallR11 ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
         ?IndCallR11                         NOT NEEDED
-?IndCallR15 ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5_2\430\lib\dlib\dl430xlsfn.r43 )
+?IndCallR15 ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
         ?IndCallR15                         NOT NEEDED
-?strcpy ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5_2\430\lib\dlib\dl430xlsfn.r43 )
+?strcpy ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
         strcpy                              8A12
-?xcloseall ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5_2\430\lib\dlib\dl430xlsfn.r43 )
+?xcloseall ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
         _Close_all                          NOT NEEDED
-?xgetmemchunk ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5_2\430\lib\dlib\dl430xlsfn.r43 )
+?xgetmemchunk ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
         __data16_GetMemChunk                NOT NEEDED
-?xxmemxfree ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5_2\430\lib\dlib\dl430xlsfn.r43 )
+?xxmemxfree ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
         __data16_free                       NOT NEEDED
-?xxmemxmalloc ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5_2\430\lib\dlib\dl430xlsfn.r43 )
+?xxmemxmalloc ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
         __data16_Aldata                     NOT NEEDED
         __data16_malloc                     NOT NEEDED
         __data16_findmem                     LOCAL, NOT NEEDED
@@ -544,11 +540,11 @@ Module               CODE      DATA      CONST
 ?reset_vector           2
 ?strcpy                16
 LCD                   656     55     10
-  + shared                            8
+  + shared                            6
 clocks                320            16
   + shared                            4
 main                  374                   44
-  + shared                            2
+  + shared                            4
 ports                 768            28
 switches              124             4     88
 system                  6
@@ -597,12 +593,12 @@ DATA16_I                                  2000                       dse    0
 DATA16_Z                               2000 - 203D              3E   rel    1
 CODE_I                                    203E                       rel    1
 DATA20_I                                  203E                       rel    1
-DATA20_Z                                  203E                       rel    1
 DATA20_N                                  203E                       rel    1
+DATA20_Z                                  203E                       rel    1
 CSTACK                                 2F60 - 2FFF              A0   rel    1
 DATA16_C                               8000 - 8083              84   rel    0
-DATA20_C                                  8084                       rel    1
 DATA20_ID                                 8084                       rel    1
+DATA20_C                                  8084                       rel    1
 CSTART                                 8084 - 809B              18   rel    1
 ISR_CODE                               809C - 810F              74   rel    1
 CODE_ID                                   8110                       rel    1

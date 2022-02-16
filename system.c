@@ -10,6 +10,7 @@
 //------------------------------------------------------------------------------
 #include  "functions.h"
 #include  "msp430.h"
+#include  "macros.h"
 
 void enable_interrupts(void);
 

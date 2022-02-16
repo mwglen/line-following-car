@@ -1,4 +1,4 @@
-#Generating source browse information for project Project 02
+#Generating source browse information for project Homework 03
 
 
 #Abbreviations
@@ -21,9 +21,15 @@ rule browsedata
 
 #Build steps
 build clocks.pbi : index clocks.xcl
+build init.pbi : index init.xcl
+build led.pbi : index led.xcl
 build main.pbi : index main.xcl
+build ports.pbi : index ports.xcl
 build system.pbi : index system.xcl
-build Project$ 02.pbd : link clocks.pbi main.pbi system.pbi
-build Project$ 02.pbw : browsedata Project$ 02.pbd
+build Homework$ 03_part0.pbi : link clocks.pbi init.pbi
+build Homework$ 03_part1.pbi : link led.pbi main.pbi
+build Homework$ 03_part2.pbi : link ports.pbi system.pbi
+build Homework$ 03.pbd : link Homework$ 03_part0.pbi Homework$ 03_part1.pbi Homework$ 03_part2.pbi
+build Homework$ 03.pbw : browsedata Homework$ 03.pbd
 
 
