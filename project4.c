@@ -13,36 +13,36 @@ Project4State PROJECT4_STATE = 0;
 void project_04() {
   switch (PROJECT4_STATE) {
     case (STOP_CAR1):
-      //stop_car();
-      set_wheels(FWD, FWD);
+      stop_car();
       strcpy(display_line[0], "          ");
       strcpy(display_line[1], " Awaiting ");
       strcpy(display_line[2], "  Input 1 ");
       strcpy(display_line[3], "          ");
       display_changed = TRUE;
-      //PROJECT4_STATE++;
+      PROJECT4_STATE++;
       break;
 
   case (WAIT_FOR_PRESS1):
     if (wait_for_button() == COMPLETED) {
-      strcpy(display_line[0], "          ");
-      strcpy(display_line[1], " Drawing  ");
-      strcpy(display_line[2], " Circle   ");
-      strcpy(display_line[3], "          ");
-      display_changed = TRUE;
+      /* strcpy(display_line[0], "          "); */
+      /* strcpy(display_line[1], " Drawing  "); */
+      /* strcpy(display_line[2], " Circle   "); */
+      /* strcpy(display_line[3], "          "); */
+      /* display_changed = TRUE; */
       PROJECT4_STATE++;
     }
     break;
 
   case (DRAW_CIRCLE):
-    if (draw_circle() == COMPLETED) {
-      strcpy(display_line[0], "          ");
-      strcpy(display_line[1], " Awaiting ");
-      strcpy(display_line[2], "  Input 2 ");
-      strcpy(display_line[3], "          ");
-      display_changed = TRUE;
-      PROJECT4_STATE++;
-    }
+    set_wheels(FWD, FWD);
+    /* if (draw_circle() == COMPLETED) { */
+    /*   strcpy(display_line[0], "          "); */
+    /*   strcpy(display_line[1], " Awaiting "); */
+    /*   strcpy(display_line[2], "  Input 2 "); */
+    /*   strcpy(display_line[3], "          "); */
+    /*   display_changed = TRUE; */
+    /*   PROJECT4_STATE++; */
+    /* } */
     break;
 
   case (WAIT_FOR_PRESS2):
@@ -107,13 +107,15 @@ void set_wheels(
       break;
 
     case FWD:
-      if (WHEEL_TIME > 5) {
+      if (WHEEL_TIME > 20) {
         P6OUT |=  L_FORWARD;
-        P6OUT &= L_REVERSE;
-        WHEEL_TIME = 0;
+        //P6OUT &= L_REVERSE;
       } else {
         P6OUT &= ~L_FORWARD;
-        P6OUT &= ~L_REVERSE;
+        //P6OUT &= ~L_REVERSE;
+      }
+      if (WHEEL_TIME > 40) {
+        WHEEL_TIME = 0;
       }
       break;
 
