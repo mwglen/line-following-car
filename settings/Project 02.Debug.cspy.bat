@@ -25,7 +25,7 @@ if not "%~1" == "" goto debugFile
 
 @echo on 
 
-"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\common\bin\cspybat" -f "C:\Users\mwg22\Desktop\ECE-306_Code\Homework_01\settings\Homework 01 simple.Debug.general.xcl" --backend -f "C:\Users\mwg22\Desktop\ECE-306_Code\Homework_01\settings\Homework 01 simple.Debug.driver.xcl" 
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5_2\common\bin\cspybat" -f "C:\Users\mwg22\Desktop\ECE-306_Code\Project_02\settings\Project 02.Debug.general.xcl" --backend -f "C:\Users\mwg22\Desktop\ECE-306_Code\Project_02\settings\Project 02.Debug.driver.xcl" 
 
 @echo off 
 goto end 
@@ -34,7 +34,7 @@ goto end
 
 @echo on 
 
-"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\common\bin\cspybat" -f "C:\Users\mwg22\Desktop\ECE-306_Code\Homework_01\settings\Homework 01 simple.Debug.general.xcl" "--debug_file=%~1" --backend -f "C:\Users\mwg22\Desktop\ECE-306_Code\Homework_01\settings\Homework 01 simple.Debug.driver.xcl" 
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5_2\common\bin\cspybat" -f "C:\Users\mwg22\Desktop\ECE-306_Code\Project_02\settings\Project 02.Debug.general.xcl" "--debug_file=%~1" --backend -f "C:\Users\mwg22\Desktop\ECE-306_Code\Project_02\settings\Project 02.Debug.driver.xcl" 
 
 @echo off 
 :end
