@@ -21,151 +21,16 @@ unsigned int test_value;
 char chosen_direction;
 char change;
 
-//***********************//
-typedef enum {
-  FWD,
-  BWD
-} Direction;
-
-void wheels_straight_control(void) {
-    switch(operation) {
-        case OFF:
-            turn wheels off;
-            break;
-        case ON:
-            if (wheel_period >= DEFINED_PERIOD) {
-                wheel_period = 0;
-                turn both wheels on
-            }
-            if (wheel_period >= TO_FAST) {
-                TURN FAST WHEEL OFF
-            }
-            break;
-        Default: break;
-    }
-}
-
-void Movement(void) {
-    Switch (shapes) {
-        case Circle:
-
-            Switch (Circle_State) {
-                case IDLE:
-                    break;
-                case WAIT:
-                    Count some time off your mytime value
-                    break;
-                case START:
-                    this is where you place your wheel control
-                    break;
-                case END:
-                    break;
-                Default: break;
-            }
-        break;
-        case Figure8:
-            Switch (Figure8_State) {
-                case IDLE:
-                    break;
-                case WAIT:
-                    Count some time off your mytime vlaue
-                    break;
-                case START:
-                    break;
-                case END:
-                    break;
-                Default: break;
-            }
-        break;
-    }
-}
-void drive_wheels(Direction left_dir, Direction right_dir) {
-  switch(left_dir) {
-    case FWD:
-      //P6OUT &= ~L_REVERSE;
-      P6OUT |= L_FORWARD;
-      break;
-    case BWD:
-      //P6OUT &= ~L_FORWARD;
-      //P6OUT |= L_REVERSE;
-      break;
-  }
-  
-  switch(right_dir) {
-    case FWD:
-      //P6OUT &= ~R_REVERSE;
-      P6OUT |= R_FORWARD;
-      break;
-    case BWD:
-      //P6OUT &= ~R_FORWARD;
-      //P6OUT |= R_REVERSE;
-      break;
-  }
-}
-
-void draw_circle() {
-    drive_wheels(FWD, BWD);
-    // Wait certain amount of time
-    // wait();
-    stop_car();
-}
-
-void draw_triangle() {
-    drive_wheels(FWD, BWD);
-    // Wait certain amount of time
-    // wait();
-    stop_car();
-}
-
-void draw_figure8() {
-}
-
-enum {IDLE, GO, RUN, STOP} States;
-void drive(&Instructions instructions) {
-    switch(states) {
-        // Wait for buttom press then move to GO
-        case IDLE:
-            stop_car();
-            break;
-
-        // Configure to go
-        case GO:
-            break;
-
-        // 
-        case RUN:
-            break;
-
-        // Wait for buttom press then move to GO
-        case STOP:
-            stop_car();
-            break;
-
-        default: break;
-    }
-}
-
-typedef struct instructions_struct {
-    
-} Instructions;
-
-void stop_car() {
-  P6OUT &= ~L_FORWARD;
-  P6OUT &= ~R_FORWARD;
-  //P6OUT &= ~L_REVERSE;
-  //P6OUT &= ~R_REVERSE;
-}
-//**********************************//
-
 //------------------------------------------------------------------------------
 // Main Program
 // This is the main routine for the program. Execution of code starts here.
 // The operating system is Back Ground Fore Ground.
 //
 //------------------------------------------------------------------------------
+
+void start_clock();
+
 void main(void){
-  unsigned int old_Time_Sequence;
-  unsigned int mytime;
 
   PM5CTL0 &= ~LOCKLPM5;
 
@@ -183,21 +48,27 @@ void main(void){
   strcpy(display_line[3], "  GP I/O  ");
   display_changed = TRUE;
 
-//------------------------------------------------------------------------------
-// Begining of the "While" Operating System
-//------------------------------------------------------------------------------
-  while(ALWAYS) {                      // Can the Operating system run
+  // This function never returns
+  start_clock();
+}
+
+unsigned int old_Time_Sequence;
+unsigned int mytime;
+void start_clock() {
+  while(ALWAYS) {
+    // Update Clock
     if (Time_Sequence != old_Time_Sequence) {
-        mytime++;
-        old_Time_Sequence = Time_Sequence;
-        wheel_period++;
+      mytime++;
+      old_Time_Sequence = Time_Sequence;
+      project_04();
     }
-    Carlson_StateMachine();            // Run a Time Based State Machine
-    Switches_Process();                // Check for switch state change
+    
+    // Run Carlson's Code (should remove later)
+    // Carlson_StateMachine();            // Run a Time Based State Machine
+    // Switches_Process();                // Check for switch state change
     Display_Process();                 // Update Display
     P3OUT ^= TEST_PROBE;               // Change State of TEST_PROBE OFF
   }
-//------------------------------------------------------------------------------
 }
 
 void Display_Process(void){

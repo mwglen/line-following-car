@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <settings>
     <DebugChecksum>
-        <Checksum>546283691</Checksum>
+        <Checksum>3958277678</Checksum>
     </DebugChecksum>
     <Stack>
         <FillEnabled>0</FillEnabled>
@@ -32,6 +32,10 @@
     <Disassembly>
         <MixedMode>1</MixedMode>
     </Disassembly>
+    <SfrWindow>
+        <Show>1 1</Show>
+        <Sort>4 0</Sort>
+    </SfrWindow>
     <PowerLog>
         <Title_0>Energy</Title_0>
         <Symbol_0>0 4 0</Symbol_0>
@@ -45,15 +49,6 @@
         <LiveEnabled>0</LiveEnabled>
         <LiveFile>PowerLogLive.log</LiveFile>
     </PowerLog>
-    <TermIOLog>
-        <LoggingEnabled>_ 0</LoggingEnabled>
-        <LogFile>_ ""</LogFile>
-    </TermIOLog>
-    <LogFile>
-        <LoggingEnabled>_ 0</LoggingEnabled>
-        <LogFile>_ ""</LogFile>
-        <Category>_ 0</Category>
-    </LogFile>
     <PowerProbe>
         <Frequency>10000</Frequency>
         <Probe0>Current</Probe0>
@@ -63,14 +58,17 @@
         <Probe2>Energy</Probe2>
         <ProbeSetup2>4 1 1 10 0 0</ProbeSetup2>
     </PowerProbe>
-    <SfrWindow>
-        <Show>1 1</Show>
-        <Sort>4 0</Sort>
-    </SfrWindow>
+    <TermIOLog>
+        <LoggingEnabled>_ 0</LoggingEnabled>
+        <LogFile>_ ""</LogFile>
+    </TermIOLog>
+    <LogFile>
+        <LoggingEnabled>_ 0</LoggingEnabled>
+        <LogFile>_ ""</LogFile>
+        <Category>_ 0</Category>
+    </LogFile>
     <Breakpoints>
-        <Bp0>_ "STD_CODE" "{$PROJ_DIR$\main.c}.88.3" 1 0 0 0 "" 0 ""</Bp0>
-        <Bp1>_ "STD_CODE" "{$PROJ_DIR$\main.c}.86.3" 1 0 0 0 "" 0 ""</Bp1>
-        <Count>2</Count>
+        <Count>0</Count>
     </Breakpoints>
     <FET>
         <Clock_mode>46</Clock_mode>
@@ -95,9 +93,10 @@
         <File_name />
     </Memory_Dump>
     <Aliases>
-        <A0>_ "D:\GoogleDrive-NCSU\ECE306\Current\Homework\HW1\Homework 01 Simple all\switches.c" ""</A0>
-        <A1>_ "D:\GoogleDrive-NCSU\ECE306\Current\Homework\HW1\Homework 01 Simple all\timersB0.c" ""</A1>
-        <Count>2</Count>
+        <A0>_ "D:\GoogleDrive-NCSU\ECE306\Current\Homework\HW1\Homework 01 Simple all\LCD.c" ""</A0>
+        <A1>_ "D:\GoogleDrive-NCSU\ECE306\Current\Homework\HW1\Homework 01 Simple all\switches.c" ""</A1>
+        <A2>_ "D:\GoogleDrive-NCSU\ECE306\Current\Homework\HW1\Homework 01 Simple all\timersB0.c" ""</A2>
+        <Count>3</Count>
         <SuppressDialog>1</SuppressDialog>
     </Aliases>
 </settings>

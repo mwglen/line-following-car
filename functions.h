@@ -8,6 +8,7 @@
 //******************************************************************************
 // Functions
 void Carlson_StateMachine(void);
+void start_clock(void);
 
 // Initialization
 void Init_Conditions(void);
@@ -126,6 +127,5 @@ void five_msec_sleep(unsigned int msec);
 void measure_delay(void);
 void out_control_words(void);
 
-
-
-
+// Project_04
+void project_04(void);

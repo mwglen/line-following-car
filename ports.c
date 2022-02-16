@@ -79,23 +79,23 @@ void Init_Port2(void) {
     P2OUT = RESET_STATE;            // P2 set Low
     P2DIR = RESET_STATE;            // Set P2 direction to input
 
-    // P3 PIN 0
+    // P2 PIN 0
     P2SEL1 &= ~RESET_LCD;           // GPIO operation
     P2SEL0 &= ~RESET_LCD;           // GPIO operation
     P2DIR |= RESET_LCD;             // Output
     P2OUT &= ~RESET_LCD;            // Off [Low]
 
-    // P3 PIN 1
+    // P2 PIN 1
     P2SEL1 &= ~L_REVERSE_2476;      // GPIO operation
     P2SEL0 &= ~L_REVERSE_2476;      // GPIO operation
     P2DIR  &= ~L_REVERSE_2476;      // Input
 
-    // P3 PIN 2
+    // P2 PIN 2
     P2SEL1 &= ~P2_2;                // GPIO operation
     P2SEL0 &= ~P2_2;                // GPIO operation
     P2DIR  &= ~P2_2;                // Input
 
-    // P3 PIN 3
+    // P2 PIN 3
     P2SEL1 &= ~SW2;                 // GPIO Operation
     P2SEL0 &= ~SW2;                 // GPIO Operation
     P2OUT  |=  SW2;                 // Configure pullup resistor
@@ -105,23 +105,23 @@ void Init_Port2(void) {
     //P2IFG &= ~SW2;                  // Clear all P2.6 interrupt flags
     //P2IE  |=  SW2;                  // P2.6 interrupt enabled
 
-    // P3 PIN 4
+    // P2 PIN 4
     P2SEL1 &= ~IOT_RUN_CPU;         // GPIO operation
     P2SEL0 &= ~IOT_RUN_CPU;         // GPIO operation
     P2DIR  |=  IOT_RUN_CPU;         // Input
     P2OUT  &= ~IOT_RUN_CPU;         // Off [Low]
 
-    // P3 PIN 5
+    // P2 PIN 5
     P2SEL1 &= ~DAC_ENB;             // GPIO operation
     P2SEL0 &= ~DAC_ENB;             // GPIO operation
     P2DIR  |=  DAC_ENB;             // Output
     P2OUT  |=  DAC_ENB;             // On [High]
 
-    // P3 PIN 6
+    // P2 PIN 6
     P2SEL1 |=  LFXOUT;              // Clock operation
     P2SEL0 &= ~LFXOUT;              // Clock operation
 
-    // P3 PIN 7
+    // P2 PIN 7
     P2SEL1 |=  LFXIN;               // Clock operation
     P2SEL0 &= ~LFXIN;               // Clock operation
 }
@@ -206,7 +206,7 @@ void Init_Port4(void) {
     P4OUT  |=  SW1;                 // Configure pullup resistor
     P4DIR  &= ~SW1;                 // Input
     // Pull Up Resistor
-    P4PUD  |=  SW1;                 // Configure pull-up resistor
+    //P4PUD  |=  SW1;                 // Configure pull-up resistor
     P4REN  |=  SW1;                 // Enable pullup resistor
     // Enable Interrupts
     P4IFG  &= ~SW1;                 // Clear all P2.6 interrupt flags
@@ -300,10 +300,10 @@ void Init_Port6(void) {
     P6OUT  &= ~R_REVERSE;           // Off [Low]
     
     // P6 PIN 3
-    P6SEL1 &= ~L_REVERSE_2355;      // GPIO operation
-    P6SEL0 &= ~L_REVERSE_2355;      // GPIO operation
-    P6DIR  |=  L_REVERSE_2355;      // Output
-    P6OUT  &= ~L_REVERSE_2355;      // Off [Low]
+    P6SEL1 &= ~L_REVERSE;      // GPIO operation
+    P6SEL0 &= ~L_REVERSE;      // GPIO operation
+    P6DIR  |=  L_REVERSE;      // Output
+    P6OUT  &= ~L_REVERSE;      // Off [Low]
     
     // P6 PIN 4
     P6SEL1 &= ~IR_SENSOR;           // GPIO operation
@@ -321,65 +321,3 @@ void Init_Port6(void) {
     P6DIR  |=  GRN_LED;             // Output
     P6OUT  |=  GRN_LED;             // Off [High]
 }
-
-//------------------------------------------------------------------------------
-//
-// Description: This function calls the individual Switch Functions
-//
-//------------------------------------------------------------------------------
-void Switches_Process(void) {
-    Switch1_Process();
-    Switch2_Process();
-}
-
-//------------------------------------------------------------------------------
-//
-// Description: Switch 1 Configurations
-//
-//------------------------------------------------------------------------------
-void Switch1_Process(void) {
-    if (okay_to_look_at_switch1 && sw1_position) {
-        if (!(P4IN & SW1)) {
-            sw1_position = PRESSED;
-            okay_to_look_at_switch1 = NOT_OKAY;
-            count_debounce_SW1 = DEBOUNCE_RESTART;
-
-            // Do what you want with button press
-        }
-    }
-    if (count_debounce_SW1 <= DEBOUNCE_TIME) {
-        count_debounce_SW1++;
-    } else {
-        okay_to_look_at_switch1 = OKAY;
-        if (P4IN & SW1) {
-            sw1_position = RELEASED;
-        }
-    }
-}
-
-//------------------------------------------------------------------------------
-//
-// Description: Switch 2 Configurations
-//
-//------------------------------------------------------------------------------
-void Switch2_Process(void) {
-    if (okay_to_look_at_switch2 && sw2_position) {
-        if (!(P4IN & SW2)) {
-            sw1_position = PRESSED;
-            okay_to_look_at_switch2 = NOT_OKAY;
-            count_debounce_SW2 = DEBOUNCE_RESTART;
-
-            // Do what you want with button press
-        }
-    }
-    if (count_debounce_SW2 <= DEBOUNCE_TIME) {
-        count_debounce_SW2++;
-    } else {
-        okay_to_look_at_switch2 = OKAY;
-        if (P4IN & SW2) {
-            sw2_position = RELEASED;
-        }
-    }
-}
-
-

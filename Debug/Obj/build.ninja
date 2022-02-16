@@ -25,10 +25,11 @@ build init.pbi : index init.xcl
 build led.pbi : index led.xcl
 build main.pbi : index main.xcl
 build ports.pbi : index ports.xcl
+build project4.pbi : index project4.xcl
 build system.pbi : index system.xcl
-build Project_03_part0.pbi : link clocks.pbi init.pbi
-build Project_03_part1.pbi : link led.pbi main.pbi
-build Project_03_part2.pbi : link ports.pbi system.pbi
+build Project_03_part0.pbi : link clocks.pbi init.pbi led.pbi
+build Project_03_part1.pbi : link main.pbi ports.pbi project4.pbi
+build Project_03_part2.pbi : link system.pbi
 build Project_03.pbd : link Project_03_part0.pbi Project_03_part1.pbi Project_03_part2.pbi
 build Project_03.pbw : browsedata Project_03.pbd
 

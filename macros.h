@@ -7,6 +7,7 @@ extern volatile unsigned char update_display;
 extern volatile unsigned int update_display_count;
 extern volatile unsigned int Time_Sequence;
 extern volatile char one_time;
+extern unsigned int MY_TIME;
 
 #define ALWAYS          (1)
 #define RESET_STATE     (0)
@@ -63,7 +64,7 @@ extern volatile char one_time;
 #define R_FORWARD       (0x01)      // 0 R_FORWARD
 #define L_FORWARD       (0x02)      // 1 L_FORWARD
 #define R_REVERSE       (0x04)      // 2 R_REVERSE
-#define L_REVERSE_2355  (0x08)      // 3 L_REVERSE_2355
+#define L_REVERSE       (0x08)      // 3 L_REVERSE
 #define IR_SENSOR       (0x10)      // 4 IR_SENSOR
 #define P6_5            (0x20)      // 5 P6_5
 #define GRN_LED         (0x40)      // 6 GRN_LED
