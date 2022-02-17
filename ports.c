@@ -6,8 +6,6 @@
 //  Feb 2022
 //  Built with IAR Embedded Workbench Version: (7.21.1)
 //------------------------------------------------------------------------------
-
-#include "macros.h"
 #include "msp430.h"
 #include "functions.h"
 

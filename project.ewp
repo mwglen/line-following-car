@@ -2325,6 +2325,9 @@
         <name>$PROJ_DIR$\project4.c</name>
     </file>
     <file>
+        <name>$PROJ_DIR$\switches.c</name>
+    </file>
+    <file>
         <name>$PROJ_DIR$\system.c</name>
     </file>
 </project>

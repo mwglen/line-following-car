@@ -1,13 +1,13 @@
-"C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\project4.c"
+"C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\switches.c"
 -std=c99
 -ferror-limit=0
 -fbracket-depth=512
 -funsigned-char
 -MD
 -MF
-C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Debug\Obj\project4.pbi.dep
+C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Debug\Obj\switches.pbi.dep
 -o
-project4.pbi
+switches.pbi
 -I
 C:\Users\mwg22\OneDrive\Desktop\ECE306-Project
 -I

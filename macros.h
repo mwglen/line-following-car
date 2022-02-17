@@ -1,3 +1,9 @@
+// Base Types
+typedef enum {
+  false = 0,
+  true  = 1,
+} bool;
+
 // Global Variables
 extern char display_line[4][11];
 extern char display_line[4][11];
@@ -8,10 +14,18 @@ extern volatile unsigned int update_display_count;
 extern volatile unsigned int Time_Sequence;
 extern volatile char one_time;
 extern unsigned int MY_TIME;
+extern bool SW1_PRESSED;
+extern bool SW2_PRESSED;
 
 #define ALWAYS          (1)
 #define RESET_STATE     (0)
 #define TRUE            (0x01)
+
+// Switches
+#define DEBOUNCE_TIME (1500)
+#define DEBOUNCE_RESTART (0x00)
+#define PRESSED (1)
+#define RELEASED (0)
 
 // Port 1 Pins
 #define RED_LED         (0x01)      // 0 RED LED 0

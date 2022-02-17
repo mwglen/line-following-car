@@ -6,6 +6,8 @@
 //  Feb 2022
 //  Built with IAR Embedded Workbench Version: V4.10A/W32 (5.40.1)
 //******************************************************************************
+#include "macros.h"
+
 // Functions
 void Carlson_StateMachine(void);
 void start_clock(void);
@@ -113,6 +115,8 @@ void Switch1_Process(void);
 void Switch2_Process(void);
 void menu_act(void);
 void menu_select(void);
+bool sw1(void);
+bool sw2(void);
 
 // Timers
 void Init_Timers(void);
@@ -127,5 +131,5 @@ void five_msec_sleep(unsigned int msec);
 void measure_delay(void);
 void out_control_words(void);
 
-// Project_04
-void project_04(void);
+// Project 4
+void run(void);

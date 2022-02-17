@@ -11,7 +11,6 @@
 //------------------------------------------------------------------------------
 #include  "functions.h"
 #include  "msp430.h"
-#include  "macros.h"
 #include <string.h>
 
 // Global Variables
@@ -48,22 +47,22 @@ void main(void){
   strcpy(display_line[3], "          ");
   display_changed = TRUE;
 
+  set_wheels(0, 0);
   // This function never returns
   start_clock();
 }
 
 unsigned int old_Time_Sequence;
-unsigned int mytime;
 void start_clock() {
   while(ALWAYS) {
     // Update Clock
     if (Time_Sequence != old_Time_Sequence) {
-      mytime++;
       old_Time_Sequence = Time_Sequence;
-      project_04();
+      run();
     }
+    drive();
     
-    // Switches_Process();                // Check for switch state change
+    Switches_Process();                // Check for switch state change
     Display_Process();                 // Update Display
     P3OUT ^= TEST_PROBE;               // Change State of TEST_PROBE OFF
   }
