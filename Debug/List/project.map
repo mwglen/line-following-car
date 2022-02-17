@@ -1,39 +1,8 @@
-Warning[w6]: Type conflict for external/entry "drive", in module main against external/entry in module project4; prototyped function vs K&R function
-  /* In module main: */
-  /* K&R Function, args 0, attr 0 */
-  int (__cc_version2 drive)();
-  /* In module project4: */
-  /* Function, args 0, attr 0 */
-  void (__cc_version2 drive)(void);
-Warning[w6]: Type conflict for external/entry "set_wheels", in module main against external/entry in module project4; prototyped function vs K&R function
-  /* In module main: */
-  /* K&R Function, args 0, attr 0 */
-  int (__cc_version2 set_wheels)();
-  /* In module project4: */
-  /* Function, args 2, attr 0 */
-  void (__cc_version2 set_wheels)(unsigned int,
-                                  unsigned int);
-Warning[w6]: Type conflict for external/entry "sw1", in module project4 against external/entry in module switches; prototyped function vs K&R function
-  /* In module project4: */
-  /* K&R Function, args 0, attr 0 */
-  int (__cc_version2 sw1)();
-  /* In module switches: */
-  /* Function, args 0, attr 0 */
-  bool (__cc_version2 sw1)(void);
-    typedef enum  bool;
-Warning[w6]: Type conflict for external/entry "sw2", in module project4 against external/entry in module switches; prototyped function vs K&R function
-  /* In module project4: */
-  /* K&R Function, args 0, attr 0 */
-  int (__cc_version2 sw2)();
-  /* In module switches: */
-  /* Function, args 0, attr 0 */
-  bool (__cc_version2 sw2)(void);
-    typedef enum  bool;
 ################################################################################
 #                                                                              #
 #      IAR Universal Linker V6.6.2.104                                         #
 #                                                                              #
-#           Link time     =  16/Feb/2022  19:04:16                             #
+#           Link time     =  16/Feb/2022  20:09:28                             #
 #           Target CPU    =  MSP430                                            #
 #           List file     =  C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\De #
 #                            bug\List\project.map                              #
@@ -42,7 +11,7 @@ Warning[w6]: Type conflict for external/entry "sw2", in module project4 against 
 #                            Format: ubrof10                                   #
 #                            UBROF version 10.0.6                              #
 #                            Using library modules for C-SPY (-rt)             #
-#           Command line  =  -f C:\Users\mwg22\AppData\Local\Temp\EW2000.tmp   #
+#           Command line  =  -f C:\Users\mwg22\AppData\Local\Temp\EWD1F1.tmp   #
 #                            (C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\D #
 #                            ebug\Obj\clocks.r43                               #
 #                            C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\De #
@@ -184,8 +153,8 @@ clocks ( C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Debug\Obj\clocks.r43 )
         _A_PM5CTL0_L                        0130
         _A_SFRIFG1_L                        0102
         _A_WDTCTL_L                         01CC
-        Init_Clocks                         886E
-        Software_Trim                       83FE
+        Init_Clocks                         880A
+        Software_Trim                       8402
         ?setjmp_save_r4                     NOT NEEDED
         ?setjmp_save_r5                     NOT NEEDED
         CSCTL0                              0180
@@ -219,7 +188,7 @@ clocks ( C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Debug\Obj\clocks.r43 )
         WDTCTL_H                            01CD
         WDTCTL_L                            01CC
 init ( C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Debug\Obj\init.r43 )
-        Init_Conditions                     892E
+        Init_Conditions                     892C
         ?setjmp_save_r4                     NOT NEEDED
         ?setjmp_save_r5                     NOT NEEDED
 LCD ( C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Compiled\LCD.r43 )
@@ -248,32 +217,32 @@ LCD ( C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Compiled\LCD.r43 )
         char_count                          NOT NEEDED
         current_line                        NOT NEEDED
         LCD_test                            NOT NEEDED
-        spi_chipselect_idle                 8CAE
-        spi_chipselect_active               8CF2
-        spi_reset_idle                      8D24
-        spi_reset_active                    8D12
-        Display_Update                      8980
+        spi_chipselect_idle                 8CBE
+        spi_chipselect_active               8CF0
+        spi_reset_idle                      8D22
+        spi_reset_active                    8D1C
+        Display_Update                      897E
         enable_display_update               NOT NEEDED
         update_string                       NOT NEEDED
-        Init_LCD                            84D8
+        Init_LCD                            84DC
         lcd_4line                           NOT NEEDED
         lcd_BIG_mid                         NOT NEEDED
         lcd_BIG_bot                         NOT NEEDED
         lcd_180                             NOT NEEDED
-        lcd_out                             8B7C
+        lcd_out                             8B7A
         lcd_puts                            NOT NEEDED
-        WriteIns                            8B06
-        WriteData                           8B2E
+        WriteIns                            8B04
+        WriteData                           8B2C
         CheckBusy                           NOT NEEDED
-        ClrDisplay                          8BFC
-        ClrDisplay_Buffer_0                 8C76
-        ClrDisplay_Buffer_1                 8C3A
-        ClrDisplay_Buffer_2                 8C12
-        ClrDisplay_Buffer_3                 8C26
+        ClrDisplay                          8BFA
+        ClrDisplay_Buffer_0                 8C74
+        ClrDisplay_Buffer_1                 8C60
+        ClrDisplay_Buffer_2                 8C38
+        ClrDisplay_Buffer_3                 8C24
         SetPostion                          NOT NEEDED
-        DisplayOnOff                        8C4E
-        Init_SPI_B1                         8AC8
-        SPI_B1_write                        8BE0
+        DisplayOnOff                        8C4C
+        Init_SPI_B1                         8AC6
+        SPI_B1_write                        8BDE
         ?setjmp_save_r4                     NOT NEEDED
         ?setjmp_save_r5                     NOT NEEDED
         PAOUT                               0202
@@ -323,10 +292,10 @@ main ( C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Debug\Obj\main.r43 )
         test_value                          NOT NEEDED
         chosen_direction                    NOT NEEDED
         change                              NOT NEEDED
-        main                                88D4
+        main                                88D2
         old_Time_Sequence                   2010
-        start_clock                         8B56
-        Display_Process                     8BA0
+        start_clock                         8B54
+        Display_Process                     8B9E
         ?setjmp_save_r4                     NOT NEEDED
         ?setjmp_save_r5                     NOT NEEDED
         PBOUT                               0222
@@ -353,13 +322,13 @@ ports ( C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Debug\Obj\ports.r43 )
         _A_PCDIR_L                          0244
         _A_PCSEL0_L                         024A
         _A_PCSEL1_L                         024C
-        Init_Ports                          8BC2
-        Init_Port1                          879E
-        Init_Port2                          860A
-        Init_Port3                          8574
-        Init_Port4                          871C
-        Init_Port5                          89C6
-        Init_Port6                          8698
+        Init_Ports                          8BC0
+        Init_Port1                          87A2
+        Init_Port2                          860E
+        Init_Port3                          8578
+        Init_Port4                          8720
+        Init_Port5                          89C4
+        Init_Port6                          869C
         ?setjmp_save_r4                     NOT NEEDED
         ?setjmp_save_r5                     NOT NEEDED
         PAOUT                               0202
@@ -433,8 +402,8 @@ project4 ( C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Debug\Obj\project4.r43
         MAX_POWER                           8008
         _A_PCOUT_L                          NOT NEEDED
         run                                 8128
-        set_wheels                          8D08
-        drive                               8806
+        set_wheels_dir                      8D06
+        drive_car                           8870
         ?setjmp_save_r4                     NOT NEEDED
         ?setjmp_save_r5                     NOT NEEDED
         PCOUT                               0242
@@ -443,19 +412,19 @@ project4 ( C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Debug\Obj\project4.r43
 switches ( C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Debug\Obj\switches.r43 )
         _A_PAIN_L                           0200
         _A_PBIN_L                           0220
-        Switches_Process                    8CFE
-        sw1_position                        2000
-        sw2_position                        2002
+        Switches_Process                    8CFC
         count_debounce_SW1                  2022
         count_debounce_SW2                  2024
         okay_to_look_at_switch1             2005
         okay_to_look_at_switch2             2006
+        sw1_position                        2000
+        sw2_position                        2002
         SW1_PRESSED                         205E
-        Switch1_Process                     8A48
+        Switch1_Process                     8A06
         SW2_PRESSED                         205F
-        Switch2_Process                     8A88
-        sw1                                 8C8A
-        sw2                                 8CC0
+        Switch2_Process                     8A46
+        get_sw1                             8C88
+        get_sw2                             8CAC
         ?setjmp_save_r4                     NOT NEEDED
         ?setjmp_save_r5                     NOT NEEDED
         PAIN                                0200
@@ -465,7 +434,7 @@ switches ( C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Debug\Obj\switches.r43
         PBIN_H                              0221
         PBIN_L                              0220
 system ( C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Debug\Obj\system.r43 )
-        enable_interrupts                   8D1E
+        enable_interrupts                   8D16
         ?setjmp_save_r4                     NOT NEEDED
         ?setjmp_save_r5                     NOT NEEDED
 timersB0 ( C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Compiled\timersB0.r43 )
@@ -481,8 +450,8 @@ timersB0 ( C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Compiled\timersB0.r43 
         Time_Sequence                       2028
         one_time                            2060
         time_pass_by                        202A
-        Init_Timers                         8D18
-        Init_Timer_B0                       8A08
+        Init_Timers                         8D10
+        Init_Timer_B0                       8A86
         Timer0_B0_ISR                       80B4
         TIMER0_B1_ISR                       80FA
         TIMER0_B1_ISR::??INTVEC 84          FFF6
@@ -516,15 +485,15 @@ timersB0 ( C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Compiled\timersB0.r43 
 ?abort ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
         abort                               NOT NEEDED
 ?__dbg_break ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
-        __DebugBreak                        8D36
+        __DebugBreak                        8D34
 ?__dwrite ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
         __dwrite                            NOT NEEDED
 ?__exit ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
-        __exit                              8C62
+        __exit                              8C10
 ?__write ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
         __write                             NOT NEEDED
 ?_exit ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
-        _exit                               8D2A
+        _exit                               8D30
         __cstart_call_dtors                 NOT NEEDED
         __cstart_closeall                   NOT NEEDED
         __cstart_clearlocks                 NOT NEEDED
@@ -554,18 +523,18 @@ lowinit ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib
 ?reset_vector ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
         ?reset_vector                       FFFE
 ?exit ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
-        exit                                8D32
+        exit                                8D28
 ?FrwpInit ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
         __iar_430_frwp_init                 NOT NEEDED
 ?malloc ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
         malloc                              NOT NEEDED
 ?memcpy ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
-        memcpy                              8C9C
+        memcpy                              8C9A
 ?memmove ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
         memmove                             NOT NEEDED
 ?memzero ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
-        __data16_memzero                    8CD2
-        __data16_memcpy                     8D2E
+        __data16_memzero                    8CD0
+        __data16_memcpy                     8D2C
         __data16_memmove                    NOT NEEDED
 ?MpuInit ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
         __iar_430_mpu_init                  NOT NEEDED
@@ -588,7 +557,7 @@ lowinit ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib
 ?IndCallR15 ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
         ?IndCallR15                         NOT NEEDED
 ?strcpy ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
-        strcpy                              8CE2
+        strcpy                              8CE0
 ?xcloseall ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
         _Close_all                          NOT NEEDED
 ?xgetmemchunk ( C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.r43 )
@@ -628,7 +597,7 @@ led
   + shared                            2
 main                  162      2            33
 ports                 754            28
-project4              840     20            99
+project4              838     20            99
 switches              174     12      4      6
 system                  6
 timersB0              186      7     12
@@ -636,7 +605,7 @@ timersB0              186      7     12
 N/A (command line)           160
 N/A (alignment)
 ----------          -----    ---     --    ---
-Total:              3 246    256     84    138
+Total:              3 244    256     84    138
   + common             88
 
 
@@ -684,7 +653,7 @@ DATA20_C                                  808C                       rel    1
 CSTART                                 808C - 80B3              28   rel    1
 ISR_CODE                               80B4 - 8127              74   rel    1
 CODE_ID                                   8128                       rel    1
-<CODE> 1                               8128 - 8D37             C10   rel    1
+<CODE> 1                               8128 - 8D35             C0E   rel    1
 INTVEC                                 FFA2 - FFF9              58   com    1
 RESET                                  FFFE - FFFF               2   rel    1
 
@@ -694,10 +663,10 @@ RESET                                  FFFE - FFFF               2   rel    1
                 *                                      *
                 ****************************************
 
- 3 334 bytes of CODE  memory
+ 3 332 bytes of CODE  memory
    256 bytes of DATA  memory (+ 84 absolute )
    138 bytes of CONST memory
 
 Errors: none
-Warnings: 4
+Warnings: none
 

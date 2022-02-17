@@ -115,8 +115,8 @@ void Switch1_Process(void);
 void Switch2_Process(void);
 void menu_act(void);
 void menu_select(void);
-bool sw1(void);
-bool sw2(void);
+bool get_sw1(void);
+bool get_sw2(void);
 
 // Timers
 void Init_Timers(void);
@@ -133,3 +133,5 @@ void out_control_words(void);
 
 // Project 4
 void run(void);
+void drive_car(void);
+void set_wheels_dir(unsigned int, unsigned int);

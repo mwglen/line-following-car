@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR C/C++ Compiler V7.21.1.1000/W32 for MSP430          16/Feb/2022  18:46:46
+# IAR C/C++ Compiler V7.21.1.1000/W32 for MSP430          16/Feb/2022  20:09:05
 # Copyright 1996-2021 IAR Systems AB.
 # PC-locked license - IAR Embedded Workbench for MSP430, 8K KickStart Edition 7.21
 #
@@ -14,7 +14,7 @@
 #    __code_model  =  large
 #    Source file   =  C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\main.c
 #    Command line  =  
-#        -f C:\Users\mwg22\AppData\Local\Temp\EW15F8.tmp
+#        -f C:\Users\mwg22\AppData\Local\Temp\EW730F.tmp
 #        (C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\main.c -lC
 #        C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Debug\List -o
 #        C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Debug\Obj --no_cse
@@ -138,12 +138,10 @@ C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\main.c
      48            display_changed = TRUE;
    \   000048   D243....     MOV.B   #0x1, &display_changed
      49          
-     50            set_wheels(0, 0);
-                   ^
-Warning[Pe223]: function "set_wheels" declared implicitly
+     50            set_wheels_dir(0, 0);
    \   00004C   0D43         MOV.W   #0x0, R13
    \   00004E   0C43         MOV.W   #0x0, R12
-   \   000050   ........     CALLA   #set_wheels
+   \   000050   ........     CALLA   #set_wheels_dir
      51            // This function never returns
      52            start_clock();
    \   000054   ........     CALLA   #start_clock
@@ -172,11 +170,9 @@ Warning[Pe223]: function "set_wheels" declared implicitly
      61                run();
    \   00000E   ........     CALLA   #run
      62              }
-     63              drive();
-                     ^
-Warning[Pe223]: function "drive" declared implicitly
+     63              drive_car();
    \                     ??start_clock_1:
-   \   000012   ........     CALLA   #drive
+   \   000012   ........     CALLA   #drive_car
      64              
      65              Switches_Process();                // Check for switch state change
    \   000016   ........     CALLA   #Switches_Process
@@ -243,13 +239,13 @@ Warning[Pe223]: function "drive" declared implicitly
         4   -> Init_LCD
         4   -> Init_Ports
         4   -> Init_Timers
-        4   -> set_wheels
+        4   -> set_wheels_dir
         4   -> start_clock
         4   -> strcpy
       4   start_clock
         4   -> Display_Process
         4   -> Switches_Process
-        4   -> drive
+        4   -> drive_car
         4   -> run
 
 
@@ -283,4 +279,4 @@ Warning[Pe223]: function "drive" declared implicitly
    8 bytes of DATA  memory (+ 4 bytes shared)
 
 Errors: none
-Warnings: 2
+Warnings: none

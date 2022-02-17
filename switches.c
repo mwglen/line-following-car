@@ -10,12 +10,12 @@ void Switches_Process(void){
 }
 
 // Globals
-int sw1_position = 1;
-int sw2_position = 1;
 int count_debounce_SW1 = 0;
 int count_debounce_SW2 = 0;
 bool okay_to_look_at_switch1 = true;
 bool okay_to_look_at_switch2 = true;
+unsigned int sw1_position = RELEASED;
+unsigned int sw2_position = RELEASED;
 
 
 //------------------------------------------------------------------------------
@@ -67,7 +67,7 @@ void Switch2_Process(void){
 }
 
 
-bool sw1(void) {
+bool get_sw1(void) {
   if (SW1_PRESSED) {
     SW1_PRESSED = false;
     return true;
@@ -75,7 +75,7 @@ bool sw1(void) {
 }
 
 
-bool sw2(void) {
+bool get_sw2(void) {
   if (SW2_PRESSED) {
     SW2_PRESSED = false;
     return true;

@@ -17,6 +17,9 @@ extern unsigned int MY_TIME;
 extern bool SW1_PRESSED;
 extern bool SW2_PRESSED;
 
+extern unsigned int sw1_position;
+extern unsigned int sw2_position;
+
 #define ALWAYS          (1)
 #define RESET_STATE     (0)
 #define TRUE            (0x01)
@@ -24,8 +27,8 @@ extern bool SW2_PRESSED;
 // Switches
 #define DEBOUNCE_TIME (1500)
 #define DEBOUNCE_RESTART (0x00)
-#define PRESSED (1)
-#define RELEASED (0)
+#define PRESSED (0)
+#define RELEASED (1)
 
 // Port 1 Pins
 #define RED_LED         (0x01)      // 0 RED LED 0

@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR C/C++ Compiler V7.21.1.1000/W32 for MSP430          16/Feb/2022  18:51:23
+# IAR C/C++ Compiler V7.21.1.1000/W32 for MSP430          16/Feb/2022  20:09:28
 # Copyright 1996-2021 IAR Systems AB.
 # PC-locked license - IAR Embedded Workbench for MSP430, 8K KickStart Edition 7.21
 #
@@ -14,7 +14,7 @@
 #    __code_model  =  large
 #    Source file   =  C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\switches.c
 #    Command line  =  
-#        -f C:\Users\mwg22\AppData\Local\Temp\EW5366.tmp
+#        -f C:\Users\mwg22\AppData\Local\Temp\EWCF02.tmp
 #        (C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\switches.c -lC
 #        C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Debug\List -o
 #        C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Debug\Obj --no_cse
@@ -61,45 +61,45 @@ C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\switches.c
      11          
      12          // Globals
 
-   \                                 In  segment DATA16_I, align 2, align-sorted
-   \   000000                REQUIRE ?cstart_init_copy
-     13          int sw1_position = 1;
-   \                     sw1_position:
-   \   000000                DS8 2
-   \   000002                REQUIRE `?<Initializer for sw1_position>`
-
-   \                                 In  segment DATA16_I, align 2, align-sorted
-   \   000000                REQUIRE ?cstart_init_copy
-     14          int sw2_position = 1;
-   \                     sw2_position:
-   \   000000                DS8 2
-   \   000002                REQUIRE `?<Initializer for sw2_position>`
-
    \                                 In  segment DATA16_Z, align 2, align-sorted
    \   000000                REQUIRE ?cstart_init_zero
-     15          int count_debounce_SW1 = 0;
+     13          int count_debounce_SW1 = 0;
    \                     count_debounce_SW1:
    \   000000                DS8 2
 
    \                                 In  segment DATA16_Z, align 2, align-sorted
    \   000000                REQUIRE ?cstart_init_zero
-     16          int count_debounce_SW2 = 0;
+     14          int count_debounce_SW2 = 0;
    \                     count_debounce_SW2:
    \   000000                DS8 2
 
    \                                 In  segment DATA16_I, align 1, align-sorted
    \   000000                REQUIRE ?cstart_init_copy
-     17          bool okay_to_look_at_switch1 = true;
+     15          bool okay_to_look_at_switch1 = true;
    \                     okay_to_look_at_switch1:
    \   000000                DS8 1
    \   000001                REQUIRE `?<Initializer for okay_to_look_at_switch1>`
 
    \                                 In  segment DATA16_I, align 1, align-sorted
    \   000000                REQUIRE ?cstart_init_copy
-     18          bool okay_to_look_at_switch2 = true;
+     16          bool okay_to_look_at_switch2 = true;
    \                     okay_to_look_at_switch2:
    \   000000                DS8 1
    \   000001                REQUIRE `?<Initializer for okay_to_look_at_switch2>`
+
+   \                                 In  segment DATA16_I, align 2, align-sorted
+   \   000000                REQUIRE ?cstart_init_copy
+     17          unsigned int sw1_position = RELEASED;
+   \                     sw1_position:
+   \   000000                DS8 2
+   \   000002                REQUIRE `?<Initializer for sw1_position>`
+
+   \                                 In  segment DATA16_I, align 2, align-sorted
+   \   000000                REQUIRE ?cstart_init_copy
+     18          unsigned int sw2_position = RELEASED;
+   \                     sw2_position:
+   \   000000                DS8 2
+   \   000002                REQUIRE `?<Initializer for sw2_position>`
      19          
      20          
      21          //------------------------------------------------------------------------------
@@ -124,7 +124,7 @@ C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\switches.c
    \   00000C   E2B32102     BIT.B   #0x2, &0x221
    \   000010   082C         JC      ??Switch1_Process_0
      28                sw1_position = PRESSED;
-   \   000012   9243....     MOV.W   #0x1, &sw1_position
+   \   000012   8243....     MOV.W   #0x0, &sw1_position
      29                okay_to_look_at_switch1 = false;
    \   000016   C243....     MOV.B   #0x0, &okay_to_look_at_switch1
      30                count_debounce_SW1 = DEBOUNCE_RESTART;
@@ -149,7 +149,7 @@ C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\switches.c
    \   000034   E2B32102     BIT.B   #0x2, &0x221
    \   000038   0228         JNC     ??Switch1_Process_2
      40                sw1_position = RELEASED;
-   \   00003A   8243....     MOV.W   #0x0, &sw1_position
+   \   00003A   9243....     MOV.W   #0x1, &sw1_position
      41              }
      42            }
      43          }
@@ -179,7 +179,7 @@ C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\switches.c
    \   00000C   F2B20102     BIT.B   #0x8, &0x201
    \   000010   082C         JC      ??Switch2_Process_0
      52                sw2_position = PRESSED;
-   \   000012   9243....     MOV.W   #0x1, &sw2_position
+   \   000012   8243....     MOV.W   #0x0, &sw2_position
      53                okay_to_look_at_switch2 = false;
    \   000016   C243....     MOV.B   #0x0, &okay_to_look_at_switch2
      54                count_debounce_SW2 = DEBOUNCE_RESTART;
@@ -204,7 +204,7 @@ C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\switches.c
    \   000034   F2B20102     BIT.B   #0x8, &0x201
    \   000038   0228         JNC     ??Switch2_Process_2
      64                sw2_position = RELEASED;
-   \   00003A   8243....     MOV.W   #0x0, &sw2_position
+   \   00003A   9243....     MOV.W   #0x1, &sw2_position
      65              }
      66            }
      67          }
@@ -215,18 +215,18 @@ C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\switches.c
      69          
 
    \                                 In  segment CODE, align 2
-     70          bool sw1(void) {
-   \                     sw1:
+     70          bool get_sw1(void) {
+   \                     get_sw1:
      71            if (SW1_PRESSED) {
    \   000000   C293....     CMP.B   #0x0, &SW1_PRESSED
-   \   000004   0424         JEQ     ??sw1_0
+   \   000004   0424         JEQ     ??get_sw1_0
      72              SW1_PRESSED = false;
    \   000006   C243....     MOV.B   #0x0, &SW1_PRESSED
      73              return true;
    \   00000A   5C43         MOV.B   #0x1, R12
    \   00000C   1001         RETA
      74            } else return false;
-   \                     ??sw1_0:
+   \                     ??get_sw1_0:
    \   00000E   4C43         MOV.B   #0x0, R12
    \   000010   1001         RETA
      75          }
@@ -234,29 +234,21 @@ C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\switches.c
      77          
 
    \                                 In  segment CODE, align 2
-     78          bool sw2(void) {
-   \                     sw2:
+     78          bool get_sw2(void) {
+   \                     get_sw2:
      79            if (SW2_PRESSED) {
    \   000000   C293....     CMP.B   #0x0, &SW2_PRESSED
-   \   000004   0424         JEQ     ??sw2_0
+   \   000004   0424         JEQ     ??get_sw2_0
      80              SW2_PRESSED = false;
    \   000006   C243....     MOV.B   #0x0, &SW2_PRESSED
      81              return true;
    \   00000A   5C43         MOV.B   #0x1, R12
    \   00000C   1001         RETA
      82            } else return false;
-   \                     ??sw2_0:
+   \                     ??get_sw2_0:
    \   00000E   4C43         MOV.B   #0x0, R12
    \   000010   1001         RETA
      83          }
-
-   \                                 In  segment DATA16_ID, align 2, align-sorted
-   \                     `?<Initializer for sw1_position>`:
-   \   000000   0100         DC16 1
-
-   \                                 In  segment DATA16_ID, align 2, align-sorted
-   \                     `?<Initializer for sw2_position>`:
-   \   000000   0100         DC16 1
 
    \                                 In  segment DATA16_ID, align 1, align-sorted
    \                     `?<Initializer for okay_to_look_at_switch1>`:
@@ -265,6 +257,14 @@ C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\switches.c
    \                                 In  segment DATA16_ID, align 1, align-sorted
    \                     `?<Initializer for okay_to_look_at_switch2>`:
    \   000000   01           DC8 1
+
+   \                                 In  segment DATA16_ID, align 2, align-sorted
+   \                     `?<Initializer for sw1_position>`:
+   \   000000   0100         DC16 1
+
+   \                                 In  segment DATA16_ID, align 2, align-sorted
+   \                     `?<Initializer for sw2_position>`:
+   \   000000   0100         DC16 1
 
    Maximum stack usage in bytes:
 
@@ -275,8 +275,8 @@ C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\switches.c
       4   Switches_Process
         4   -> Switch1_Process
         4   -> Switch2_Process
-      4   sw1
-      4   sw2
+      4   get_sw1
+      4   get_sw2
 
 
    Segment part sizes:
@@ -296,11 +296,11 @@ C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\switches.c
        2  _A_PBIN_L
        2  count_debounce_SW1
        2  count_debounce_SW2
+      18  get_sw1
+      18  get_sw2
        1  okay_to_look_at_switch1
        1  okay_to_look_at_switch2
-      18  sw1
        2  sw1_position
-      18  sw2
        2  sw2_position
 
  

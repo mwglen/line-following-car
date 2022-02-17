@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR C/C++ Compiler V7.21.1.1000/W32 for MSP430          16/Feb/2022  19:04:16
+# IAR C/C++ Compiler V7.21.1.1000/W32 for MSP430          16/Feb/2022  20:09:06
 # Copyright 1996-2021 IAR Systems AB.
 # PC-locked license - IAR Embedded Workbench for MSP430, 8K KickStart Edition 7.21
 #
@@ -14,7 +14,7 @@
 #    __code_model  =  large
 #    Source file   =  C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\project4.c
 #    Command line  =  
-#        -f C:\Users\mwg22\AppData\Local\Temp\EW1CC3.tmp
+#        -f C:\Users\mwg22\AppData\Local\Temp\EW79D7.tmp
 #        (C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\project4.c -lC
 #        C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Debug\List -o
 #        C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Debug\Obj --no_cse
@@ -32,7 +32,7 @@
 ###############################################################################
 
 C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\project4.c
-      1          #include  "macros.h"
+      1          #include  "functions.h"
       2          #include  "project4.h"
 
    \                                 In  segment DATA16_Z, align 1, align-sorted
@@ -71,14 +71,9 @@ C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\project4.c
    \   000000                DS8 2
 
    \                                 In  segment DATA16_C, align 2, align-sorted
-
-  const unsigned int CIR_ROT_TIME = 100000;
-                                    ^
-"C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\project4.h",16  Warning[Pe069]: 
-          integer conversion resulted in truncation
    \   unsigned int const CIR_ROT_TIME
    \                     CIR_ROT_TIME:
-   \   000000   A086         DC16 34464
+   \   000000   1027         DC16 10000
 
    \                                 In  segment DATA16_Z, align 1, align-sorted
    \   000000                REQUIRE ?cstart_init_zero
@@ -177,13 +172,13 @@ C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\project4.c
    \   000004   4E83         SUB.B   #0x0, R14
    \   000006   0924         JEQ     ??run_13
    \   000008   5E83         SUB.B   #0x1, R14
-   \   00000A   2A24         JEQ     ??run_14
+   \   00000A   2C24         JEQ     ??run_14
    \   00000C   5E83         SUB.B   #0x1, R14
-   \   00000E   CE24         JEQ     ??run_15
+   \   00000E   D024         JEQ     ??run_15
    \   000010   5E83         SUB.B   #0x1, R14
-   \   000012   DC24         JEQ     ??run_16
+   \   000012   DE24         JEQ     ??run_16
    \   000014   5E83         SUB.B   #0x1, R14
-   \   000016   3625         JEQ     ??run_1
+   \   000016   3825         JEQ     ??run_1
    \   000018   1001         RETA
      11              case STARTUP:
      12                STARTUP_TIME++;
@@ -191,7 +186,7 @@ C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\project4.c
    \   00001A   9253....     ADD.W   #0x1, &STARTUP_TIME
      13                if (STARTUP_TIME > 400) {
    \   00001E   B2909101.... CMP.W   #0x191, &STARTUP_TIME
-   \   000024   5729         JNC     ??run_2
+   \   000024   5929         JNC     ??run_2
      14                  CURR_EVENT = MAIN_MENU;
    \   000026   D243....     MOV.B   #0x1, &CURR_EVENT
      15                  strcpy(display_line[0], "MAIN  MENU");
@@ -212,430 +207,416 @@ C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\project4.c
    \   000056   ........     CALLA   #strcpy
      19                  display_changed = TRUE; 
    \   00005A   D243....     MOV.B   #0x1, &display_changed
-     20                }
-     21                break;
-   \   00005E   1001         RETA
-     22                
-     23              case MAIN_MENU:
-     24                switch (CURR_SELECTION) {
+     20                  STARTUP_TIME = 0;
+   \   00005E   8243....     MOV.W   #0x0, &STARTUP_TIME
+     21                }
+     22                break;
+   \   000062   1001         RETA
+     23                
+     24              case MAIN_MENU:
+     25                switch (CURR_SELECTION) {
    \                     ??run_14:
-   \   000060   5E42....     MOV.B   &CURR_SELECTION, R14
-   \   000064   5E83         SUB.B   #0x1, R14
-   \   000066   0724         JEQ     ??run_17
+   \   000064   5E42....     MOV.B   &CURR_SELECTION, R14
    \   000068   5E83         SUB.B   #0x1, R14
-   \   00006A   2624         JEQ     ??run_18
+   \   00006A   0724         JEQ     ??run_17
    \   00006C   5E83         SUB.B   #0x1, R14
-   \   00006E   4D24         JEQ     ??run_19
+   \   00006E   2624         JEQ     ??run_18
    \   000070   5E83         SUB.B   #0x1, R14
-   \   000072   7424         JEQ     ??run_20
-   \   000074   1001         RETA
-     25                  case MAIN_MENU:
-     26                    if (sw2()) {
-                               ^
-Warning[Pe223]: function "sw2" declared implicitly
+   \   000072   4D24         JEQ     ??run_19
+   \   000074   5E83         SUB.B   #0x1, R14
+   \   000076   7424         JEQ     ??run_20
+   \   000078   1001         RETA
+     26                  case MAIN_MENU:
+     27                    if (get_sw2()) {
    \                     ??run_17:
-   \   000076   ........     CALLA   #sw2
-   \   00007A   0C93         CMP.W   #0x0, R12
-   \   00007C   9624         JEQ     ??run_0
-     27                      CURR_SELECTION = DRAW_CIRCLE;
-   \   00007E   E243....     MOV.B   #0x2, &CURR_SELECTION
-     28                      strcpy(display_line[0], "MAIN  MENU");
-   \   000082   3D40....     MOV.W   #`?<Constant "MAIN  MENU">`, R13
-   \   000086   3C40....     MOV.W   #display_line, R12
-   \   00008A   ........     CALLA   #strcpy
-     29                      strcpy(display_line[1], "----------");
-   \   00008E   3D40....     MOV.W   #`?<Constant "----------">`, R13
-   \   000092   3C40....     MOV.W   #display_line + 11, R12
-   \   000096   ........     CALLA   #strcpy
-     30                      strcpy(display_line[2], "   DRAW   ");
-   \   00009A   3D40....     MOV.W   #`?<Constant "   DRAW   ">`, R13
-   \   00009E   3C40....     MOV.W   #display_line + 22, R12
-   \   0000A2   ........     CALLA   #strcpy
-     31                      strcpy(display_line[3], "  CIRCLE  ");
-   \   0000A6   3D40....     MOV.W   #`?<Constant "  CIRCLE  ">`, R13
-   \   0000AA   3C40....     MOV.W   #display_line + 33, R12
-   \   0000AE   ........     CALLA   #strcpy
-     32                      display_changed = TRUE; 
-   \   0000B2   D243....     MOV.B   #0x1, &display_changed
-     33                    }
-     34                    break;
-   \   0000B6   1001         RETA
-     35                    
-     36                  case DRAW_CIRCLE:
-     37                    if (sw2()) {
-                               ^
-Warning[Pe223]: function "sw2" declared implicitly
+   \   00007A   ........     CALLA   #get_sw2
+   \   00007E   4C93         CMP.B   #0x0, R12
+   \   000080   9624         JEQ     ??run_0
+     28                      CURR_SELECTION = DRAW_CIRCLE;
+   \   000082   E243....     MOV.B   #0x2, &CURR_SELECTION
+     29                      strcpy(display_line[0], "MAIN  MENU");
+   \   000086   3D40....     MOV.W   #`?<Constant "MAIN  MENU">`, R13
+   \   00008A   3C40....     MOV.W   #display_line, R12
+   \   00008E   ........     CALLA   #strcpy
+     30                      strcpy(display_line[1], "----------");
+   \   000092   3D40....     MOV.W   #`?<Constant "----------">`, R13
+   \   000096   3C40....     MOV.W   #display_line + 11, R12
+   \   00009A   ........     CALLA   #strcpy
+     31                      strcpy(display_line[2], "   DRAW   ");
+   \   00009E   3D40....     MOV.W   #`?<Constant "   DRAW   ">`, R13
+   \   0000A2   3C40....     MOV.W   #display_line + 22, R12
+   \   0000A6   ........     CALLA   #strcpy
+     32                      strcpy(display_line[3], "  CIRCLE  ");
+   \   0000AA   3D40....     MOV.W   #`?<Constant "  CIRCLE  ">`, R13
+   \   0000AE   3C40....     MOV.W   #display_line + 33, R12
+   \   0000B2   ........     CALLA   #strcpy
+     33                      display_changed = TRUE; 
+   \   0000B6   D243....     MOV.B   #0x1, &display_changed
+     34                    }
+     35                    break;
+   \   0000BA   1001         RETA
+     36                    
+     37                  case DRAW_CIRCLE:
+     38                    if (get_sw2()) {
    \                     ??run_18:
-   \   0000B8   ........     CALLA   #sw2
-   \   0000BC   0C93         CMP.W   #0x0, R12
-   \   0000BE   1E24         JEQ     ??run_21
-     38                      CURR_SELECTION = DRAW_TRIANGLE;
-   \   0000C0   F2400300.... MOV.B   #0x3, &CURR_SELECTION
-     39                      strcpy(display_line[0], "MAIN  MENU");
-   \   0000C6   3D40....     MOV.W   #`?<Constant "MAIN  MENU">`, R13
-   \   0000CA   3C40....     MOV.W   #display_line, R12
-   \   0000CE   ........     CALLA   #strcpy
-     40                      strcpy(display_line[1], "----------");
-   \   0000D2   3D40....     MOV.W   #`?<Constant "----------">`, R13
-   \   0000D6   3C40....     MOV.W   #display_line + 11, R12
-   \   0000DA   ........     CALLA   #strcpy
-     41                      strcpy(display_line[2], "   DRAW   ");
-   \   0000DE   3D40....     MOV.W   #`?<Constant "   DRAW   ">`, R13
-   \   0000E2   3C40....     MOV.W   #display_line + 22, R12
-   \   0000E6   ........     CALLA   #strcpy
-     42                      strcpy(display_line[3], " TRIANGLE ");
-   \   0000EA   3D40....     MOV.W   #`?<Constant " TRIANGLE ">`, R13
-   \   0000EE   3C40....     MOV.W   #display_line + 33, R12
-   \   0000F2   ........     CALLA   #strcpy
-     43                      display_changed = TRUE; 
-   \   0000F6   D243....     MOV.B   #0x1, &display_changed
-   \   0000FA   1001         RETA
-     44                    } else if (sw1()) {
-                                      ^
-Warning[Pe223]: function "sw1" declared implicitly
+   \   0000BC   ........     CALLA   #get_sw2
+   \   0000C0   4C93         CMP.B   #0x0, R12
+   \   0000C2   1E24         JEQ     ??run_21
+     39                      CURR_SELECTION = DRAW_TRIANGLE;
+   \   0000C4   F2400300.... MOV.B   #0x3, &CURR_SELECTION
+     40                      strcpy(display_line[0], "MAIN  MENU");
+   \   0000CA   3D40....     MOV.W   #`?<Constant "MAIN  MENU">`, R13
+   \   0000CE   3C40....     MOV.W   #display_line, R12
+   \   0000D2   ........     CALLA   #strcpy
+     41                      strcpy(display_line[1], "----------");
+   \   0000D6   3D40....     MOV.W   #`?<Constant "----------">`, R13
+   \   0000DA   3C40....     MOV.W   #display_line + 11, R12
+   \   0000DE   ........     CALLA   #strcpy
+     42                      strcpy(display_line[2], "   DRAW   ");
+   \   0000E2   3D40....     MOV.W   #`?<Constant "   DRAW   ">`, R13
+   \   0000E6   3C40....     MOV.W   #display_line + 22, R12
+   \   0000EA   ........     CALLA   #strcpy
+     43                      strcpy(display_line[3], " TRIANGLE ");
+   \   0000EE   3D40....     MOV.W   #`?<Constant " TRIANGLE ">`, R13
+   \   0000F2   3C40....     MOV.W   #display_line + 33, R12
+   \   0000F6   ........     CALLA   #strcpy
+     44                      display_changed = TRUE; 
+   \   0000FA   D243....     MOV.B   #0x1, &display_changed
+   \   0000FE   1001         RETA
+     45                    } else if (get_sw1()) {
    \                     ??run_21:
-   \   0000FC   ........     CALLA   #sw1
-   \   000100   0C93         CMP.W   #0x0, R12
-   \   000102   5324         JEQ     ??run_0
-     45                      CURR_EVENT = DRAW_CIRCLE;
-   \   000104   E243....     MOV.B   #0x2, &CURR_EVENT
-     46                    } 
-     47                    break;
-   \   000108   1001         RETA
-     48                  case DRAW_TRIANGLE:
-     49                    if (sw2()) {
-                               ^
-Warning[Pe223]: function "sw2" declared implicitly
+   \   000100   ........     CALLA   #get_sw1
+   \   000104   4C93         CMP.B   #0x0, R12
+   \   000106   5324         JEQ     ??run_0
+     46                      CURR_EVENT = DRAW_CIRCLE;
+   \   000108   E243....     MOV.B   #0x2, &CURR_EVENT
+     47                    } 
+     48                    break;
+   \   00010C   1001         RETA
+     49                    
+     50                  case DRAW_TRIANGLE:
+     51                    if (get_sw2()) {
    \                     ??run_19:
-   \   00010A   ........     CALLA   #sw2
-   \   00010E   0C93         CMP.W   #0x0, R12
-   \   000110   1D24         JEQ     ??run_22
-     50                      CURR_SELECTION = DRAW_FIGURE8;
-   \   000112   E242....     MOV.B   #0x4, &CURR_SELECTION
-     51                      strcpy(display_line[0], "MAIN  MENU");
-   \   000116   3D40....     MOV.W   #`?<Constant "MAIN  MENU">`, R13
-   \   00011A   3C40....     MOV.W   #display_line, R12
-   \   00011E   ........     CALLA   #strcpy
-     52                      strcpy(display_line[1], "----------");
-   \   000122   3D40....     MOV.W   #`?<Constant "----------">`, R13
-   \   000126   3C40....     MOV.W   #display_line + 11, R12
-   \   00012A   ........     CALLA   #strcpy
-     53                      strcpy(display_line[2], "   DRAW   ");
-   \   00012E   3D40....     MOV.W   #`?<Constant "   DRAW   ">`, R13
-   \   000132   3C40....     MOV.W   #display_line + 22, R12
-   \   000136   ........     CALLA   #strcpy
-     54                      strcpy(display_line[3], " FIGURE 8 ");
-   \   00013A   3D40....     MOV.W   #`?<Constant " FIGURE 8 ">`, R13
-   \   00013E   3C40....     MOV.W   #display_line + 33, R12
-   \   000142   ........     CALLA   #strcpy
-     55                      display_changed = TRUE; 
-   \   000146   D243....     MOV.B   #0x1, &display_changed
-   \   00014A   1001         RETA
-     56                    } else if (sw1()) {
-                                      ^
-Warning[Pe223]: function "sw1" declared implicitly
+   \   00010E   ........     CALLA   #get_sw2
+   \   000112   4C93         CMP.B   #0x0, R12
+   \   000114   1D24         JEQ     ??run_22
+     52                      CURR_SELECTION = DRAW_FIGURE8;
+   \   000116   E242....     MOV.B   #0x4, &CURR_SELECTION
+     53                      strcpy(display_line[0], "MAIN  MENU");
+   \   00011A   3D40....     MOV.W   #`?<Constant "MAIN  MENU">`, R13
+   \   00011E   3C40....     MOV.W   #display_line, R12
+   \   000122   ........     CALLA   #strcpy
+     54                      strcpy(display_line[1], "----------");
+   \   000126   3D40....     MOV.W   #`?<Constant "----------">`, R13
+   \   00012A   3C40....     MOV.W   #display_line + 11, R12
+   \   00012E   ........     CALLA   #strcpy
+     55                      strcpy(display_line[2], "   DRAW   ");
+   \   000132   3D40....     MOV.W   #`?<Constant "   DRAW   ">`, R13
+   \   000136   3C40....     MOV.W   #display_line + 22, R12
+   \   00013A   ........     CALLA   #strcpy
+     56                      strcpy(display_line[3], " FIGURE 8 ");
+   \   00013E   3D40....     MOV.W   #`?<Constant " FIGURE 8 ">`, R13
+   \   000142   3C40....     MOV.W   #display_line + 33, R12
+   \   000146   ........     CALLA   #strcpy
+     57                      display_changed = TRUE; 
+   \   00014A   D243....     MOV.B   #0x1, &display_changed
+   \   00014E   1001         RETA
+     58                    } else if (get_sw1()) {
    \                     ??run_22:
-   \   00014C   ........     CALLA   #sw1
-   \   000150   0C93         CMP.W   #0x0, R12
-   \   000152   2B24         JEQ     ??run_0
-     57                      CURR_EVENT = DRAW_TRIANGLE;
-   \   000154   F2400300.... MOV.B   #0x3, &CURR_EVENT
-     58                    }
-     59                    break;
-   \   00015A   1001         RETA
-     60                  case DRAW_FIGURE8:
-     61                    if (sw2()) {
-                               ^
-Warning[Pe223]: function "sw2" declared implicitly
+   \   000150   ........     CALLA   #get_sw1
+   \   000154   4C93         CMP.B   #0x0, R12
+   \   000156   2B24         JEQ     ??run_0
+     59                      CURR_EVENT = DRAW_TRIANGLE;
+   \   000158   F2400300.... MOV.B   #0x3, &CURR_EVENT
+     60                    }
+     61                    break;
+   \   00015E   1001         RETA
+     62                    
+     63                  case DRAW_FIGURE8:
+     64                    if (get_sw2()) {
    \                     ??run_20:
-   \   00015C   ........     CALLA   #sw2
-   \   000160   0C93         CMP.W   #0x0, R12
-   \   000162   1D24         JEQ     ??run_23
-     62                      CURR_SELECTION = DRAW_CIRCLE;
-   \   000164   E243....     MOV.B   #0x2, &CURR_SELECTION
-     63                      strcpy(display_line[0], "MAIN  MENU");
-   \   000168   3D40....     MOV.W   #`?<Constant "MAIN  MENU">`, R13
-   \   00016C   3C40....     MOV.W   #display_line, R12
-   \   000170   ........     CALLA   #strcpy
-     64                      strcpy(display_line[1], "----------");
-   \   000174   3D40....     MOV.W   #`?<Constant "----------">`, R13
-   \   000178   3C40....     MOV.W   #display_line + 11, R12
-   \   00017C   ........     CALLA   #strcpy
-     65                      strcpy(display_line[2], "   DRAW   ");
-   \   000180   3D40....     MOV.W   #`?<Constant "   DRAW   ">`, R13
-   \   000184   3C40....     MOV.W   #display_line + 22, R12
-   \   000188   ........     CALLA   #strcpy
-     66                      strcpy(display_line[3], "  CIRCLE  ");
-   \   00018C   3D40....     MOV.W   #`?<Constant "  CIRCLE  ">`, R13
-   \   000190   3C40....     MOV.W   #display_line + 33, R12
-   \   000194   ........     CALLA   #strcpy
-     67                      display_changed = TRUE; 
-   \   000198   D243....     MOV.B   #0x1, &display_changed
-   \   00019C   1001         RETA
-     68                    } else if (sw1()) {
-                                      ^
-Warning[Pe223]: function "sw1" declared implicitly
+   \   000160   ........     CALLA   #get_sw2
+   \   000164   4C93         CMP.B   #0x0, R12
+   \   000166   1D24         JEQ     ??run_23
+     65                      CURR_SELECTION = DRAW_CIRCLE;
+   \   000168   E243....     MOV.B   #0x2, &CURR_SELECTION
+     66                      strcpy(display_line[0], "MAIN  MENU");
+   \   00016C   3D40....     MOV.W   #`?<Constant "MAIN  MENU">`, R13
+   \   000170   3C40....     MOV.W   #display_line, R12
+   \   000174   ........     CALLA   #strcpy
+     67                      strcpy(display_line[1], "----------");
+   \   000178   3D40....     MOV.W   #`?<Constant "----------">`, R13
+   \   00017C   3C40....     MOV.W   #display_line + 11, R12
+   \   000180   ........     CALLA   #strcpy
+     68                      strcpy(display_line[2], "   DRAW   ");
+   \   000184   3D40....     MOV.W   #`?<Constant "   DRAW   ">`, R13
+   \   000188   3C40....     MOV.W   #display_line + 22, R12
+   \   00018C   ........     CALLA   #strcpy
+     69                      strcpy(display_line[3], "  CIRCLE  ");
+   \   000190   3D40....     MOV.W   #`?<Constant "  CIRCLE  ">`, R13
+   \   000194   3C40....     MOV.W   #display_line + 33, R12
+   \   000198   ........     CALLA   #strcpy
+     70                      display_changed = TRUE; 
+   \   00019C   D243....     MOV.B   #0x1, &display_changed
+   \   0001A0   1001         RETA
+     71                    } else if (get_sw1()) {
    \                     ??run_23:
-   \   00019E   ........     CALLA   #sw1
-   \   0001A2   0C93         CMP.W   #0x0, R12
-   \   0001A4   9724         JEQ     ??run_2
-     69                      CURR_EVENT = DRAW_FIGURE8;
-   \   0001A6   E242....     MOV.B   #0x4, &CURR_EVENT
-     70                    }
-     71                    break;
-     72                }
-     73                break;
+   \   0001A2   ........     CALLA   #get_sw1
+   \   0001A6   4C93         CMP.B   #0x0, R12
+   \   0001A8   9724         JEQ     ??run_2
+     72                      CURR_EVENT = DRAW_FIGURE8;
+   \   0001AA   E242....     MOV.B   #0x4, &CURR_EVENT
+     73                    }
+     74                    break;
+     75                }
+     76                break;
    \                     ??run_0:
-   \   0001AA   1001         RETA
-     74                
-     75              case DRAW_CIRCLE:
-     76                if (CIR_TIME >= CIR_ROT_TIME) {
+   \   0001AE   1001         RETA
+     77                
+     78              case DRAW_CIRCLE:
+     79                if (CIR_TIME >= CIR_ROT_TIME) {
    \                     ??run_15:
-   \   0001AC   9292........ CMP.W   &CIR_ROT_TIME, &CIR_TIME
-   \   0001B2   0528         JNC     ??run_24
-     77                  CIR_TIME = 0;
-   \   0001B4   8243....     MOV.W   #0x0, &CIR_TIME
-     78                  CURR_EVENT = MAIN_MENU;
-   \   0001B8   D243....     MOV.B   #0x1, &CURR_EVENT
-   \   0001BC   1001         RETA
-     79                } else set_wheels(25, 75);
+   \   0001B0   9292........ CMP.W   &CIR_ROT_TIME, &CIR_TIME
+   \   0001B6   0528         JNC     ??run_24
+     80                  CIR_TIME = 0;
+   \   0001B8   8243....     MOV.W   #0x0, &CIR_TIME
+     81                  CURR_EVENT = MAIN_MENU;
+   \   0001BC   D243....     MOV.B   #0x1, &CURR_EVENT
+   \   0001C0   1001         RETA
+     82                } else set_wheels_dir(25, 75);
    \                     ??run_24:
-   \   0001BE   3D404B00     MOV.W   #0x4b, R13
-   \   0001C2   3C401900     MOV.W   #0x19, R12
-   \   0001C6   ........     CALLA   #set_wheels
-     80                break;
-   \   0001CA   1001         RETA
-     81                
-     82              case DRAW_TRIANGLE:
-     83                switch (TRI_STATE) {
+   \   0001C2   3D404B00     MOV.W   #0x4b, R13
+   \   0001C6   3C401900     MOV.W   #0x19, R12
+   \   0001CA   ........     CALLA   #set_wheels_dir
+     83                break;
+   \   0001CE   1001         RETA
+     84                
+     85              case DRAW_TRIANGLE:
+     86                switch (TRI_STATE) {
    \                     ??run_16:
-   \   0001CC   5E42....     MOV.B   &TRI_STATE, R14
-   \   0001D0   4E83         SUB.B   #0x0, R14
-   \   0001D2   0924         JEQ     ??run_25
-   \   0001D4   5E83         SUB.B   #0x1, R14
-   \   0001D6   1724         JEQ     ??run_26
+   \   0001D0   5E42....     MOV.B   &TRI_STATE, R14
+   \   0001D4   4E83         SUB.B   #0x0, R14
+   \   0001D6   0924         JEQ     ??run_25
    \   0001D8   5E83         SUB.B   #0x1, R14
-   \   0001DA   2424         JEQ     ??run_27
+   \   0001DA   1724         JEQ     ??run_26
    \   0001DC   5E83         SUB.B   #0x1, R14
-   \   0001DE   3224         JEQ     ??run_28
+   \   0001DE   2424         JEQ     ??run_27
    \   0001E0   5E83         SUB.B   #0x1, R14
-   \   0001E2   3F24         JEQ     ??run_29
-   \   0001E4   4F3C         JMP     ??run_1
-     84                  case DRAW_SIDE1:
-     85                    if (TRI_TIME >= TRI_SIDE_TIME) {
+   \   0001E2   3224         JEQ     ??run_28
+   \   0001E4   5E83         SUB.B   #0x1, R14
+   \   0001E6   3F24         JEQ     ??run_29
+   \   0001E8   4F3C         JMP     ??run_1
+     87                  case DRAW_SIDE1:
+     88                    if (TRI_TIME >= TRI_SIDE_TIME) {
    \                     ??run_25:
-   \   0001E6   9292........ CMP.W   &TRI_SIDE_TIME, &TRI_TIME
-   \   0001EC   0528         JNC     ??run_30
-     86                      TRI_TIME = 0;
-   \   0001EE   8243....     MOV.W   #0x0, &TRI_TIME
-     87                      TRI_STATE++;
-   \   0001F2   D253....     ADD.B   #0x1, &TRI_STATE
-   \   0001F6   463C         JMP     ??run_1
-     88                    } else set_wheels(50, 50);
+   \   0001EA   9292........ CMP.W   &TRI_SIDE_TIME, &TRI_TIME
+   \   0001F0   0528         JNC     ??run_30
+     89                      TRI_TIME = 0;
+   \   0001F2   8243....     MOV.W   #0x0, &TRI_TIME
+     90                      TRI_STATE++;
+   \   0001F6   D253....     ADD.B   #0x1, &TRI_STATE
+   \   0001FA   463C         JMP     ??run_1
+     91                    } else set_wheels_dir(50, 50);
    \                     ??run_30:
-   \   0001F8   3D403200     MOV.W   #0x32, R13
-   \   0001FC   3C403200     MOV.W   #0x32, R12
-   \   000200   ........     CALLA   #set_wheels
-     89                    break;
-   \   000204   3F3C         JMP     ??run_1
-     90                  case ROTATE1:
-     91                    if (TRI_TIME >= TRI_ROT_TIME) {
+   \   0001FC   3D403200     MOV.W   #0x32, R13
+   \   000200   3C403200     MOV.W   #0x32, R12
+   \   000204   ........     CALLA   #set_wheels_dir
+     92                    break;
+   \   000208   3F3C         JMP     ??run_1
+     93                  case ROTATE1:
+     94                    if (TRI_TIME >= TRI_ROT_TIME) {
    \                     ??run_26:
-   \   000206   9292........ CMP.W   &TRI_ROT_TIME, &TRI_TIME
-   \   00020C   0528         JNC     ??run_31
-     92                      TRI_TIME = 0;
-   \   00020E   8243....     MOV.W   #0x0, &TRI_TIME
-     93                      TRI_STATE++;
-   \   000212   D253....     ADD.B   #0x1, &TRI_STATE
-   \   000216   363C         JMP     ??run_1
-     94                    } else set_wheels(100, 0);
+   \   00020A   9292........ CMP.W   &TRI_ROT_TIME, &TRI_TIME
+   \   000210   0528         JNC     ??run_31
+     95                      TRI_TIME = 0;
+   \   000212   8243....     MOV.W   #0x0, &TRI_TIME
+     96                      TRI_STATE++;
+   \   000216   D253....     ADD.B   #0x1, &TRI_STATE
+   \   00021A   363C         JMP     ??run_1
+     97                    } else set_wheels_dir(100, 0);
    \                     ??run_31:
-   \   000218   0D43         MOV.W   #0x0, R13
-   \   00021A   3C406400     MOV.W   #0x64, R12
-   \   00021E   ........     CALLA   #set_wheels
-     95                    break;
-   \   000222   303C         JMP     ??run_1
-     96                  case DRAW_SIDE2:
-     97                    if (TRI_TIME >= TRI_SIDE_TIME) {
+   \   00021C   0D43         MOV.W   #0x0, R13
+   \   00021E   3C406400     MOV.W   #0x64, R12
+   \   000222   ........     CALLA   #set_wheels_dir
+     98                    break;
+   \   000226   303C         JMP     ??run_1
+     99                  case DRAW_SIDE2:
+    100                    if (TRI_TIME >= TRI_SIDE_TIME) {
    \                     ??run_27:
-   \   000224   9292........ CMP.W   &TRI_SIDE_TIME, &TRI_TIME
-   \   00022A   0528         JNC     ??run_32
-     98                      TRI_TIME = 0;
-   \   00022C   8243....     MOV.W   #0x0, &TRI_TIME
-     99                      TRI_STATE++;
-   \   000230   D253....     ADD.B   #0x1, &TRI_STATE
-   \   000234   273C         JMP     ??run_1
-    100                    } else set_wheels(50, 50);
+   \   000228   9292........ CMP.W   &TRI_SIDE_TIME, &TRI_TIME
+   \   00022E   0528         JNC     ??run_32
+    101                      TRI_TIME = 0;
+   \   000230   8243....     MOV.W   #0x0, &TRI_TIME
+    102                      TRI_STATE++;
+   \   000234   D253....     ADD.B   #0x1, &TRI_STATE
+   \   000238   273C         JMP     ??run_1
+    103                    } else set_wheels_dir(50, 50);
    \                     ??run_32:
-   \   000236   3D403200     MOV.W   #0x32, R13
-   \   00023A   3C403200     MOV.W   #0x32, R12
-   \   00023E   ........     CALLA   #set_wheels
-    101                    break;
-   \   000242   203C         JMP     ??run_1
-    102                  case ROTATE2:
-    103                    if (TRI_TIME >= TRI_ROT_TIME) { 
+   \   00023A   3D403200     MOV.W   #0x32, R13
+   \   00023E   3C403200     MOV.W   #0x32, R12
+   \   000242   ........     CALLA   #set_wheels_dir
+    104                    break;
+   \   000246   203C         JMP     ??run_1
+    105                  case ROTATE2:
+    106                    if (TRI_TIME >= TRI_ROT_TIME) { 
    \                     ??run_28:
-   \   000244   9292........ CMP.W   &TRI_ROT_TIME, &TRI_TIME
-   \   00024A   0528         JNC     ??run_33
-    104                      TRI_TIME = 0;
-   \   00024C   8243....     MOV.W   #0x0, &TRI_TIME
-    105                      TRI_STATE++;
-   \   000250   D253....     ADD.B   #0x1, &TRI_STATE
-   \   000254   173C         JMP     ??run_1
-    106                    } else set_wheels(100, 0);
+   \   000248   9292........ CMP.W   &TRI_ROT_TIME, &TRI_TIME
+   \   00024E   0528         JNC     ??run_33
+    107                      TRI_TIME = 0;
+   \   000250   8243....     MOV.W   #0x0, &TRI_TIME
+    108                      TRI_STATE++;
+   \   000254   D253....     ADD.B   #0x1, &TRI_STATE
+   \   000258   173C         JMP     ??run_1
+    109                    } else set_wheels_dir(100, 0);
    \                     ??run_33:
-   \   000256   0D43         MOV.W   #0x0, R13
-   \   000258   3C406400     MOV.W   #0x64, R12
-   \   00025C   ........     CALLA   #set_wheels
-    107                    break;
-   \   000260   113C         JMP     ??run_1
-    108                  case DRAW_SIDE3:
-    109                    if (TRI_TIME >= TRI_SIDE_TIME) {
+   \   00025A   0D43         MOV.W   #0x0, R13
+   \   00025C   3C406400     MOV.W   #0x64, R12
+   \   000260   ........     CALLA   #set_wheels_dir
+    110                    break;
+   \   000264   113C         JMP     ??run_1
+    111                  case DRAW_SIDE3:
+    112                    if (TRI_TIME >= TRI_SIDE_TIME) {
    \                     ??run_29:
-   \   000262   9292........ CMP.W   &TRI_SIDE_TIME, &TRI_TIME
-   \   000268   0728         JNC     ??run_34
-    110                      TRI_TIME = 0;
-   \   00026A   8243....     MOV.W   #0x0, &TRI_TIME
-    111                      TRI_STATE = 0;
+   \   000266   9292........ CMP.W   &TRI_SIDE_TIME, &TRI_TIME
+   \   00026C   0728         JNC     ??run_34
+    113                      TRI_TIME = 0;
+   \   00026E   8243....     MOV.W   #0x0, &TRI_TIME
+    114                      TRI_STATE = 0;
                                        ^
 Warning[Pe188]: enumerated type mixed with another type
-   \   00026E   C243....     MOV.B   #0x0, &TRI_STATE
-    112                      CURR_EVENT = MAIN_MENU;
-   \   000272   D243....     MOV.B   #0x1, &CURR_EVENT
-   \   000276   063C         JMP     ??run_1
-    113                    } else set_wheels(50, 50);
+   \   000272   C243....     MOV.B   #0x0, &TRI_STATE
+    115                      CURR_EVENT = MAIN_MENU;
+   \   000276   D243....     MOV.B   #0x1, &CURR_EVENT
+   \   00027A   063C         JMP     ??run_1
+    116                    } else set_wheels_dir(50, 50);
    \                     ??run_34:
-   \   000278   3D403200     MOV.W   #0x32, R13
-   \   00027C   3C403200     MOV.W   #0x32, R12
-   \   000280   ........     CALLA   #set_wheels
-    114                    break;
-    115                }
-    116                    
-    117              case DRAW_FIGURE8:
-    118                switch (FIG8_STATE) {
+   \   00027C   3D403200     MOV.W   #0x32, R13
+   \   000280   3C403200     MOV.W   #0x32, R12
+   \   000284   ........     CALLA   #set_wheels_dir
+    117                    break;
+    118                }
+    119                    
+    120              case DRAW_FIGURE8:
+    121                switch (FIG8_STATE) {
    \                     ??run_1:
-   \   000284   5E42....     MOV.B   &FIG8_STATE, R14
-   \   000288   4E83         SUB.B   #0x0, R14
-   \   00028A   0324         JEQ     ??run_35
-   \   00028C   5E83         SUB.B   #0x1, R14
-   \   00028E   1124         JEQ     ??run_36
-   \   000290   1001         RETA
-    119                  case CIRCLE1:
-    120                    if (FIG8_TIME >= FIG8_ROT_TIME) {
+   \   000288   5E42....     MOV.B   &FIG8_STATE, R14
+   \   00028C   4E83         SUB.B   #0x0, R14
+   \   00028E   0324         JEQ     ??run_35
+   \   000290   5E83         SUB.B   #0x1, R14
+   \   000292   1124         JEQ     ??run_36
+   \   000294   1001         RETA
+    122                  case CIRCLE1:
+    123                    if (FIG8_TIME >= FIG8_ROT_TIME) {
    \                     ??run_35:
-   \   000292   9292........ CMP.W   &FIG8_ROT_TIME, &FIG8_TIME
-   \   000298   0528         JNC     ??run_37
-    121                      FIG8_TIME = 0;
-   \   00029A   8243....     MOV.W   #0x0, &FIG8_TIME
-    122                      FIG8_STATE++;
-   \   00029E   D253....     ADD.B   #0x1, &FIG8_STATE
-   \   0002A2   1001         RETA
-    123                    } else set_wheels(25, 75);
+   \   000296   9292........ CMP.W   &FIG8_ROT_TIME, &FIG8_TIME
+   \   00029C   0528         JNC     ??run_37
+    124                      FIG8_TIME = 0;
+   \   00029E   8243....     MOV.W   #0x0, &FIG8_TIME
+    125                      FIG8_STATE++;
+   \   0002A2   D253....     ADD.B   #0x1, &FIG8_STATE
+   \   0002A6   1001         RETA
+    126                    } else set_wheels_dir(25, 75);
    \                     ??run_37:
-   \   0002A4   3D404B00     MOV.W   #0x4b, R13
-   \   0002A8   3C401900     MOV.W   #0x19, R12
-   \   0002AC   ........     CALLA   #set_wheels
-    124                    break;
-   \   0002B0   1001         RETA
-    125                  case CIRCLE2: 
-    126                    if (FIG8_TIME >= FIG8_ROT_TIME) {
+   \   0002A8   3D404B00     MOV.W   #0x4b, R13
+   \   0002AC   3C401900     MOV.W   #0x19, R12
+   \   0002B0   ........     CALLA   #set_wheels_dir
+    127                    break;
+   \   0002B4   1001         RETA
+    128                  case CIRCLE2: 
+    129                    if (FIG8_TIME >= FIG8_ROT_TIME) {
    \                     ??run_36:
-   \   0002B2   9292........ CMP.W   &FIG8_ROT_TIME, &FIG8_TIME
-   \   0002B8   0728         JNC     ??run_38
-    127                      FIG8_TIME = 0;
-   \   0002BA   8243....     MOV.W   #0x0, &FIG8_TIME
-    128                      FIG8_STATE = 0;
+   \   0002B6   9292........ CMP.W   &FIG8_ROT_TIME, &FIG8_TIME
+   \   0002BC   0728         JNC     ??run_38
+    130                      FIG8_TIME = 0;
+   \   0002BE   8243....     MOV.W   #0x0, &FIG8_TIME
+    131                      FIG8_STATE = 0;
                                         ^
 Warning[Pe188]: enumerated type mixed with another type
-   \   0002BE   C243....     MOV.B   #0x0, &FIG8_STATE
-    129                      CURR_EVENT = MAIN_MENU;
-   \   0002C2   D243....     MOV.B   #0x1, &CURR_EVENT
-   \   0002C6   1001         RETA
-    130                    } else set_wheels(75, 25);
+   \   0002C2   C243....     MOV.B   #0x0, &FIG8_STATE
+    132                      CURR_EVENT = MAIN_MENU;
+   \   0002C6   D243....     MOV.B   #0x1, &CURR_EVENT
+   \   0002CA   1001         RETA
+    133                    } else set_wheels_dir(75, 25);
    \                     ??run_38:
-   \   0002C8   3D401900     MOV.W   #0x19, R13
-   \   0002CC   3C404B00     MOV.W   #0x4b, R12
-   \   0002D0   ........     CALLA   #set_wheels
-    131                    break;
-    132                }
-    133            }
-    134          }
+   \   0002CC   3D401900     MOV.W   #0x19, R13
+   \   0002D0   3C404B00     MOV.W   #0x4b, R12
+   \   0002D4   ........     CALLA   #set_wheels_dir
+    134                    break;
+    135                }
+    136            }
+    137          }
    \                     ??run_2:
-   \   0002D4   1001         RETA
-    135          
-    136          //*************************//
-    137          //***** WHEEL CONTROL *****//
-    138          //*************************//
-    139          // drive car
+   \   0002D8   1001         RETA
+    138          
+    139          //*************************//
+    140          //***** WHEEL CONTROL *****//
+    141          //*************************//
+    142          // drive car
 
    \                                 In  segment CODE, align 2
-    140          void set_wheels(unsigned int left_power, unsigned int right_power) {
-   \                     set_wheels:
-    141            LEFT_WHEEL_POWER = left_power;
+    143          void set_wheels_dir(unsigned int left_power, unsigned int right_power) {
+   \                     set_wheels_dir:
+    144            LEFT_WHEEL_POWER = left_power;
    \   000000   824C....     MOV.W   R12, &LEFT_WHEEL_POWER
-    142            RIGHT_WHEEL_POWER = right_power;  
+    145            RIGHT_WHEEL_POWER = right_power;  
    \   000004   824D....     MOV.W   R13, &RIGHT_WHEEL_POWER
-    143          }
+    146          }
    \   000008   1001         RETA
-    144          
+    147          
 
    \                                 In  segment CODE, align 2
-    145          void drive(void){
-   \                     drive:
-    146            // drive left wheel
-    147            if (LEFT_TIME > MAX_POWER) LEFT_TIME = 0;
+    148          void drive_car(void){
+   \                     drive_car:
+    149            // drive left wheel
+    150            if (LEFT_TIME > MAX_POWER) LEFT_TIME = 0;
    \   000000   9292........ CMP.W   &LEFT_TIME, &MAX_POWER
-   \   000006   022C         JC      ??drive_2
+   \   000006   022C         JC      ??drive_car_2
    \   000008   8243....     MOV.W   #0x0, &LEFT_TIME
-    148            if (LEFT_TIME < LEFT_WHEEL_POWER)
-   \                     ??drive_2:
+    151            if (LEFT_TIME < LEFT_WHEEL_POWER)
+   \                     ??drive_car_2:
    \   00000C   9292........ CMP.W   &LEFT_WHEEL_POWER, &LEFT_TIME
-   \   000012   032C         JC      ??drive_3
-    149              P6OUT |=  L_FORWARD;
+   \   000012   032C         JC      ??drive_car_3
+    152              P6OUT |=  L_FORWARD;
    \   000014   E2D34302     BIS.B   #0x2, &0x243
-   \   000018   093C         JMP     ??drive_0
-    150            else if (LEFT_TIME <= MAX_POWER-LEFT_WHEEL_POWER)
-   \                     ??drive_3:
+   \   000018   093C         JMP     ??drive_car_0
+    153            else if (LEFT_TIME <= MAX_POWER-LEFT_WHEEL_POWER)
+   \                     ??drive_car_3:
    \   00001A   1F42....     MOV.W   &MAX_POWER, R15
    \   00001E   1F82....     SUB.W   &LEFT_WHEEL_POWER, R15
    \   000022   1F92....     CMP.W   &LEFT_TIME, R15
-   \   000026   0228         JNC     ??drive_0
-    151              P6OUT &= ~L_FORWARD;
+   \   000026   0228         JNC     ??drive_car_0
+    154              P6OUT &= ~L_FORWARD;
    \   000028   E2C34302     BIC.B   #0x2, &0x243
-    152            LEFT_TIME++;
-   \                     ??drive_0:
+    155            LEFT_TIME++;
+   \                     ??drive_car_0:
    \   00002C   9253....     ADD.W   #0x1, &LEFT_TIME
-    153            
-    154            // drive right wheel
-    155            if (RIGHT_TIME > MAX_POWER) RIGHT_TIME = 0;
+    156            
+    157            // drive right wheel
+    158            if (RIGHT_TIME > MAX_POWER) RIGHT_TIME = 0;
    \   000030   9292........ CMP.W   &RIGHT_TIME, &MAX_POWER
-   \   000036   022C         JC      ??drive_4
+   \   000036   022C         JC      ??drive_car_4
    \   000038   8243....     MOV.W   #0x0, &RIGHT_TIME
-    156            if (RIGHT_TIME < RIGHT_WHEEL_POWER)
-   \                     ??drive_4:
+    159            if (RIGHT_TIME < RIGHT_WHEEL_POWER)
+   \                     ??drive_car_4:
    \   00003C   9292........ CMP.W   &RIGHT_WHEEL_POWER, &RIGHT_TIME
-   \   000042   032C         JC      ??drive_5
-    157              P6OUT |=  R_FORWARD;
+   \   000042   032C         JC      ??drive_car_5
+    160              P6OUT |=  R_FORWARD;
    \   000044   D2D34302     BIS.B   #0x1, &0x243
-   \   000048   0C3C         JMP     ??drive_1
-    158            else if (RIGHT_TIME <= MAX_POWER-RIGHT_WHEEL_POWER) 
-   \                     ??drive_5:
+   \   000048   093C         JMP     ??drive_car_1
+    161            else if (RIGHT_TIME <= MAX_POWER-RIGHT_WHEEL_POWER) 
+   \                     ??drive_car_5:
    \   00004A   1F42....     MOV.W   &MAX_POWER, R15
    \   00004E   1F82....     SUB.W   &RIGHT_WHEEL_POWER, R15
    \   000052   1F92....     CMP.W   &RIGHT_TIME, R15
-   \   000056   0328         JNC     ??drive_6
-    159              P6OUT &= ~R_FORWARD;
+   \   000056   0228         JNC     ??drive_car_1
+    162              P6OUT &= ~R_FORWARD;
    \   000058   D2C34302     BIC.B   #0x1, &0x243
-   \   00005C   023C         JMP     ??drive_1
-    160            else RIGHT_TIME = 0;
-   \                     ??drive_6:
-   \   00005E   8243....     MOV.W   #0x0, &RIGHT_TIME
-    161            RIGHT_TIME++;
-   \                     ??drive_1:
-   \   000062   9253....     ADD.W   #0x1, &RIGHT_TIME
-    162          }
-   \   000066   1001         RETA
-   \   000068                REQUIRE _A_PCOUT_L
+    163            RIGHT_TIME++;
+   \                     ??drive_car_1:
+   \   00005C   9253....     ADD.W   #0x1, &RIGHT_TIME
+    164          }
+   \   000060   1001         RETA
+   \   000062                REQUIRE _A_PCOUT_L
 
    \                                 In  segment DATA16_ID, align 1, align-sorted
    \                     `?<Initializer for CURR_SELECTION>`:
@@ -685,13 +666,13 @@ Warning[Pe188]: enumerated type mixed with another type
 
    CSTACK Function
    ------ --------
-      4   drive
+      4   drive_car
       4   run
-        4   -> set_wheels
+        4   -> get_sw1
+        4   -> get_sw2
+        4   -> set_wheels_dir
         4   -> strcpy
-        4   -> sw1
-        4   -> sw2
-      4   set_wheels
+      4   set_wheels_dir
 
 
    Segment part sizes:
@@ -725,21 +706,21 @@ Warning[Pe188]: enumerated type mixed with another type
        1  TRI_STATE
        2  TRI_TIME
        2  _A_PCOUT_L
-     104  drive
-     726  run
-      10  set_wheels
+      98  drive_car
+     730  run
+      10  set_wheels_dir
 
  
- 840 bytes in segment CODE
+ 838 bytes in segment CODE
    2 bytes in segment DATA16_AN
   98 bytes in segment DATA16_C
    1 byte  in segment DATA16_I
    1 byte  in segment DATA16_ID
   19 bytes in segment DATA16_Z
  
- 840 bytes of CODE  memory
+ 838 bytes of CODE  memory
   99 bytes of CONST memory
   20 bytes of DATA  memory (+ 2 bytes shared)
 
 Errors: none
-Warnings: 14
+Warnings: 6

@@ -13,7 +13,7 @@ unsigned int STARTUP_TIME = 0;
 
 // Circle
 unsigned int CIR_TIME = 0;
-const unsigned int CIR_ROT_TIME = 100000;
+const unsigned int CIR_ROT_TIME = 10000;
 
 // Triangle
 typedef enum {
@@ -43,5 +43,3 @@ unsigned int RIGHT_TIME = 0;
 unsigned int LEFT_WHEEL_POWER = 0;
 unsigned int RIGHT_WHEEL_POWER = 0;
 const unsigned int MAX_POWER = 100;
-void set_wheels(unsigned int, unsigned int);
-void drive(void);

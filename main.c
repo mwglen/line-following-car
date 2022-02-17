@@ -47,7 +47,7 @@ void main(void){
   strcpy(display_line[3], "          ");
   display_changed = TRUE;
 
-  set_wheels(0, 0);
+  set_wheels_dir(0, 0);
   // This function never returns
   start_clock();
 }
@@ -60,7 +60,7 @@ void start_clock() {
       old_Time_Sequence = Time_Sequence;
       run();
     }
-    drive();
+    drive_car();
     
     Switches_Process();                // Check for switch state change
     Display_Process();                 // Update Display
