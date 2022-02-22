@@ -41,8 +41,18 @@ void main(void){
       OLD_TIME_SEQUENCE = Time_Sequence;
       program_start();
     }
-    drive_car();
     
+    // Make sure that the wheels are safe to drive and then drive 
+    if (((P6IN & L_FORWARD) && (P6IN & L_REVERSE)) 
+        || ((P6IN & R_FORWARD) && (P6IN & R_REVERSE))) {
+      P6OUT &= ~L_FORWARD;
+      P6OUT &= ~L_REVERSE;
+      P6OUT &= ~R_FORWARD;
+      P6OUT &= ~R_REVERSE;
+      P1OUT &= ~RED_LED;   // Turn on Red LED
+      while (ALWAYS) {}    // Halt Program
+    } else drive_car();
+
     switches_process();                // Check for switch state change
     display_process();                 // Update Display
     P3OUT ^= TEST_PROBE;               // Change State of TEST_PROBE OFF
