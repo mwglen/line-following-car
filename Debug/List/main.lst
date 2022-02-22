@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR C/C++ Compiler V7.21.1.1000/W32 for MSP430          21/Feb/2022  13:14:08
+# IAR C/C++ Compiler V7.21.1.1000/W32 for MSP430          22/Feb/2022  09:36:43
 # Copyright 1996-2021 IAR Systems AB.
 # PC-locked license - IAR Embedded Workbench for MSP430, 8K KickStart Edition 7.21
 #
@@ -14,7 +14,7 @@
 #    __code_model  =  large
 #    Source file   =  C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\main.c
 #    Command line  =  
-#        -f C:\Users\mwg22\AppData\Local\Temp\EW4976.tmp
+#        -f C:\Users\mwg22\AppData\Local\Temp\EW45C2.tmp
 #        (C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\main.c -lC
 #        C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Debug\List -o
 #        C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Debug\Obj --no_cse
@@ -33,114 +33,161 @@
 
 C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\main.c
       1          /// Includes
-      2          #include "msp430.h"
+      2          #include "primitives.h"
+      3          #include "msp430.h"
+
+   \                                 In  segment DATA16_AN, at 0x202
+   \   union <unnamed> _A_PAOUT_L
+   \                     _A_PAOUT_L:
+   \   000000                DS8 2
 
    \                                 In  segment DATA16_AN, at 0x222
    \   union <unnamed> _A_PBOUT_L
    \                     _A_PBOUT_L:
    \   000000                DS8 2
 
+   \                                 In  segment DATA16_AN, at 0x240
+   \   union <unnamed> _A_PCIN_L
+   \                     _A_PCIN_L:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_AN, at 0x242
+   \   union <unnamed> _A_PCOUT_L
+   \                     _A_PCOUT_L:
+   \   000000                DS8 2
+
    \                                 In  segment DATA16_AN, at 0x130
    \   union <unnamed> _A_PM5CTL0_L
    \                     _A_PM5CTL0_L:
    \   000000                DS8 2
-      3          #include "ports.h"
-      4          #include "clocks.h"
-      5          #include "display.h"
-      6          #include "program.h"
-      7          #include "switches.h"
-      8          #include "wheels.h"
-      9          #include "init.h"
-     10          
-     11          /// Global Variables
+      4          #include "ports.h"
+      5          #include "clocks.h"
+      6          #include "display.h"
+      7          #include "program.h"
+      8          #include "switches.h"
+      9          #include "wheels.h"
+     10          #include "init.h"
+     11          
+     12          /// Global Variables
 
    \                                 In  segment DATA16_Z, align 1, align-sorted
    \   000000                REQUIRE ?cstart_init_zero
-     12          volatile char slow_input_down;
+     13          volatile char slow_input_down;
    \                     slow_input_down:
    \   000000                DS8 1
 
    \                                 In  segment DATA16_Z, align 2, align-sorted
    \   000000                REQUIRE ?cstart_init_zero
-     13          unsigned int test_value;
+     14          unsigned int test_value;
    \                     test_value:
    \   000000                DS8 2
 
    \                                 In  segment DATA16_Z, align 1, align-sorted
    \   000000                REQUIRE ?cstart_init_zero
-     14          char chosen_direction;
+     15          char chosen_direction;
    \                     chosen_direction:
    \   000000                DS8 1
 
    \                                 In  segment DATA16_Z, align 1, align-sorted
    \   000000                REQUIRE ?cstart_init_zero
-     15          char change;
+     16          char change;
    \                     change:
    \   000000                DS8 1
 
    \                                 In  segment DATA16_Z, align 2, align-sorted
    \   000000                REQUIRE ?cstart_init_zero
-     16          unsigned int OLD_TIME_SEQUENCE = 0;
+     17          unsigned int OLD_TIME_SEQUENCE = 0;
    \                     OLD_TIME_SEQUENCE:
    \   000000                DS8 2
-     17          extern volatile unsigned int Time_Sequence;
-     18          
-     19          /// External Functions
-     20          void Init_Timers(void);
-     21          void Init_LCD(void);
-     22          
-     23          /// Functions
-     24          // main function
+     18          extern volatile unsigned int Time_Sequence;
+     19          
+     20          /// External Functions
+     21          void Init_Timers(void);
+     22          void Init_LCD(void);
+     23          
+     24          /// Functions
+     25          // main function
 
    \                                 In  segment CODE, align 2
-     25          void main(void){
+     26          void main(void){
    \                     main:
-     26            
-     27            // set PM5CTL0
-     28            PM5CTL0 &= ~LOCKLPM5;
+     27            
+     28            // set PM5CTL0
+     29            PM5CTL0 &= ~LOCKLPM5;
    \   000000   92C33001     BIC.W   #0x1, &0x130
-     29          
-     30            // Initialize system
-     31            init_ports();                        // Initialize Ports
+     30          
+     31            // Initialize system
+     32            init_ports();                        // Initialize Ports
    \   000004   ........     CALLA   #init_ports
-     32            init_clocks();                       // Initialize Clock System
+     33            init_clocks();                       // Initialize Clock System
    \   000008   ........     CALLA   #init_clocks
-     33            init_conditions();                   // Initialize Variables and Initial Conditions
+     34            init_conditions();                   // Initialize Variables and Initial Conditions
    \   00000C   ........     CALLA   #init_conditions
-     34            Init_Timers();                       // Initialize Timers
+     35            Init_Timers();                       // Initialize Timers
    \   000010   ........     CALLA   #Init_Timers
-     35            Init_LCD();                          // Initialize LCD
+     36            Init_LCD();                          // Initialize LCD
    \   000014   ........     CALLA   #Init_LCD
-     36            init_display();
+     37            init_display();
    \   000018   ........     CALLA   #init_display
-     37          
-     38            while(ALWAYS) {
-     39              // Update Clock
-     40              if (Time_Sequence != OLD_TIME_SEQUENCE) {
-   \                     ??main_0:
-   \   00001C   9292........ CMP.W   &OLD_TIME_SEQUENCE, &Time_Sequence
-   \   000022   0524         JEQ     ??main_1
-     41                OLD_TIME_SEQUENCE = Time_Sequence;
-   \   000024   9242........ MOV.W   &Time_Sequence, &OLD_TIME_SEQUENCE
-     42                program_start();
-   \   00002A   ........     CALLA   #program_start
-     43              }
-     44              drive_car();
+     38          
+     39            while(true) {
+     40              // Update Clock
+     41              if (Time_Sequence != OLD_TIME_SEQUENCE) {
    \                     ??main_1:
-   \   00002E   ........     CALLA   #drive_car
+   \   00001C   9292........ CMP.W   &OLD_TIME_SEQUENCE, &Time_Sequence
+   \   000022   0524         JEQ     ??main_2
+     42                OLD_TIME_SEQUENCE = Time_Sequence;
+   \   000024   9242........ MOV.W   &Time_Sequence, &OLD_TIME_SEQUENCE
+     43                program_start();
+   \   00002A   ........     CALLA   #program_start
+     44              }
      45              
-     46              switches_process();                // Check for switch state change
-   \   000032   ........     CALLA   #switches_process
-     47              display_process();                 // Update Display
-   \   000036   ........     CALLA   #display_process
-     48              P3OUT ^= TEST_PROBE;               // Change State of TEST_PROBE OFF
-   \   00003A   D2E32202     XOR.B   #0x1, &0x222
-   \   00003E   EE3F         JMP     ??main_0
-   \   000040   0343         NOP
-   \   000042                REQUIRE _A_PM5CTL0_L
-   \   000042                REQUIRE _A_PBOUT_L
-     49            }
-     50          }
+     46              // Make sure that the wheels are safe to drive and then drive 
+     47              if (((P6IN & L_FORWARD) && (P6IN & L_REVERSE)) 
+     48                  || ((P6IN & R_FORWARD) && (P6IN & R_REVERSE))) {
+   \                     ??main_2:
+   \   00002E   E2B34102     BIT.B   #0x2, &0x241
+   \   000032   0328         JNC     ??main_3
+   \   000034   F2B24102     BIT.B   #0x8, &0x241
+   \   000038   062C         JC      ??main_4
+   \                     ??main_3:
+   \   00003A   D2B34102     BIT.B   #0x1, &0x241
+   \   00003E   0E28         JNC     ??main_5
+   \   000040   E2B24102     BIT.B   #0x4, &0x241
+   \   000044   0B28         JNC     ??main_5
+     49                P6OUT &= ~L_FORWARD;
+   \                     ??main_4:
+   \   000046   E2C34302     BIC.B   #0x2, &0x243
+     50                P6OUT &= ~L_REVERSE;
+   \   00004A   F2C24302     BIC.B   #0x8, &0x243
+     51                P6OUT &= ~R_FORWARD;
+   \   00004E   D2C34302     BIC.B   #0x1, &0x243
+     52                P6OUT &= ~R_REVERSE;
+   \   000052   E2C24302     BIC.B   #0x4, &0x243
+     53                P1OUT &= ~RED_LED;   // Turn on Red LED
+   \   000056   D2C30202     BIC.B   #0x1, &0x202
+     54                while (true) {}    // Halt Program
+   \                     ??main_0:
+   \   00005A   FF3F         JMP     ??main_0
+     55              } else drive_car();
+   \                     ??main_5:
+   \   00005C   ........     CALLA   #drive_car
+     56          
+     57              switches_process();                // Check for switch state change
+   \   000060   ........     CALLA   #switches_process
+     58              display_process();                 // Update Display
+   \   000064   ........     CALLA   #display_process
+     59              P3OUT ^= TEST_PROBE;               // Change State of TEST_PROBE OFF
+   \   000068   D2E32202     XOR.B   #0x1, &0x222
+   \   00006C   D73F         JMP     ??main_1
+   \   00006E   0343         NOP
+   \   000070                REQUIRE _A_PM5CTL0_L
+   \   000070                REQUIRE _A_PCIN_L
+   \   000070                REQUIRE _A_PCOUT_L
+   \   000070                REQUIRE _A_PAOUT_L
+   \   000070                REQUIRE _A_PBOUT_L
+     60            }
+     61          }
 
    Maximum stack usage in bytes:
 
@@ -164,21 +211,24 @@ C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\main.c
    Bytes  Function/Label
    -----  --------------
        2  OLD_TIME_SEQUENCE
+       2  _A_PAOUT_L
        2  _A_PBOUT_L
+       2  _A_PCIN_L
+       2  _A_PCOUT_L
        2  _A_PM5CTL0_L
        1  change
        1  chosen_direction
-      66  main
+     112  main
        1  slow_input_down
        2  test_value
 
  
- 66 bytes in segment CODE
-  4 bytes in segment DATA16_AN
-  7 bytes in segment DATA16_Z
+ 112 bytes in segment CODE
+  10 bytes in segment DATA16_AN
+   7 bytes in segment DATA16_Z
  
- 66 bytes of CODE memory
-  7 bytes of DATA memory (+ 4 bytes shared)
+ 112 bytes of CODE memory
+   7 bytes of DATA memory (+ 10 bytes shared)
 
 Errors: none
 Warnings: none

@@ -1,4 +1,5 @@
 /// Includes
+#include "primitives.h"
 #include "msp430.h"
 #include "ports.h"
 #include "clocks.h"
@@ -35,7 +36,7 @@ void main(void){
   Init_LCD();                          // Initialize LCD
   init_display();
 
-  while(ALWAYS) {
+  while(true) {
     // Update Clock
     if (Time_Sequence != OLD_TIME_SEQUENCE) {
       OLD_TIME_SEQUENCE = Time_Sequence;
@@ -50,7 +51,7 @@ void main(void){
       P6OUT &= ~R_FORWARD;
       P6OUT &= ~R_REVERSE;
       P1OUT &= ~RED_LED;   // Turn on Red LED
-      while (ALWAYS) {}    // Halt Program
+      while (true) {}    // Halt Program
     } else drive_car();
 
     switches_process();                // Check for switch state change
