@@ -124410,5 +124410,47 @@
     "name": "enable_interrupts",
     "origin": "project_file",
     "scope": null
+  },
+  {
+    "ID": "c:@F@Init_Timer_B0",
+    "What": "Function",
+    "defdec": "Def",
+    "display": "void Init_Timer_B0(void)",
+    "location": {
+      "column": "6",
+      "line": "1",
+      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\timers.c"
+    },
+    "name": "Init_Timer_B0",
+    "origin": "project_file",
+    "scope": null
+  },
+  {
+    "ID": "c:@F@Timer0_B0_ISR",
+    "What": "Function",
+    "defdec": "Def",
+    "display": "void Timer0_B0_ISR(void)",
+    "location": {
+      "column": "18",
+      "line": "18",
+      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\timers.c"
+    },
+    "name": "Timer0_B0_ISR",
+    "origin": "project_file",
+    "scope": null
+  },
+  {
+    "ID": "c:@F@TIMER0_B1_ISR",
+    "What": "Function",
+    "defdec": "Def",
+    "display": "void TIMER0_B1_ISR(void)",
+    "location": {
+      "column": "18",
+      "line": "23",
+      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\timers.c"
+    },
+    "name": "TIMER0_B1_ISR",
+    "origin": "project_file",
+    "scope": null
   }
 ]
