@@ -2310,7 +2310,13 @@
         <name>$PROJ_DIR$\clocks.c</name>
     </file>
     <file>
+        <name>$PROJ_DIR$\display.c</name>
+    </file>
+    <file>
         <name>$PROJ_DIR$\init.c</name>
+    </file>
+    <file>
+        <name>$PROJ_DIR$\interrupts.c</name>
     </file>
     <file>
         <name>$PROJ_DIR$\led.c</name>
@@ -2322,12 +2328,15 @@
         <name>$PROJ_DIR$\ports.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\project4.c</name>
+        <name>$PROJ_DIR$\program.c</name>
     </file>
     <file>
         <name>$PROJ_DIR$\switches.c</name>
     </file>
     <file>
         <name>$PROJ_DIR$\system.c</name>
+    </file>
+    <file>
+        <name>$PROJ_DIR$\wheels.c</name>
     </file>
 </project>

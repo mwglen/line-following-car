@@ -1,34 +1,21 @@
-//------------------------------------------------------------------------------
-//
-//  Description: This file contains functions to initialize ports
-//
-//  Matthew Glen
-//  Feb 2022
-//  Built with IAR Embedded Workbench Version: (7.21.1)
-//------------------------------------------------------------------------------
+/// Includes
 #include "msp430.h"
-#include "functions.h"
+#include "ports.h"
+#include "primitives.h"
 
-//------------------------------------------------------------------------------
-//
-// Description: This calls the rest of the initialization functions
-//
-//------------------------------------------------------------------------------
-void Init_Ports(void) {
-    Init_Port1();
-    Init_Port2();
-    Init_Port3('a');
-    Init_Port4();
-    Init_Port5();
-    Init_Port6();
+/// Functions
+// initialize all pins in all ports
+void init_ports(void) {
+    init_port1();
+    init_port2();
+    init_port3(USE_GPIO);
+    init_port4();
+    init_port5();
+    init_port6();
 }
 
-//------------------------------------------------------------------------------
-//
-// Description: This function will initialize all pins in port 1
-//
-//------------------------------------------------------------------------------
-void Init_Port1(void) {
+// initialize all pins in port 1
+void init_port1(void) {
     P1OUT = RESET_STATE;      // P1 set Low
     P1DIR = RESET_STATE;      // Set P1 direction to input
 
@@ -68,12 +55,8 @@ void Init_Port1(void) {
     P1SEL0 |=  UCA0TXD;             // UCA0TXD Function
 }
 
-//------------------------------------------------------------------------------
-//
-// Description: This function will initialize all pins in port 2
-//
-//------------------------------------------------------------------------------
-void Init_Port2(void) {
+// initialize all pins in port 2
+void init_port2(void) {
     P2OUT = RESET_STATE;            // P2 set Low
     P2DIR = RESET_STATE;            // Set P2 direction to input
 
@@ -124,12 +107,8 @@ void Init_Port2(void) {
     P2SEL0 &= ~LFXIN;               // Clock operation
 }
 
-//------------------------------------------------------------------------------
-//
-// Description: This function will initialize all pins in port 3
-//
-//------------------------------------------------------------------------------
-void Init_Port3(char smclk) {
+// initiailize all pins in port 3
+void init_port3(char smclk) {
     P3OUT = RESET_STATE;            // P3 set Low
     P3DIR = RESET_STATE;            // Set P3 direction to input
     
@@ -156,16 +135,19 @@ void Init_Port3(char smclk) {
     P3OUT  |=  LCD_BACKLITE;        // On [High]
 
     // P3 PIN 4
-    /* if (smclk) { */
-    /*     P3SEL1 &= ~SMCLK_2355;          // SMCLK operation */
-    /*     P3SEL0 |=  SMCLK_2355;          // SMCLK operation */
-    /*     P3DIR  |=  SMCLK_2355;          // Direction must be High */
-    /* } else { */
+    switch (smclk) {
+      case USE_SMCLK:
         P3SEL1 &= ~SMCLK_2355;          // SMCLK operation
         P3SEL0 |=  SMCLK_2355;          // SMCLK operation
         P3DIR  |=  SMCLK_2355;          // Direction must be High
-    /* } */
-
+        break;
+      case USE_GPIO:
+        P3SEL1 &= ~SMCLK_2355;          // GPIO operation
+        P3SEL0 &= ~SMCLK_2355;          // GPIO operation
+        P3DIR  &= ~SMCLK_2355;          // Direction in
+        break;
+    }
+    
     // P3 PIN 5
     P3SEL1 &= ~DAC_CNTL;            // GPIO operation
     P3SEL0 &= ~DAC_CNTL;            // GPIO operation
@@ -184,12 +166,8 @@ void Init_Port3(char smclk) {
     P3OUT  &= ~IOT_EN_CPU;          // Off [Low]
 }
 
-//------------------------------------------------------------------------------
-//
-// Description: This function will initialize all pins in port 4
-//
-//------------------------------------------------------------------------------
-void Init_Port4(void) {
+// initialize all pins in port 4
+void init_port4(void) {
     P4OUT = RESET_STATE;            // P4 set Low
     P4DIR = RESET_STATE;            // Output
 
@@ -207,9 +185,9 @@ void Init_Port4(void) {
     //P4PUD  |=  SW1;                 // Configure pull-up resistor
     P4REN  |=  SW1;                 // Enable pullup resistor
     // Enable Interrupts
-    P4IFG  &= ~SW1;                 // Clear all P2.6 interrupt flags
-    P4IES  |=  SW1;                 // P4.2 Hi/Lo edge interrupt
-    P4IE   |=  SW1;                 // P4.2 interrupt enabled
+    //P4IFG  &= ~SW1;                 // Clear all P2.6 interrupt flags
+    //P4IES  |=  SW1;                 // P4.2 Hi/Lo edge interrupt
+    //P4IE   |=  SW1;                 // P4.2 interrupt enabled
     
     // P4 PIN 2
     P4SEL1 &= ~UCA1TXD;             // UART operation
@@ -238,12 +216,8 @@ void Init_Port4(void) {
     P4SEL0 |=  UCB1SOMI;            // UCB1SOMI SPI BUS operation
 }
 
-//------------------------------------------------------------------------------
-//
-// Description: This function will initialize all pins in port 5
-//
-//------------------------------------------------------------------------------
-void Init_Port5(void) {
+// initialize all pins in port 5
+void init_port5(void) {
     P5OUT = RESET_STATE;            // P4 set Low
     P5DIR = RESET_STATE;            // Set P4 direction to output
 
@@ -270,12 +244,8 @@ void Init_Port5(void) {
     P4OUT  &= ~IOT_BOOT_CPU;        // Off [Low]
 }
 
-//------------------------------------------------------------------------------
-//
-// Description: This function will initialize all pins in port 6
-//
-//------------------------------------------------------------------------------
-void Init_Port6(void) {
+// initialize all pins in port 6
+void init_port6(void) {
     P6OUT = RESET_STATE;            // P4 set Low
     P6DIR = RESET_STATE;            // Set P4 direction to output
     

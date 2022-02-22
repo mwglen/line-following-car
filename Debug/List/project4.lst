@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR C/C++ Compiler V7.21.1.1000/W32 for MSP430          16/Feb/2022  20:09:06
+# IAR C/C++ Compiler V7.21.1.1000/W32 for MSP430          17/Feb/2022  17:10:13
 # Copyright 1996-2021 IAR Systems AB.
 # PC-locked license - IAR Embedded Workbench for MSP430, 8K KickStart Edition 7.21
 #
@@ -14,7 +14,7 @@
 #    __code_model  =  large
 #    Source file   =  C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\project4.c
 #    Command line  =  
-#        -f C:\Users\mwg22\AppData\Local\Temp\EW79D7.tmp
+#        -f C:\Users\mwg22\AppData\Local\Temp\EW536E.tmp
 #        (C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\project4.c -lC
 #        C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Debug\List -o
 #        C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Debug\Obj --no_cse
@@ -34,124 +34,6 @@
 C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\project4.c
       1          #include  "functions.h"
       2          #include  "project4.h"
-
-   \                                 In  segment DATA16_Z, align 1, align-sorted
-   \   000000                REQUIRE ?cstart_init_zero
-
-  Event CURR_EVENT = 0;
-                     ^
-"C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\project4.h",8  Warning[Pe188]: 
-          enumerated type mixed with another type
-   \   Event CURR_EVENT
-   \                     CURR_EVENT:
-   \   000000                DS8 1
-
-   \                                 In  segment DATA16_I, align 1, align-sorted
-   \   000000                REQUIRE ?cstart_init_copy
-
-  Event CURR_SELECTION = 1;
-                         ^
-"C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\project4.h",9  Warning[Pe188]: 
-          enumerated type mixed with another type
-   \   Event CURR_SELECTION
-   \                     CURR_SELECTION:
-   \   000000                DS8 1
-   \   000001                REQUIRE `?<Initializer for CURR_SELECTION>`
-
-   \                                 In  segment DATA16_Z, align 2, align-sorted
-   \   000000                REQUIRE ?cstart_init_zero
-   \   unsigned int STARTUP_TIME
-   \                     STARTUP_TIME:
-   \   000000                DS8 2
-
-   \                                 In  segment DATA16_Z, align 2, align-sorted
-   \   000000                REQUIRE ?cstart_init_zero
-   \   unsigned int CIR_TIME
-   \                     CIR_TIME:
-   \   000000                DS8 2
-
-   \                                 In  segment DATA16_C, align 2, align-sorted
-   \   unsigned int const CIR_ROT_TIME
-   \                     CIR_ROT_TIME:
-   \   000000   1027         DC16 10000
-
-   \                                 In  segment DATA16_Z, align 1, align-sorted
-   \   000000                REQUIRE ?cstart_init_zero
-
-  Triangle_State TRI_STATE = 0;
-                             ^
-"C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\project4.h",26  Warning[Pe188]: 
-          enumerated type mixed with another type
-   \   Triangle_State TRI_STATE
-   \                     TRI_STATE:
-   \   000000                DS8 1
-
-   \                                 In  segment DATA16_Z, align 2, align-sorted
-   \   000000                REQUIRE ?cstart_init_zero
-   \   unsigned int TRI_TIME
-   \                     TRI_TIME:
-   \   000000                DS8 2
-
-   \                                 In  segment DATA16_C, align 2, align-sorted
-   \   unsigned int const TRI_SIDE_TIME
-   \                     TRI_SIDE_TIME:
-   \   000000   2800         DC16 40
-
-   \                                 In  segment DATA16_C, align 2, align-sorted
-   \   unsigned int const TRI_ROT_TIME
-   \                     TRI_ROT_TIME:
-   \   000000   2800         DC16 40
-
-   \                                 In  segment DATA16_Z, align 1, align-sorted
-   \   000000                REQUIRE ?cstart_init_zero
-
-  Figure8_State FIG8_STATE = 0;
-                             ^
-"C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\project4.h",36  Warning[Pe188]: 
-          enumerated type mixed with another type
-   \   Figure8_State FIG8_STATE
-   \                     FIG8_STATE:
-   \   000000                DS8 1
-
-   \                                 In  segment DATA16_Z, align 2, align-sorted
-   \   000000                REQUIRE ?cstart_init_zero
-   \   unsigned int FIG8_TIME
-   \                     FIG8_TIME:
-   \   000000                DS8 2
-
-   \                                 In  segment DATA16_C, align 2, align-sorted
-   \   unsigned int const FIG8_ROT_TIME
-   \                     FIG8_ROT_TIME:
-   \   000000   2800         DC16 40
-
-   \                                 In  segment DATA16_Z, align 2, align-sorted
-   \   000000                REQUIRE ?cstart_init_zero
-   \   unsigned int LEFT_TIME
-   \                     LEFT_TIME:
-   \   000000                DS8 2
-
-   \                                 In  segment DATA16_Z, align 2, align-sorted
-   \   000000                REQUIRE ?cstart_init_zero
-   \   unsigned int RIGHT_TIME
-   \                     RIGHT_TIME:
-   \   000000                DS8 2
-
-   \                                 In  segment DATA16_Z, align 2, align-sorted
-   \   000000                REQUIRE ?cstart_init_zero
-   \   unsigned int LEFT_WHEEL_POWER
-   \                     LEFT_WHEEL_POWER:
-   \   000000                DS8 2
-
-   \                                 In  segment DATA16_Z, align 2, align-sorted
-   \   000000                REQUIRE ?cstart_init_zero
-   \   unsigned int RIGHT_WHEEL_POWER
-   \                     RIGHT_WHEEL_POWER:
-   \   000000                DS8 2
-
-   \                                 In  segment DATA16_C, align 2, align-sorted
-   \   unsigned int const MAX_POWER
-   \                     MAX_POWER:
-   \   000000   6400         DC16 100
       3          #include  "msp430.h"
 
    \                                 In  segment DATA16_AN, at 0x242
@@ -160,14 +42,101 @@ C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\project4.c
    \   000000                DS8 2
       4          #include <string.h>
       5          
-      6          //************************//
-      7          //***** RUN FUNCTION *****//
-      8          //************************//
+      6          /// Parameters
+      7          // Circle
+
+   \                                 In  segment DATA16_C, align 2, align-sorted
+      8          const unsigned int CIR_ROT_TIME = 10000;
+   \                     CIR_ROT_TIME:
+   \   000000   1027         DC16 10000
+      9          
+     10          // Triangle
+
+   \                                 In  segment DATA16_C, align 2, align-sorted
+     11          const unsigned int TRI_SIDE_TIME = 40;
+   \                     TRI_SIDE_TIME:
+   \   000000   2800         DC16 40
+
+   \                                 In  segment DATA16_C, align 2, align-sorted
+     12          const unsigned int TRI_ROT_TIME = 40;
+   \                     TRI_ROT_TIME:
+   \   000000   2800         DC16 40
+     13          
+     14          //Figure8
+
+   \                                 In  segment DATA16_C, align 2, align-sorted
+     15          const unsigned int FIG8_ROT_TIME = 40;
+   \                     FIG8_ROT_TIME:
+   \   000000   2800         DC16 40
+     16          
+     17          /// Global Variables
+     18          // Main Function
+
+   \                                 In  segment DATA16_Z, align 2, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+     19          unsigned int STARTUP_TIME = 0;
+   \                     STARTUP_TIME:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_Z, align 1, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+     20          Event CURR_EVENT = STARTUP;
+   \                     CURR_EVENT:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_I, align 1, align-sorted
+   \   000000                REQUIRE ?cstart_init_copy
+     21          Event CURR_SELECTION = MAIN_MENU;
+   \                     CURR_SELECTION:
+   \   000000                DS8 1
+   \   000001                REQUIRE `?<Initializer for CURR_SELECTION>`
+     22          
+     23          // Circle
+
+   \                                 In  segment DATA16_Z, align 2, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+     24          unsigned int CIR_TIME = 0;
+   \                     CIR_TIME:
+   \   000000                DS8 2
+     25          
+     26          // Triangle
+
+   \                                 In  segment DATA16_Z, align 1, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+     27          TriangleState TRI_STATE = 0;
+                                           ^
+Warning[Pe188]: enumerated type mixed with another type
+   \                     TRI_STATE:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_Z, align 2, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+     28          unsigned int TRI_TIME = 0;
+   \                     TRI_TIME:
+   \   000000                DS8 2
+     29          
+     30          // Figure 8
+
+   \                                 In  segment DATA16_Z, align 1, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+     31          Figure8State FIG8_STATE = 0;
+                                           ^
+Warning[Pe188]: enumerated type mixed with another type
+   \                     FIG8_STATE:
+   \   000000                DS8 1
+
+   \                                 In  segment DATA16_Z, align 2, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+     32          unsigned int FIG8_TIME = 0;
+   \                     FIG8_TIME:
+   \   000000                DS8 2
+     33          
+     34          /// Run Function
 
    \                                 In  segment CODE, align 2
-      9          void run(void) {
+     35          void run(void) {
    \                     run:
-     10            switch (CURR_EVENT) {
+     36            switch (CURR_EVENT) {
    \   000000   5E42....     MOV.B   &CURR_EVENT, R14
    \   000004   4E83         SUB.B   #0x0, R14
    \   000006   0924         JEQ     ??run_13
@@ -180,41 +149,41 @@ C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\project4.c
    \   000014   5E83         SUB.B   #0x1, R14
    \   000016   3825         JEQ     ??run_1
    \   000018   1001         RETA
-     11              case STARTUP:
-     12                STARTUP_TIME++;
+     37              case STARTUP:
+     38                STARTUP_TIME++;
    \                     ??run_13:
    \   00001A   9253....     ADD.W   #0x1, &STARTUP_TIME
-     13                if (STARTUP_TIME > 400) {
+     39                if (STARTUP_TIME > 400) {
    \   00001E   B2909101.... CMP.W   #0x191, &STARTUP_TIME
    \   000024   5929         JNC     ??run_2
-     14                  CURR_EVENT = MAIN_MENU;
+     40                  CURR_EVENT = MAIN_MENU;
    \   000026   D243....     MOV.B   #0x1, &CURR_EVENT
-     15                  strcpy(display_line[0], "MAIN  MENU");
+     41                  strcpy(display_line[0], "MAIN  MENU");
    \   00002A   3D40....     MOV.W   #`?<Constant "MAIN  MENU">`, R13
    \   00002E   3C40....     MOV.W   #display_line, R12
    \   000032   ........     CALLA   #strcpy
-     16                  strcpy(display_line[1], "----------");
+     42                  strcpy(display_line[1], "----------");
    \   000036   3D40....     MOV.W   #`?<Constant "----------">`, R13
    \   00003A   3C40....     MOV.W   #display_line + 11, R12
    \   00003E   ........     CALLA   #strcpy
-     17                  strcpy(display_line[2], "<- RUN    ");
+     43                  strcpy(display_line[2], "<- RUN    ");
    \   000042   3D40....     MOV.W   #`?<Constant "<- RUN    ">`, R13
    \   000046   3C40....     MOV.W   #display_line + 22, R12
    \   00004A   ........     CALLA   #strcpy
-     18                  strcpy(display_line[3], "   NEXT ->");
+     44                  strcpy(display_line[3], "   NEXT ->");
    \   00004E   3D40....     MOV.W   #`?<Constant "   NEXT ->">`, R13
    \   000052   3C40....     MOV.W   #display_line + 33, R12
    \   000056   ........     CALLA   #strcpy
-     19                  display_changed = TRUE; 
+     45                  display_changed = TRUE; 
    \   00005A   D243....     MOV.B   #0x1, &display_changed
-     20                  STARTUP_TIME = 0;
+     46                  STARTUP_TIME = 0;
    \   00005E   8243....     MOV.W   #0x0, &STARTUP_TIME
-     21                }
-     22                break;
+     47                }
+     48                break;
    \   000062   1001         RETA
-     23                
-     24              case MAIN_MENU:
-     25                switch (CURR_SELECTION) {
+     49                
+     50              case MAIN_MENU:
+     51                switch (CURR_SELECTION) {
    \                     ??run_14:
    \   000064   5E42....     MOV.B   &CURR_SELECTION, R14
    \   000068   5E83         SUB.B   #0x1, R14
@@ -226,173 +195,173 @@ C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\project4.c
    \   000074   5E83         SUB.B   #0x1, R14
    \   000076   7424         JEQ     ??run_20
    \   000078   1001         RETA
-     26                  case MAIN_MENU:
-     27                    if (get_sw2()) {
+     52                  case MAIN_MENU:
+     53                    if (get_sw2()) {
    \                     ??run_17:
    \   00007A   ........     CALLA   #get_sw2
    \   00007E   4C93         CMP.B   #0x0, R12
    \   000080   9624         JEQ     ??run_0
-     28                      CURR_SELECTION = DRAW_CIRCLE;
+     54                      CURR_SELECTION = DRAW_CIRCLE;
    \   000082   E243....     MOV.B   #0x2, &CURR_SELECTION
-     29                      strcpy(display_line[0], "MAIN  MENU");
+     55                      strcpy(display_line[0], "MAIN  MENU");
    \   000086   3D40....     MOV.W   #`?<Constant "MAIN  MENU">`, R13
    \   00008A   3C40....     MOV.W   #display_line, R12
    \   00008E   ........     CALLA   #strcpy
-     30                      strcpy(display_line[1], "----------");
+     56                      strcpy(display_line[1], "----------");
    \   000092   3D40....     MOV.W   #`?<Constant "----------">`, R13
    \   000096   3C40....     MOV.W   #display_line + 11, R12
    \   00009A   ........     CALLA   #strcpy
-     31                      strcpy(display_line[2], "   DRAW   ");
+     57                      strcpy(display_line[2], "   DRAW   ");
    \   00009E   3D40....     MOV.W   #`?<Constant "   DRAW   ">`, R13
    \   0000A2   3C40....     MOV.W   #display_line + 22, R12
    \   0000A6   ........     CALLA   #strcpy
-     32                      strcpy(display_line[3], "  CIRCLE  ");
+     58                      strcpy(display_line[3], "  CIRCLE  ");
    \   0000AA   3D40....     MOV.W   #`?<Constant "  CIRCLE  ">`, R13
    \   0000AE   3C40....     MOV.W   #display_line + 33, R12
    \   0000B2   ........     CALLA   #strcpy
-     33                      display_changed = TRUE; 
+     59                      display_changed = TRUE; 
    \   0000B6   D243....     MOV.B   #0x1, &display_changed
-     34                    }
-     35                    break;
+     60                    }
+     61                    break;
    \   0000BA   1001         RETA
-     36                    
-     37                  case DRAW_CIRCLE:
-     38                    if (get_sw2()) {
+     62                    
+     63                  case DRAW_CIRCLE:
+     64                    if (get_sw2()) {
    \                     ??run_18:
    \   0000BC   ........     CALLA   #get_sw2
    \   0000C0   4C93         CMP.B   #0x0, R12
    \   0000C2   1E24         JEQ     ??run_21
-     39                      CURR_SELECTION = DRAW_TRIANGLE;
+     65                      CURR_SELECTION = DRAW_TRIANGLE;
    \   0000C4   F2400300.... MOV.B   #0x3, &CURR_SELECTION
-     40                      strcpy(display_line[0], "MAIN  MENU");
+     66                      strcpy(display_line[0], "MAIN  MENU");
    \   0000CA   3D40....     MOV.W   #`?<Constant "MAIN  MENU">`, R13
    \   0000CE   3C40....     MOV.W   #display_line, R12
    \   0000D2   ........     CALLA   #strcpy
-     41                      strcpy(display_line[1], "----------");
+     67                      strcpy(display_line[1], "----------");
    \   0000D6   3D40....     MOV.W   #`?<Constant "----------">`, R13
    \   0000DA   3C40....     MOV.W   #display_line + 11, R12
    \   0000DE   ........     CALLA   #strcpy
-     42                      strcpy(display_line[2], "   DRAW   ");
+     68                      strcpy(display_line[2], "   DRAW   ");
    \   0000E2   3D40....     MOV.W   #`?<Constant "   DRAW   ">`, R13
    \   0000E6   3C40....     MOV.W   #display_line + 22, R12
    \   0000EA   ........     CALLA   #strcpy
-     43                      strcpy(display_line[3], " TRIANGLE ");
+     69                      strcpy(display_line[3], " TRIANGLE ");
    \   0000EE   3D40....     MOV.W   #`?<Constant " TRIANGLE ">`, R13
    \   0000F2   3C40....     MOV.W   #display_line + 33, R12
    \   0000F6   ........     CALLA   #strcpy
-     44                      display_changed = TRUE; 
+     70                      display_changed = TRUE; 
    \   0000FA   D243....     MOV.B   #0x1, &display_changed
    \   0000FE   1001         RETA
-     45                    } else if (get_sw1()) {
+     71                    } else if (get_sw1()) {
    \                     ??run_21:
    \   000100   ........     CALLA   #get_sw1
    \   000104   4C93         CMP.B   #0x0, R12
    \   000106   5324         JEQ     ??run_0
-     46                      CURR_EVENT = DRAW_CIRCLE;
+     72                      CURR_EVENT = DRAW_CIRCLE;
    \   000108   E243....     MOV.B   #0x2, &CURR_EVENT
-     47                    } 
-     48                    break;
+     73                    } 
+     74                    break;
    \   00010C   1001         RETA
-     49                    
-     50                  case DRAW_TRIANGLE:
-     51                    if (get_sw2()) {
+     75                    
+     76                  case DRAW_TRIANGLE:
+     77                    if (get_sw2()) {
    \                     ??run_19:
    \   00010E   ........     CALLA   #get_sw2
    \   000112   4C93         CMP.B   #0x0, R12
    \   000114   1D24         JEQ     ??run_22
-     52                      CURR_SELECTION = DRAW_FIGURE8;
+     78                      CURR_SELECTION = DRAW_FIGURE8;
    \   000116   E242....     MOV.B   #0x4, &CURR_SELECTION
-     53                      strcpy(display_line[0], "MAIN  MENU");
+     79                      strcpy(display_line[0], "MAIN  MENU");
    \   00011A   3D40....     MOV.W   #`?<Constant "MAIN  MENU">`, R13
    \   00011E   3C40....     MOV.W   #display_line, R12
    \   000122   ........     CALLA   #strcpy
-     54                      strcpy(display_line[1], "----------");
+     80                      strcpy(display_line[1], "----------");
    \   000126   3D40....     MOV.W   #`?<Constant "----------">`, R13
    \   00012A   3C40....     MOV.W   #display_line + 11, R12
    \   00012E   ........     CALLA   #strcpy
-     55                      strcpy(display_line[2], "   DRAW   ");
+     81                      strcpy(display_line[2], "   DRAW   ");
    \   000132   3D40....     MOV.W   #`?<Constant "   DRAW   ">`, R13
    \   000136   3C40....     MOV.W   #display_line + 22, R12
    \   00013A   ........     CALLA   #strcpy
-     56                      strcpy(display_line[3], " FIGURE 8 ");
+     82                      strcpy(display_line[3], " FIGURE 8 ");
    \   00013E   3D40....     MOV.W   #`?<Constant " FIGURE 8 ">`, R13
    \   000142   3C40....     MOV.W   #display_line + 33, R12
    \   000146   ........     CALLA   #strcpy
-     57                      display_changed = TRUE; 
+     83                      display_changed = TRUE; 
    \   00014A   D243....     MOV.B   #0x1, &display_changed
    \   00014E   1001         RETA
-     58                    } else if (get_sw1()) {
+     84                    } else if (get_sw1()) {
    \                     ??run_22:
    \   000150   ........     CALLA   #get_sw1
    \   000154   4C93         CMP.B   #0x0, R12
    \   000156   2B24         JEQ     ??run_0
-     59                      CURR_EVENT = DRAW_TRIANGLE;
+     85                      CURR_EVENT = DRAW_TRIANGLE;
    \   000158   F2400300.... MOV.B   #0x3, &CURR_EVENT
-     60                    }
-     61                    break;
+     86                    }
+     87                    break;
    \   00015E   1001         RETA
-     62                    
-     63                  case DRAW_FIGURE8:
-     64                    if (get_sw2()) {
+     88                    
+     89                  case DRAW_FIGURE8:
+     90                    if (get_sw2()) {
    \                     ??run_20:
    \   000160   ........     CALLA   #get_sw2
    \   000164   4C93         CMP.B   #0x0, R12
    \   000166   1D24         JEQ     ??run_23
-     65                      CURR_SELECTION = DRAW_CIRCLE;
+     91                      CURR_SELECTION = DRAW_CIRCLE;
    \   000168   E243....     MOV.B   #0x2, &CURR_SELECTION
-     66                      strcpy(display_line[0], "MAIN  MENU");
+     92                      strcpy(display_line[0], "MAIN  MENU");
    \   00016C   3D40....     MOV.W   #`?<Constant "MAIN  MENU">`, R13
    \   000170   3C40....     MOV.W   #display_line, R12
    \   000174   ........     CALLA   #strcpy
-     67                      strcpy(display_line[1], "----------");
+     93                      strcpy(display_line[1], "----------");
    \   000178   3D40....     MOV.W   #`?<Constant "----------">`, R13
    \   00017C   3C40....     MOV.W   #display_line + 11, R12
    \   000180   ........     CALLA   #strcpy
-     68                      strcpy(display_line[2], "   DRAW   ");
+     94                      strcpy(display_line[2], "   DRAW   ");
    \   000184   3D40....     MOV.W   #`?<Constant "   DRAW   ">`, R13
    \   000188   3C40....     MOV.W   #display_line + 22, R12
    \   00018C   ........     CALLA   #strcpy
-     69                      strcpy(display_line[3], "  CIRCLE  ");
+     95                      strcpy(display_line[3], "  CIRCLE  ");
    \   000190   3D40....     MOV.W   #`?<Constant "  CIRCLE  ">`, R13
    \   000194   3C40....     MOV.W   #display_line + 33, R12
    \   000198   ........     CALLA   #strcpy
-     70                      display_changed = TRUE; 
+     96                      display_changed = TRUE; 
    \   00019C   D243....     MOV.B   #0x1, &display_changed
    \   0001A0   1001         RETA
-     71                    } else if (get_sw1()) {
+     97                    } else if (get_sw1()) {
    \                     ??run_23:
    \   0001A2   ........     CALLA   #get_sw1
    \   0001A6   4C93         CMP.B   #0x0, R12
    \   0001A8   9724         JEQ     ??run_2
-     72                      CURR_EVENT = DRAW_FIGURE8;
+     98                      CURR_EVENT = DRAW_FIGURE8;
    \   0001AA   E242....     MOV.B   #0x4, &CURR_EVENT
-     73                    }
-     74                    break;
-     75                }
-     76                break;
+     99                    }
+    100                    break;
+    101                }
+    102                break;
    \                     ??run_0:
    \   0001AE   1001         RETA
-     77                
-     78              case DRAW_CIRCLE:
-     79                if (CIR_TIME >= CIR_ROT_TIME) {
+    103                
+    104              case DRAW_CIRCLE:
+    105                if (CIR_TIME >= CIR_ROT_TIME) {
    \                     ??run_15:
    \   0001B0   9292........ CMP.W   &CIR_ROT_TIME, &CIR_TIME
    \   0001B6   0528         JNC     ??run_24
-     80                  CIR_TIME = 0;
+    106                  CIR_TIME = 0;
    \   0001B8   8243....     MOV.W   #0x0, &CIR_TIME
-     81                  CURR_EVENT = MAIN_MENU;
+    107                  CURR_EVENT = MAIN_MENU;
    \   0001BC   D243....     MOV.B   #0x1, &CURR_EVENT
    \   0001C0   1001         RETA
-     82                } else set_wheels_dir(25, 75);
+    108                } else set_wheels_dir(25, 75);
    \                     ??run_24:
    \   0001C2   3D404B00     MOV.W   #0x4b, R13
    \   0001C6   3C401900     MOV.W   #0x19, R12
    \   0001CA   ........     CALLA   #set_wheels_dir
-     83                break;
+    109                break;
    \   0001CE   1001         RETA
-     84                
-     85              case DRAW_TRIANGLE:
-     86                switch (TRI_STATE) {
+    110                
+    111              case DRAW_TRIANGLE:
+    112                switch (TRI_STATE) {
    \                     ??run_16:
    \   0001D0   5E42....     MOV.B   &TRI_STATE, R14
    \   0001D4   4E83         SUB.B   #0x0, R14
@@ -406,98 +375,98 @@ C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\project4.c
    \   0001E4   5E83         SUB.B   #0x1, R14
    \   0001E6   3F24         JEQ     ??run_29
    \   0001E8   4F3C         JMP     ??run_1
-     87                  case DRAW_SIDE1:
-     88                    if (TRI_TIME >= TRI_SIDE_TIME) {
+    113                  case DRAW_SIDE1:
+    114                    if (TRI_TIME >= TRI_SIDE_TIME) {
    \                     ??run_25:
    \   0001EA   9292........ CMP.W   &TRI_SIDE_TIME, &TRI_TIME
    \   0001F0   0528         JNC     ??run_30
-     89                      TRI_TIME = 0;
+    115                      TRI_TIME = 0;
    \   0001F2   8243....     MOV.W   #0x0, &TRI_TIME
-     90                      TRI_STATE++;
+    116                      TRI_STATE++;
    \   0001F6   D253....     ADD.B   #0x1, &TRI_STATE
    \   0001FA   463C         JMP     ??run_1
-     91                    } else set_wheels_dir(50, 50);
+    117                    } else set_wheels_dir(50, 50);
    \                     ??run_30:
    \   0001FC   3D403200     MOV.W   #0x32, R13
    \   000200   3C403200     MOV.W   #0x32, R12
    \   000204   ........     CALLA   #set_wheels_dir
-     92                    break;
+    118                    break;
    \   000208   3F3C         JMP     ??run_1
-     93                  case ROTATE1:
-     94                    if (TRI_TIME >= TRI_ROT_TIME) {
+    119                  case ROTATE1:
+    120                    if (TRI_TIME >= TRI_ROT_TIME) {
    \                     ??run_26:
    \   00020A   9292........ CMP.W   &TRI_ROT_TIME, &TRI_TIME
    \   000210   0528         JNC     ??run_31
-     95                      TRI_TIME = 0;
+    121                      TRI_TIME = 0;
    \   000212   8243....     MOV.W   #0x0, &TRI_TIME
-     96                      TRI_STATE++;
+    122                      TRI_STATE++;
    \   000216   D253....     ADD.B   #0x1, &TRI_STATE
    \   00021A   363C         JMP     ??run_1
-     97                    } else set_wheels_dir(100, 0);
+    123                    } else set_wheels_dir(100, 0);
    \                     ??run_31:
    \   00021C   0D43         MOV.W   #0x0, R13
    \   00021E   3C406400     MOV.W   #0x64, R12
    \   000222   ........     CALLA   #set_wheels_dir
-     98                    break;
+    124                    break;
    \   000226   303C         JMP     ??run_1
-     99                  case DRAW_SIDE2:
-    100                    if (TRI_TIME >= TRI_SIDE_TIME) {
+    125                  case DRAW_SIDE2:
+    126                    if (TRI_TIME >= TRI_SIDE_TIME) {
    \                     ??run_27:
    \   000228   9292........ CMP.W   &TRI_SIDE_TIME, &TRI_TIME
    \   00022E   0528         JNC     ??run_32
-    101                      TRI_TIME = 0;
+    127                      TRI_TIME = 0;
    \   000230   8243....     MOV.W   #0x0, &TRI_TIME
-    102                      TRI_STATE++;
+    128                      TRI_STATE++;
    \   000234   D253....     ADD.B   #0x1, &TRI_STATE
    \   000238   273C         JMP     ??run_1
-    103                    } else set_wheels_dir(50, 50);
+    129                    } else set_wheels_dir(50, 50);
    \                     ??run_32:
    \   00023A   3D403200     MOV.W   #0x32, R13
    \   00023E   3C403200     MOV.W   #0x32, R12
    \   000242   ........     CALLA   #set_wheels_dir
-    104                    break;
+    130                    break;
    \   000246   203C         JMP     ??run_1
-    105                  case ROTATE2:
-    106                    if (TRI_TIME >= TRI_ROT_TIME) { 
+    131                  case ROTATE2:
+    132                    if (TRI_TIME >= TRI_ROT_TIME) { 
    \                     ??run_28:
    \   000248   9292........ CMP.W   &TRI_ROT_TIME, &TRI_TIME
    \   00024E   0528         JNC     ??run_33
-    107                      TRI_TIME = 0;
+    133                      TRI_TIME = 0;
    \   000250   8243....     MOV.W   #0x0, &TRI_TIME
-    108                      TRI_STATE++;
+    134                      TRI_STATE++;
    \   000254   D253....     ADD.B   #0x1, &TRI_STATE
    \   000258   173C         JMP     ??run_1
-    109                    } else set_wheels_dir(100, 0);
+    135                    } else set_wheels_dir(100, 0);
    \                     ??run_33:
    \   00025A   0D43         MOV.W   #0x0, R13
    \   00025C   3C406400     MOV.W   #0x64, R12
    \   000260   ........     CALLA   #set_wheels_dir
-    110                    break;
+    136                    break;
    \   000264   113C         JMP     ??run_1
-    111                  case DRAW_SIDE3:
-    112                    if (TRI_TIME >= TRI_SIDE_TIME) {
+    137                  case DRAW_SIDE3:
+    138                    if (TRI_TIME >= TRI_SIDE_TIME) {
    \                     ??run_29:
    \   000266   9292........ CMP.W   &TRI_SIDE_TIME, &TRI_TIME
    \   00026C   0728         JNC     ??run_34
-    113                      TRI_TIME = 0;
+    139                      TRI_TIME = 0;
    \   00026E   8243....     MOV.W   #0x0, &TRI_TIME
-    114                      TRI_STATE = 0;
+    140                      TRI_STATE = 0;
                                        ^
 Warning[Pe188]: enumerated type mixed with another type
    \   000272   C243....     MOV.B   #0x0, &TRI_STATE
-    115                      CURR_EVENT = MAIN_MENU;
+    141                      CURR_EVENT = MAIN_MENU;
    \   000276   D243....     MOV.B   #0x1, &CURR_EVENT
    \   00027A   063C         JMP     ??run_1
-    116                    } else set_wheels_dir(50, 50);
+    142                    } else set_wheels_dir(50, 50);
    \                     ??run_34:
    \   00027C   3D403200     MOV.W   #0x32, R13
    \   000280   3C403200     MOV.W   #0x32, R12
    \   000284   ........     CALLA   #set_wheels_dir
-    117                    break;
-    118                }
-    119                    
-    120              case DRAW_FIGURE8:
-    121                switch (FIG8_STATE) {
+    143                    break;
+    144                }
+    145                    
+    146              case DRAW_FIGURE8:
+    147                switch (FIG8_STATE) {
    \                     ??run_1:
    \   000288   5E42....     MOV.B   &FIG8_STATE, R14
    \   00028C   4E83         SUB.B   #0x0, R14
@@ -505,116 +474,146 @@ Warning[Pe188]: enumerated type mixed with another type
    \   000290   5E83         SUB.B   #0x1, R14
    \   000292   1124         JEQ     ??run_36
    \   000294   1001         RETA
-    122                  case CIRCLE1:
-    123                    if (FIG8_TIME >= FIG8_ROT_TIME) {
+    148                  case CIRCLE1:
+    149                    if (FIG8_TIME >= FIG8_ROT_TIME) {
    \                     ??run_35:
    \   000296   9292........ CMP.W   &FIG8_ROT_TIME, &FIG8_TIME
    \   00029C   0528         JNC     ??run_37
-    124                      FIG8_TIME = 0;
+    150                      FIG8_TIME = 0;
    \   00029E   8243....     MOV.W   #0x0, &FIG8_TIME
-    125                      FIG8_STATE++;
+    151                      FIG8_STATE++;
    \   0002A2   D253....     ADD.B   #0x1, &FIG8_STATE
    \   0002A6   1001         RETA
-    126                    } else set_wheels_dir(25, 75);
+    152                    } else set_wheels_dir(25, 75);
    \                     ??run_37:
    \   0002A8   3D404B00     MOV.W   #0x4b, R13
    \   0002AC   3C401900     MOV.W   #0x19, R12
    \   0002B0   ........     CALLA   #set_wheels_dir
-    127                    break;
+    153                    break;
    \   0002B4   1001         RETA
-    128                  case CIRCLE2: 
-    129                    if (FIG8_TIME >= FIG8_ROT_TIME) {
+    154                  case CIRCLE2: 
+    155                    if (FIG8_TIME >= FIG8_ROT_TIME) {
    \                     ??run_36:
    \   0002B6   9292........ CMP.W   &FIG8_ROT_TIME, &FIG8_TIME
    \   0002BC   0728         JNC     ??run_38
-    130                      FIG8_TIME = 0;
+    156                      FIG8_TIME = 0;
    \   0002BE   8243....     MOV.W   #0x0, &FIG8_TIME
-    131                      FIG8_STATE = 0;
+    157                      FIG8_STATE = 0;
                                         ^
 Warning[Pe188]: enumerated type mixed with another type
    \   0002C2   C243....     MOV.B   #0x0, &FIG8_STATE
-    132                      CURR_EVENT = MAIN_MENU;
+    158                      CURR_EVENT = MAIN_MENU;
    \   0002C6   D243....     MOV.B   #0x1, &CURR_EVENT
    \   0002CA   1001         RETA
-    133                    } else set_wheels_dir(75, 25);
+    159                    } else set_wheels_dir(75, 25);
    \                     ??run_38:
    \   0002CC   3D401900     MOV.W   #0x19, R13
    \   0002D0   3C404B00     MOV.W   #0x4b, R12
    \   0002D4   ........     CALLA   #set_wheels_dir
-    134                    break;
-    135                }
-    136            }
-    137          }
+    160                    break;
+    161                }
+    162            }
+    163          }
    \                     ??run_2:
    \   0002D8   1001         RETA
-    138          
-    139          //*************************//
-    140          //***** WHEEL CONTROL *****//
-    141          //*************************//
-    142          // drive car
+    164          
+    165          //*************************//
+    166          //***** WHEEL CONTROL *****//
+    167          //*************************//
+
+   \                                 In  segment DATA16_Z, align 2, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+    168          unsigned int LEFT_TIME = 0;
+   \                     LEFT_TIME:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_Z, align 2, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+    169          unsigned int RIGHT_TIME = 0;
+   \                     RIGHT_TIME:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_Z, align 2, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+    170          unsigned int LEFT_WHEEL_POWER = 0;
+   \                     LEFT_WHEEL_POWER:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_Z, align 2, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+    171          unsigned int RIGHT_WHEEL_POWER = 0;
+   \                     RIGHT_WHEEL_POWER:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_C, align 2, align-sorted
+    172          const unsigned int MAX_POWER = 100;
+   \                     MAX_POWER:
+   \   000000   6400         DC16 100
+    173          
+    174          // drive car
 
    \                                 In  segment CODE, align 2
-    143          void set_wheels_dir(unsigned int left_power, unsigned int right_power) {
+    175          void set_wheels_dir(unsigned int left_power, unsigned int right_power) {
    \                     set_wheels_dir:
-    144            LEFT_WHEEL_POWER = left_power;
+    176            LEFT_WHEEL_POWER = left_power;
    \   000000   824C....     MOV.W   R12, &LEFT_WHEEL_POWER
-    145            RIGHT_WHEEL_POWER = right_power;  
+    177            RIGHT_WHEEL_POWER = right_power;  
    \   000004   824D....     MOV.W   R13, &RIGHT_WHEEL_POWER
-    146          }
+    178          }
    \   000008   1001         RETA
-    147          
+    179          
 
    \                                 In  segment CODE, align 2
-    148          void drive_car(void){
+    180          void drive_car(void){
    \                     drive_car:
-    149            // drive left wheel
-    150            if (LEFT_TIME > MAX_POWER) LEFT_TIME = 0;
+    181            // drive left wheel
+    182            if (LEFT_TIME > MAX_POWER) LEFT_TIME = 0;
    \   000000   9292........ CMP.W   &LEFT_TIME, &MAX_POWER
    \   000006   022C         JC      ??drive_car_2
    \   000008   8243....     MOV.W   #0x0, &LEFT_TIME
-    151            if (LEFT_TIME < LEFT_WHEEL_POWER)
+    183            if (LEFT_TIME < LEFT_WHEEL_POWER)
    \                     ??drive_car_2:
    \   00000C   9292........ CMP.W   &LEFT_WHEEL_POWER, &LEFT_TIME
    \   000012   032C         JC      ??drive_car_3
-    152              P6OUT |=  L_FORWARD;
+    184              P6OUT |=  L_FORWARD;
    \   000014   E2D34302     BIS.B   #0x2, &0x243
    \   000018   093C         JMP     ??drive_car_0
-    153            else if (LEFT_TIME <= MAX_POWER-LEFT_WHEEL_POWER)
+    185            else if (LEFT_TIME <= MAX_POWER-LEFT_WHEEL_POWER)
    \                     ??drive_car_3:
    \   00001A   1F42....     MOV.W   &MAX_POWER, R15
    \   00001E   1F82....     SUB.W   &LEFT_WHEEL_POWER, R15
    \   000022   1F92....     CMP.W   &LEFT_TIME, R15
    \   000026   0228         JNC     ??drive_car_0
-    154              P6OUT &= ~L_FORWARD;
+    186              P6OUT &= ~L_FORWARD;
    \   000028   E2C34302     BIC.B   #0x2, &0x243
-    155            LEFT_TIME++;
+    187            LEFT_TIME++;
    \                     ??drive_car_0:
    \   00002C   9253....     ADD.W   #0x1, &LEFT_TIME
-    156            
-    157            // drive right wheel
-    158            if (RIGHT_TIME > MAX_POWER) RIGHT_TIME = 0;
+    188            
+    189            // drive right wheel
+    190            if (RIGHT_TIME > MAX_POWER) RIGHT_TIME = 0;
    \   000030   9292........ CMP.W   &RIGHT_TIME, &MAX_POWER
    \   000036   022C         JC      ??drive_car_4
    \   000038   8243....     MOV.W   #0x0, &RIGHT_TIME
-    159            if (RIGHT_TIME < RIGHT_WHEEL_POWER)
+    191            if (RIGHT_TIME < RIGHT_WHEEL_POWER)
    \                     ??drive_car_4:
    \   00003C   9292........ CMP.W   &RIGHT_WHEEL_POWER, &RIGHT_TIME
    \   000042   032C         JC      ??drive_car_5
-    160              P6OUT |=  R_FORWARD;
+    192              P6OUT |=  R_FORWARD;
    \   000044   D2D34302     BIS.B   #0x1, &0x243
    \   000048   093C         JMP     ??drive_car_1
-    161            else if (RIGHT_TIME <= MAX_POWER-RIGHT_WHEEL_POWER) 
+    193            else if (RIGHT_TIME <= MAX_POWER-RIGHT_WHEEL_POWER) 
    \                     ??drive_car_5:
    \   00004A   1F42....     MOV.W   &MAX_POWER, R15
    \   00004E   1F82....     SUB.W   &RIGHT_WHEEL_POWER, R15
    \   000052   1F92....     CMP.W   &RIGHT_TIME, R15
    \   000056   0228         JNC     ??drive_car_1
-    162              P6OUT &= ~R_FORWARD;
+    194              P6OUT &= ~R_FORWARD;
    \   000058   D2C34302     BIC.B   #0x1, &0x243
-    163            RIGHT_TIME++;
+    195            RIGHT_TIME++;
    \                     ??drive_car_1:
    \   00005C   9253....     ADD.W   #0x1, &RIGHT_TIME
-    164          }
+    196          }
    \   000060   1001         RETA
    \   000062                REQUIRE _A_PCOUT_L
 
@@ -723,4 +722,4 @@ Warning[Pe188]: enumerated type mixed with another type
   20 bytes of DATA  memory (+ 2 bytes shared)
 
 Errors: none
-Warnings: 6
+Warnings: 4

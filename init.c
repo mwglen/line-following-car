@@ -1,22 +1,12 @@
-//******************************************************************************
-//
-//  Description: This file contains Initialization Functions
-//
-//  Matthew Glen
-//  Feb 2022
-//  Built with IAR Embedded Workbench Version: V4.10A/W32 (5.40.1)
-//******************************************************************************
-
-#include "macros.h"
+/// Includes
+#include "primitives.h"
 #include "msp430.h"
-#include "functions.h"
+#include "init.h"
+#include "system.h"
+#include "display.h"
 
-//------------------------------------------------------------------------------
-//
-// Description: This function starts initialization process
-//
-//------------------------------------------------------------------------------
-void Init_Conditions(void){
+/// Functions
+void init_conditions(void){
 
   int i;
   for(i=0;i<11;i++){
@@ -34,9 +24,9 @@ void Init_Conditions(void){
   display[1] = &display_line[1][0];
   display[2] = &display_line[2][0];
   display[3] = &display_line[3][0];
-  update_display = 0;
+  display_changed = 1; 
 
-// Interrupts are disabled by default, enable them.
+  // Interrupts are disabled by default, enable them.
   enable_interrupts();
 }
 

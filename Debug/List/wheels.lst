@@ -1,0 +1,202 @@
+###############################################################################
+#
+# IAR C/C++ Compiler V7.21.1.1000/W32 for MSP430          21/Feb/2022  13:00:34
+# Copyright 1996-2021 IAR Systems AB.
+# PC-locked license - IAR Embedded Workbench for MSP430, 8K KickStart Edition 7.21
+#
+#    __rt_version  =  3
+#    __double_size =  32
+#    __reg_r4      =  free
+#    __reg_r5      =  free
+#    __pic         =  no
+#    __core        =  430X
+#    __data_model  =  small
+#    __code_model  =  large
+#    Source file   =  C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\wheels.c
+#    Command line  =  
+#        -f C:\Users\mwg22\AppData\Local\Temp\EWDD3B.tmp
+#        (C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\wheels.c -lC
+#        C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Debug\List -o
+#        C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Debug\Obj --no_cse
+#        --no_unroll --no_inline --no_code_motion --no_tbaa --debug
+#        -D__MSP430FR2355__ -e --double=32 --dlib_config "C:\Program Files
+#        (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.h" -I
+#        ./ --core=430X --data_model=small -On --multiplier=32
+#        --hw_workaround=CPU40 --code_model=large)
+#    Locale        =  English_USA.1252
+#    List file     =  
+#        C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Debug\List\wheels.lst
+#    Object file   =  
+#        C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Debug\Obj\wheels.r43
+#
+###############################################################################
+
+C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\wheels.c
+      1          #include "wheels.h"
+      2          #include "msp430.h"
+
+   \                                 In  segment DATA16_AN, at 0x242
+   \   union <unnamed> _A_PCOUT_L
+   \                     _A_PCOUT_L:
+   \   000000                DS8 2
+      3          #include "ports.h"
+      4          
+      5          /// Global Variables
+
+   \                                 In  segment DATA16_Z, align 2, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+      6          unsigned int LEFT_TIME = 0;
+   \                     LEFT_TIME:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_Z, align 2, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+      7          unsigned int RIGHT_TIME = 0;
+   \                     RIGHT_TIME:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_Z, align 2, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+      8          unsigned int LEFT_WHEEL_POWER = 0;
+   \                     LEFT_WHEEL_POWER:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_Z, align 2, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+      9          unsigned int RIGHT_WHEEL_POWER = 0;
+   \                     RIGHT_WHEEL_POWER:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_C, align 2, align-sorted
+     10          const unsigned int MAX_POWER = 100;
+   \                     MAX_POWER:
+   \   000000   6400         DC16 100
+
+   \                                 In  segment DATA16_C, align 2, align-sorted
+     11          const int WHEEL_CORRECTION_FACTOR = 0;
+   \                     WHEEL_CORRECTION_FACTOR:
+   \   000000   0000         DC16 0
+     12          
+     13          /// Functions
+     14          // set the power delivered to each wheel
+
+   \                                 In  segment CODE, align 2
+     15          void set_wheels_dir(unsigned int left_power, unsigned int right_power) {
+   \                     set_wheels_dir:
+     16            LEFT_WHEEL_POWER = left_power;
+   \   000000   824C....     MOV.W   R12, &LEFT_WHEEL_POWER
+     17            RIGHT_WHEEL_POWER = right_power;  
+   \   000004   824D....     MOV.W   R13, &RIGHT_WHEEL_POWER
+     18          }
+   \   000008   1001         RETA
+     19          
+     20          // drive the car
+
+   \                                 In  segment CODE, align 2
+     21          void drive_car(void){
+   \                     drive_car:
+     22            // calculate target times
+     23            unsigned int targ_left_time = 0;
+   \   000000   0F43         MOV.W   #0x0, R15
+     24            targ_left_time = LEFT_WHEEL_POWER;
+   \   000002   1F42....     MOV.W   &LEFT_WHEEL_POWER, R15
+     25            unsigned int targ_right_time = 0; 
+   \   000006   0E43         MOV.W   #0x0, R14
+     26            if (RIGHT_WHEEL_POWER > WHEEL_CORRECTION_FACTOR) {
+   \   000008   9292........ CMP.W   &RIGHT_WHEEL_POWER, &WHEEL_CORRECTION_FACTOR
+   \   00000E   062C         JC      ??drive_car_3
+     27              targ_right_time = RIGHT_WHEEL_POWER - WHEEL_CORRECTION_FACTOR;
+   \   000010   1D42....     MOV.W   &RIGHT_WHEEL_POWER, R13
+   \   000014   1D82....     SUB.W   &WHEEL_CORRECTION_FACTOR, R13
+   \   000018   0E4D         MOV.W   R13, R14
+   \   00001A   013C         JMP     ??drive_car_0
+     28            } else { targ_right_time = 0; }
+   \                     ??drive_car_3:
+   \   00001C   0E43         MOV.W   #0x0, R14
+     29            
+     30            // drive left wheel
+     31            if (LEFT_TIME > MAX_POWER) LEFT_TIME = 0;
+   \                     ??drive_car_0:
+   \   00001E   9292........ CMP.W   &LEFT_TIME, &MAX_POWER
+   \   000024   022C         JC      ??drive_car_4
+   \   000026   8243....     MOV.W   #0x0, &LEFT_TIME
+     32            if (LEFT_TIME < targ_left_time)
+   \                     ??drive_car_4:
+   \   00002A   829F....     CMP.W   R15, &LEFT_TIME
+   \   00002E   032C         JC      ??drive_car_5
+     33              P6OUT |=  L_FORWARD;
+   \   000030   E2D34302     BIS.B   #0x2, &0x243
+   \   000034   093C         JMP     ??drive_car_1
+     34            else if (LEFT_TIME <= MAX_POWER-LEFT_WHEEL_POWER)
+   \                     ??drive_car_5:
+   \   000036   1D42....     MOV.W   &MAX_POWER, R13
+   \   00003A   1D82....     SUB.W   &LEFT_WHEEL_POWER, R13
+   \   00003E   1D92....     CMP.W   &LEFT_TIME, R13
+   \   000042   0228         JNC     ??drive_car_1
+     35              P6OUT &= ~L_FORWARD;
+   \   000044   E2C34302     BIC.B   #0x2, &0x243
+     36            LEFT_TIME++;
+   \                     ??drive_car_1:
+   \   000048   9253....     ADD.W   #0x1, &LEFT_TIME
+     37            
+     38            // drive right wheel
+     39            if (RIGHT_TIME > MAX_POWER) RIGHT_TIME = 0;
+   \   00004C   9292........ CMP.W   &RIGHT_TIME, &MAX_POWER
+   \   000052   022C         JC      ??drive_car_6
+   \   000054   8243....     MOV.W   #0x0, &RIGHT_TIME
+     40            if (RIGHT_TIME < targ_right_time)
+   \                     ??drive_car_6:
+   \   000058   829E....     CMP.W   R14, &RIGHT_TIME
+   \   00005C   032C         JC      ??drive_car_7
+     41              P6OUT |=  R_FORWARD;
+   \   00005E   D2D34302     BIS.B   #0x1, &0x243
+   \   000062   093C         JMP     ??drive_car_2
+     42            else if (RIGHT_TIME <= MAX_POWER-RIGHT_WHEEL_POWER) 
+   \                     ??drive_car_7:
+   \   000064   1D42....     MOV.W   &MAX_POWER, R13
+   \   000068   1D82....     SUB.W   &RIGHT_WHEEL_POWER, R13
+   \   00006C   1D92....     CMP.W   &RIGHT_TIME, R13
+   \   000070   0228         JNC     ??drive_car_2
+     43              P6OUT &= ~R_FORWARD;
+   \   000072   D2C34302     BIC.B   #0x1, &0x243
+     44            RIGHT_TIME++;
+   \                     ??drive_car_2:
+   \   000076   9253....     ADD.W   #0x1, &RIGHT_TIME
+     45          }
+   \   00007A   1001         RETA
+   \   00007C                REQUIRE _A_PCOUT_L
+
+   Maximum stack usage in bytes:
+
+   CSTACK Function
+   ------ --------
+      4   drive_car
+      4   set_wheels_dir
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       2  LEFT_TIME
+       2  LEFT_WHEEL_POWER
+       2  MAX_POWER
+       2  RIGHT_TIME
+       2  RIGHT_WHEEL_POWER
+       2  WHEEL_CORRECTION_FACTOR
+       2  _A_PCOUT_L
+     124  drive_car
+      10  set_wheels_dir
+
+ 
+ 134 bytes in segment CODE
+   2 bytes in segment DATA16_AN
+   4 bytes in segment DATA16_C
+   8 bytes in segment DATA16_Z
+ 
+ 134 bytes of CODE  memory
+   4 bytes of CONST memory
+   8 bytes of DATA  memory (+ 2 bytes shared)
+
+Errors: none
+Warnings: none

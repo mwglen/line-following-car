@@ -1,27 +1,8 @@
-//------------------------------------------------------------------------------
-//
-//  Description: This file contains the System Configurations
-//
-//  Jim Carlson
-//  Jan 2022
-//  Built with IAR Embedded Workbench Version: (7.21.1)
-//------------------------------------------------------------------------------
+/// Includes
+#include "msp430.h"
+#include "system.h"
 
-//------------------------------------------------------------------------------
-#include  "functions.h"
-#include  "msp430.h"
-#include  "macros.h"
-
-void enable_interrupts(void);
-
-//------------------------------------------------------------------------------
-// System Configurations
-
-// Tells the compiler to provide the value in reg as an input to an
-// inline assembly block.  Even though the block contains no instructions,
-// the compiler may not optimize it away, and is told that the value
-// may change and should not be relied upon.
-
+/// Functions
 //inline void READ_AND_DISCARD(unsigned int reg) __attribute__((always_inline));
 //void READ_AND_DISCARD(unsigned int reg){
 //  asm volatile ("" : "=m" (reg) : "r" (reg));

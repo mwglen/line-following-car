@@ -1,9 +1,3 @@
-// Base Types
-typedef enum {
-  false = 0,
-  true  = 1,
-} bool;
-
 // Global Variables
 extern char display_line[4][11];
 extern char display_line[4][11];
@@ -14,21 +8,20 @@ extern volatile unsigned int update_display_count;
 extern volatile unsigned int Time_Sequence;
 extern volatile char one_time;
 extern unsigned int MY_TIME;
-extern bool SW1_PRESSED;
-extern bool SW2_PRESSED;
 
-extern unsigned int sw1_position;
-extern unsigned int sw2_position;
+/// Functions
+void init_ports(void);
+void init_port1(void);
+void init_port2(void);
+void init_port3(char smclk);
+void init_port4(void);
+void init_port5(void);
+void init_port6(void);
 
-#define ALWAYS          (1)
-#define RESET_STATE     (0)
-#define TRUE            (0x01)
-
-// Switches
-#define DEBOUNCE_TIME (1500)
-#define DEBOUNCE_RESTART (0x00)
-#define PRESSED (0)
-#define RELEASED (1)
+/// Defines
+// SMCLK
+#define USE_GPIO   (0x00)
+#define USE_SMCLK  (0x01)
 
 // Port 1 Pins
 #define RED_LED         (0x01)      // 0 RED LED 0
@@ -66,7 +59,7 @@ extern unsigned int sw2_position;
 #define UCA1RXD         (0x04)      // 2 Back Channel UCA1RXD
 #define UCA1TXD         (0x08)      // 3 Back Channel UCA1TXD
 #define UCB1_CS_LCD     (0x10)      // 4 Chip Select
-#define UCB1CLK         (0x20)      // 5 SPI mode - clock outputâ€”UCB1CLK
+#define UCB1CLK         (0x20)      // 5 SPI mode - clock output—UCB1CLK
 #define UCB1SIMO        (0x40)      // 6 UCB1SIMO
 #define UCB1SOMI        (0x80)      // 7 UCB1SOMI
 
@@ -85,4 +78,3 @@ extern unsigned int sw2_position;
 #define IR_SENSOR       (0x10)      // 4 IR_SENSOR
 #define P6_5            (0x20)      // 5 P6_5
 #define GRN_LED         (0x40)      // 6 GRN_LED
-
