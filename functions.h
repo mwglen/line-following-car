@@ -6,8 +6,7 @@
 //  Feb 2022
 //  Built with IAR Embedded Workbench Version: V4.10A/W32 (5.40.1)
 //******************************************************************************
-// Functions
-void Carlson_StateMachine(void);
+#include "macros.h"
 
 // Initialization
 void Init_Conditions(void);
@@ -78,15 +77,6 @@ void LCD_iot_meassage_print(int nema_index);
 // Menu
 void Menu_Process(void);
 
-// Ports
-void Init_Ports(void);
-void Init_Port1(void);
-void Init_Port2(void);
-void Init_Port3(char smclk);
-void Init_Port4(void);
-void Init_Port5(void);
-void Init_Port6(void);
-
 // SPI
 void Init_SPI_B1(void);
 void SPI_B1_write(char byte);
@@ -97,21 +87,6 @@ void spi_LCD_active(void);
 void SPI_test(void);
 void WriteIns(char instruction);
 void WriteData(char data);
-
-// Switches
-void Init_Switches(void);
-void switch_control(void);
-void enable_switch_SW1(void);
-void enable_switch_SW2(void);
-void disable_switch_SW1(void);
-void disable_switch_SW2(void);
-void Switches_Process(void);
-void Init_Switch(void);
-void Switch_Process(void);
-void Switch1_Process(void);
-void Switch2_Process(void);
-void menu_act(void);
-void menu_select(void);
 
 // Timers
 void Init_Timers(void);
@@ -125,7 +100,3 @@ void usleep10(unsigned int usec);
 void five_msec_sleep(unsigned int msec);
 void measure_delay(void);
 void out_control_words(void);
-
-
-
-

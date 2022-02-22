@@ -7,10 +7,21 @@ extern volatile unsigned char update_display;
 extern volatile unsigned int update_display_count;
 extern volatile unsigned int Time_Sequence;
 extern volatile char one_time;
+extern unsigned int MY_TIME;
 
-#define ALWAYS          (1)
-#define RESET_STATE     (0)
-#define TRUE            (0x01)
+/// Functions
+void init_ports(void);
+void init_port1(void);
+void init_port2(void);
+void init_port3(char smclk);
+void init_port4(void);
+void init_port5(void);
+void init_port6(void);
+
+/// Defines
+// SMCLK
+#define USE_GPIO   (0x00)
+#define USE_SMCLK  (0x01)
 
 // Port 1 Pins
 #define RED_LED         (0x01)      // 0 RED LED 0
@@ -48,7 +59,7 @@ extern volatile char one_time;
 #define UCA1RXD         (0x04)      // 2 Back Channel UCA1RXD
 #define UCA1TXD         (0x08)      // 3 Back Channel UCA1TXD
 #define UCB1_CS_LCD     (0x10)      // 4 Chip Select
-#define UCB1CLK         (0x20)      // 5 SPI mode - clock outputâ€”UCB1CLK
+#define UCB1CLK         (0x20)      // 5 SPI mode - clock output—UCB1CLK
 #define UCB1SIMO        (0x40)      // 6 UCB1SIMO
 #define UCB1SOMI        (0x80)      // 7 UCB1SOMI
 
@@ -63,8 +74,7 @@ extern volatile char one_time;
 #define R_FORWARD       (0x01)      // 0 R_FORWARD
 #define L_FORWARD       (0x02)      // 1 L_FORWARD
 #define R_REVERSE       (0x04)      // 2 R_REVERSE
-#define L_REVERSE_2355  (0x08)      // 3 L_REVERSE_2355
+#define L_REVERSE       (0x08)      // 3 L_REVERSE
 #define IR_SENSOR       (0x10)      // 4 IR_SENSOR
 #define P6_5            (0x20)      // 5 P6_5
 #define GRN_LED         (0x40)      // 6 GRN_LED
-

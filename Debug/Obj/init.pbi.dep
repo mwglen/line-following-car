@@ -1,8 +1,10 @@
-init.pbi: C:\Users\mwg22\Desktop\ECE-306_Code\Homework_03\init.c \
-  C:\Users\mwg22\Desktop\ECE-306_Code\Homework_03/macros.h \
-  C:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.5_2\430\inc\msp430.h \
-  C:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.5_2\430\inc/msp430fr2355.h \
-  C:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.5_2\430\inc/in430.h \
-  C:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.5_2\430\inc/intrinsics.h \
-  C:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.5_2\430\inc/legacy.h \
-  C:\Users\mwg22\Desktop\ECE-306_Code\Homework_03/functions.h
+init.pbi: C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\init.c \
+  C:\Users\mwg22\OneDrive\Desktop\ECE306-Project/primitives.h \
+  C:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.5\430\inc\msp430.h \
+  C:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.5\430\inc/msp430fr2355.h \
+  C:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.5\430\inc/in430.h \
+  C:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.5\430\inc/intrinsics.h \
+  C:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.5\430\inc/legacy.h \
+  C:\Users\mwg22\OneDrive\Desktop\ECE306-Project/init.h \
+  C:\Users\mwg22\OneDrive\Desktop\ECE306-Project/system.h \
+  C:\Users\mwg22\OneDrive\Desktop\ECE306-Project/display.h

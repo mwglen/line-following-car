@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR C/C++ Compiler V7.21.1.1000/W32 for MSP430          07/Feb/2022  11:00:39
+# IAR C/C++ Compiler V7.21.1.1000/W32 for MSP430          18/Feb/2022  19:23:56
 # Copyright 1996-2021 IAR Systems AB.
 # PC-locked license - IAR Embedded Workbench for MSP430, 8K KickStart Edition 7.21
 #
@@ -12,36 +12,28 @@
 #    __core        =  430X
 #    __data_model  =  small
 #    __code_model  =  large
-#    Source file   =  C:\Users\mwg22\Desktop\ECE-306_Code\Homework_03\clocks.c
+#    Source file   =  C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\clocks.c
 #    Command line  =  
-#        -f C:\Users\mwg22\AppData\Local\Temp\EWE64E.tmp
-#        (C:\Users\mwg22\Desktop\ECE-306_Code\Homework_03\clocks.c -lC
-#        C:\Users\mwg22\Desktop\ECE-306_Code\Homework_03\Debug\List -o
-#        C:\Users\mwg22\Desktop\ECE-306_Code\Homework_03\Debug\Obj --no_cse
+#        -f C:\Users\mwg22\AppData\Local\Temp\EWFB9C.tmp
+#        (C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\clocks.c -lC
+#        C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Debug\List -o
+#        C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Debug\Obj --no_cse
 #        --no_unroll --no_inline --no_code_motion --no_tbaa --debug
 #        -D__MSP430FR2355__ -e --double=32 --dlib_config "C:\Program Files
-#        (x86)\IAR Systems\Embedded Workbench 8.5_2\430\lib\dlib\dl430xlsfn.h"
-#        -I ./ --core=430X --data_model=small -On --multiplier=32
+#        (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.h" -I
+#        ./ --core=430X --data_model=small -On --multiplier=32
 #        --hw_workaround=CPU40 --code_model=large)
 #    Locale        =  English_USA.1252
 #    List file     =  
-#        C:\Users\mwg22\Desktop\ECE-306_Code\Homework_03\Debug\List\clocks.lst
+#        C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Debug\List\clocks.lst
 #    Object file   =  
-#        C:\Users\mwg22\Desktop\ECE-306_Code\Homework_03\Debug\Obj\clocks.r43
+#        C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Debug\Obj\clocks.r43
 #
 ###############################################################################
 
-C:\Users\mwg22\Desktop\ECE-306_Code\Homework_03\clocks.c
-      1          // ------------------------------------------------------------------------------
-      2          //
-      3          //  Description: This file contains the Clock Initialization
-      4          //
-      5          //  Jim Carlson
-      6          //  Jan 2022
-      7          //  Built with IAR Embedded Workbench Version: (7.21.1)
-      8          // ------------------------------------------------------------------------------
-      9          #include  "functions.h"
-     10          #include  "msp430.h"
+C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\clocks.c
+      1          /// Includes
+      2          #include "msp430.h"
 
    \                                 In  segment DATA16_AN, at 0x180
    \   union <unnamed> _A_CSCTL0_L
@@ -92,88 +84,84 @@ C:\Users\mwg22\Desktop\ECE-306_Code\Homework_03\clocks.c
    \   union <unnamed> _A_WDTCTL_L
    \                     _A_WDTCTL_L:
    \   000000                DS8 2
-     11          #include "macros.h"
-     12          
-     13          // MACROS========================================================================
-     14          #define MCLK_FREQ_MHZ 8                     // MCLK = 8MHz
-     15          #define CLEAR_REGISTER     (0X0000)
-     16          
-     17          void Init_Clocks(void);
-     18          void Software_Trim(void);
-     19          
+      3          #include "clocks.h"
+      4          
+      5          /// Functions
 
    \                                 In  segment CODE, align 2
-     20          void Init_Clocks(void){
-   \                     Init_Clocks:
-     21          // -----------------------------------------------------------------------------
-     22          // Clock Configurtaions
-     23          // This is the clock initialization for the program.
-     24          // Initial clock configuration, runs immediately after port configuration.
-     25          // Disables 1ms watchdog timer,
-     26          // Configure MCLK for 8MHz and XT1 sourcing ACLK and FLLREF.
-     27          //
-     28          // Description: Configure ACLK = 32768Hz,
-     29          //                        MCLK = DCO + XT1CLK REF = 8MHz,
-     30          //                        SMCLK = MCLK/2 = 4MHz.
-     31          // Toggle LED to indicate that the program is running.
-     32          //
-     33          // -----------------------------------------------------------------------------
-     34            WDTCTL = WDTPW | WDTHOLD;  // Disable watchdog
+      6          void init_clocks(void){
+   \                     init_clocks:
+      7          // -----------------------------------------------------------------------------
+      8          // Clock Configurtaions
+      9          // This is the clock initialization for the program.
+     10          // Initial clock configuration, runs immediately after port configuration.
+     11          // Disables 1ms watchdog timer,
+     12          // Configure MCLK for 8MHz and XT1 sourcing ACLK and FLLREF.
+     13          //
+     14          // Description: Configure ACLK = 32768Hz,
+     15          //                        MCLK = DCO + XT1CLK REF = 8MHz,
+     16          //                        SMCLK = MCLK/2 = 4MHz.
+     17          // Toggle LED to indicate that the program is running.
+     18          //
+     19          // -----------------------------------------------------------------------------
+     20            WDTCTL = WDTPW | WDTHOLD;  // Disable watchdog
    \   000000   B240805ACC01 MOV.W   #0x5a80, &0x1cc
-     35          
-     36            do{
-     37              CSCTL7 &= ~XT1OFFG;      // Clear XT1 fault flag
-   \                     ??Init_Clocks_0:
+     21          
+     22            do{
+     23              CSCTL7 &= ~XT1OFFG;      // Clear XT1 fault flag
+   \                     ??init_clocks_0:
    \   000006   A2C38E01     BIC.W   #0x2, &0x18e
-     38              CSCTL7 &= ~DCOFFG;       // Clear DCO fault flag
+     24              CSCTL7 &= ~DCOFFG;       // Clear DCO fault flag
    \   00000A   92C38E01     BIC.W   #0x1, &0x18e
-     39              SFRIFG1 &= ~OFIFG;
+     25              SFRIFG1 &= ~OFIFG;
    \   00000E   A2C30201     BIC.W   #0x2, &0x102
-     40            } while (SFRIFG1 & OFIFG); // Test oscillator fault flag
+     26            } while (SFRIFG1 & OFIFG); // Test oscillator fault flag
    \   000012   A2B30201     BIT.W   #0x2, &0x102
-   \   000016   F72F         JC      ??Init_Clocks_0
-     41            __bis_SR_register(SCG0);   // disable FLL
+   \   000016   F72F         JC      ??init_clocks_0
+     27            
+     28            __bis_SR_register(SCG0);   // disable FLL
    \   000018   32D04000     BIS.W   #0x40, SR
-     42          
-     43            CSCTL1 = DCOFTRIMEN_1;
+     29          
+     30            CSCTL1 = DCOFTRIMEN_1;
    \   00001C   B24080008201 MOV.W   #0x80, &0x182
-     44            CSCTL1 |= DCOFTRIM0;
+     31            CSCTL1 |= DCOFTRIM0;
    \   000022   B2D010008201 BIS.W   #0x10, &0x182
-     45            CSCTL1 |= DCOFTRIM1;       // DCOFTRIM=3
+     32            CSCTL1 |= DCOFTRIM1;       // DCOFTRIM=3
    \   000028   B2D020008201 BIS.W   #0x20, &0x182
-     46            CSCTL1 |= DCORSEL_3;       // DCO Range = 8MHz
+     33            CSCTL1 |= DCORSEL_3;       // DCO Range = 8MHz
    \   00002E   B2D006008201 BIS.W   #0x6, &0x182
-     47          
-     48            CSCTL2 = FLLD_0 + 243;     // DCODIV = 8MHz
+     34          
+     35            CSCTL2 = FLLD_0 + 243;     // DCODIV = 8MHz
    \   000034   B240F3008401 MOV.W   #0xf3, &0x184
-     49          
-     50            CSCTL3 |= SELREF__XT1CLK;  // Set XT1CLK as FLL reference source
+     36          
+     37            CSCTL3 |= SELREF__XT1CLK;  // Set XT1CLK as FLL reference source
    \   00003A   924286018601 MOV.W   &0x186, &0x186
-     51            __delay_cycles(3);
+     38            __delay_cycles(3);
    \   000040                ////////////// Start of 3 cycles delay.
    \   000040   5F0A         RLAM.W  #0x3, R15
    \   000042                ////////////// End of delay code.
-     52            __bic_SR_register(SCG0);   // enable FLL
+     39            __bic_SR_register(SCG0);   // enable FLL
    \   000042   32C04000     BIC.W   #0x40, SR
-     53            Software_Trim();           // Software Trim to get the best DCOFTRIM value
-   \   000046   ........     CALLA   #Software_Trim
-     54          
-     55            CSCTL4 = SELA__XT1CLK;     // Set ACLK = XT1CLK = 32768Hz
+     40            software_trim();           // Software Trim to get the best DCOFTRIM value
+   \   000046   ........     CALLA   #software_trim
+     41          
+     42            CSCTL4 = SELA__XT1CLK;     // Set ACLK = XT1CLK = 32768Hz
    \   00004A   82438801     MOV.W   #0x0, &0x188
-     56            CSCTL4 |= SELMS__DCOCLKDIV;// DCOCLK = MCLK and SMCLK source
+     43            CSCTL4 |= SELMS__DCOCLKDIV;// DCOCLK = MCLK and SMCLK source
    \   00004E   924288018801 MOV.W   &0x188, &0x188
-     57          
-     58          //  CSCTL5 |= DIVM__2;         // MCLK = DCOCLK / 2  = 4MHZ,
-     59          //  CSCTL5 |= DIVS__8;         // SMCLK = MCLK / 8 = 1MHz
-     60            CSCTL5 |= DIVM_0;        // MCLK = DCOCLK = 8MHZ,
+     44          
+     45            //CSCTL5 |= DIVM__2;         // MCLK = DCOCLK / 2  = 4MHZ,
+     46            //CSCTL5 |= DIVS__8;         // SMCLK = MCLK / 8 = 1MHz
+     47            CSCTL5 |= DIVM_0;        // MCLK = DCOCLK = 8MHZ,
    \   000054   92428A018A01 MOV.W   &0x18a, &0x18a
-     61            CSCTL5 |= DIVS_0;        // SMCLK = MCLK = 8MHz
+     48            CSCTL5 |= DIVS_0;        // SMCLK = MCLK = 8MHz
    \   00005A   92428A018A01 MOV.W   &0x18a, &0x18a
-     62          
-     63            PM5CTL0 &= ~LOCKLPM5;      // Disable the GPIO power-on default high-impedance mode
+     49          
+     50           // Disable the GPIO power-on default high-impedance mode
+     51           // to activate previously configured port settings
+     52           PM5CTL0 &= ~LOCKLPM5;
    \   000060   92C33001     BIC.W   #0x1, &0x130
-     64                                       // to activate previously configured port settings
-     65          }
+     53          }
    \   000064   1001         RETA
    \   000066                REQUIRE _A_WDTCTL_L
    \   000066                REQUIRE _A_CSCTL7_L
@@ -184,75 +172,72 @@ C:\Users\mwg22\Desktop\ECE-306_Code\Homework_03\clocks.c
    \   000066                REQUIRE _A_CSCTL4_L
    \   000066                REQUIRE _A_CSCTL5_L
    \   000066                REQUIRE _A_PM5CTL0_L
-     66          
+     54          
 
    \                                 In  segment CODE, align 2
-     67          void Software_Trim(void){
-   \                     Software_Trim:
+     55          void software_trim(void){
+   \                     software_trim:
    \   000000   7B15         PUSHM.W #0x8, R11
-     68          // --COPYRIGHT--,BSD_EX
-     69          // Copyright (c) 2014, Texas Instruments Incorporated
-     70          // All rights reserved.
-     71            unsigned int oldDcoTap = 0xffff;
+     56            unsigned int oldDcoTap = 0xffff;
    \   000002   3D43         MOV.W   #0xffff, R13
-     72            unsigned int newDcoTap = 0xffff;
+     57            unsigned int newDcoTap = 0xffff;
    \   000004   3C43         MOV.W   #0xffff, R12
-     73            unsigned int newDcoDelta = 0xffff;
+     58            unsigned int newDcoDelta = 0xffff;
    \   000006   3A43         MOV.W   #0xffff, R10
-     74            unsigned int bestDcoDelta = 0xffff;
+     59            unsigned int bestDcoDelta = 0xffff;
    \   000008   3B43         MOV.W   #0xffff, R11
-     75            unsigned int csCtl0Copy = 0;
+     60            unsigned int csCtl0Copy = 0;
    \   00000A   0843         MOV.W   #0x0, R8
-     76            unsigned int csCtl1Copy = 0;
+     61            unsigned int csCtl1Copy = 0;
    \   00000C   0943         MOV.W   #0x0, R9
-     77            unsigned int csCtl0Read = 0;
+     62            unsigned int csCtl0Read = 0;
    \   00000E   0643         MOV.W   #0x0, R6
-     78            unsigned int csCtl1Read = 0;
+     63            unsigned int csCtl1Read = 0;
    \   000010   0F43         MOV.W   #0x0, R15
-     79            unsigned int dcoFreqTrim = 3;
+     64            unsigned int dcoFreqTrim = 3;
    \   000012   37400300     MOV.W   #0x3, R7
-     80            unsigned char endLoop = 0;
+     65            unsigned char endLoop = 0;
    \   000016   4443         MOV.B   #0x0, R4
-     81            do{
-     82              CSCTL0 = 0x100;                         // DCO Tap = 256
-   \                     ??Software_Trim_2:
+     66            do{
+     67              CSCTL0 = 0x100;
+   \                     ??software_trim_2:
    \   000018   B24000018001 MOV.W   #0x100, &0x180
-     83              do{
-     84                CSCTL7 &= ~DCOFFG;                    // Clear DCO fault flag
-   \                     ??Software_Trim_0:
+     68              do{
+     69                CSCTL7 &= ~DCOFFG;                    // Clear DCO fault flag
+   \                     ??software_trim_0:
    \   00001E   92C38E01     BIC.W   #0x1, &0x18e
-     85              }while (CSCTL7 & DCOFFG);               // Test DCO fault flag
+     70              } while (CSCTL7 & DCOFFG);               // Test DCO fault flag
    \   000022   92B38E01     BIT.W   #0x1, &0x18e
-   \   000026   FB2F         JC      ??Software_Trim_0
-     86              // Wait FLL lock status (FLLUNLOCK) to be stable
-     87              // Suggest to wait 24 cycles of divided FLL reference clock
-     88              __delay_cycles((unsigned int)3000 * MCLK_FREQ_MHZ);
+   \   000026   FB2F         JC      ??software_trim_0
+     71              // Wait FLL lock status (FLLUNLOCK) to be stable
+     72              // Suggest to wait 24 cycles of divided FLL reference clock
+     73              __delay_cycles((unsigned int)3000 * MCLK_FREQ_MHZ);
    \   000028                ////////////// Start of 24000 cycles delay.
    \   000028   0343         NOP
    \   00002A   3E403E1F     MOV.W   #0x1f3e, R14
-   \                     ??Software_Trim_10:
+   \                     ??software_trim_10:
    \   00002E   3E53         ADD.W   #0xffff, R14
-   \   000030   FE2F         JC      ??Software_Trim_10
+   \   000030   FE2F         JC      ??software_trim_10
    \   000032                ////////////// End of delay code.
-     89              while((CSCTL7 & (FLLUNLOCK0 | FLLUNLOCK1)) &&
-     90                   ((CSCTL7 & DCOFFG) == 0));
-   \                     ??Software_Trim_1:
+     74              while ((CSCTL7 & (FLLUNLOCK0 | FLLUNLOCK1)) &&
+     75                   ((CSCTL7 & DCOFFG) == 0));
+   \                     ??software_trim_1:
    \   000032   B2B000038E01 BIT.W   #0x300, &0x18e
-   \   000038   0324         JEQ     ??Software_Trim_5
+   \   000038   0324         JEQ     ??software_trim_5
    \   00003A   92B38E01     BIT.W   #0x1, &0x18e
-   \   00003E   F92B         JNC     ??Software_Trim_1
-     91              csCtl0Read = CSCTL0;                    // Read CSCTL0
-   \                     ??Software_Trim_5:
+   \   00003E   F92B         JNC     ??software_trim_1
+     76              csCtl0Read = CSCTL0;                    // Read CSCTL0
+   \                     ??software_trim_5:
    \   000040   16428001     MOV.W   &0x180, R6
-     92              csCtl1Read = CSCTL1;                    // Read CSCTL1
+     77              csCtl1Read = CSCTL1;                    // Read CSCTL1
    \   000044   1F428201     MOV.W   &0x182, R15
-     93              oldDcoTap = newDcoTap;                  // Record DCOTAP value of last time
+     78              oldDcoTap = newDcoTap;                  // Record DCOTAP value of last time
    \   000048   0D4C         MOV.W   R12, R13
-     94              newDcoTap = csCtl0Read & 0x01ff;        // Get DCOTAP value of this time
+     79              newDcoTap = csCtl0Read & 0x01ff;        // Get DCOTAP value of this time
    \   00004A   0E46         MOV.W   R6, R14
    \   00004C   3EF0FF01     AND.W   #0x1ff, R14
    \   000050   0C4E         MOV.W   R14, R12
-     95              dcoFreqTrim = (csCtl1Read & 0x0070)>>4; // Get DCOFTRIM value
+     80              dcoFreqTrim = (csCtl1Read & 0x0070)>>4; // Get DCOFTRIM value
    \   000052   0E12         PUSH.W  R14
    \   000054   C14F0000     MOV.B   R15, 0(SP)
    \   000058   3E41         POP.W   R14
@@ -260,107 +245,105 @@ C:\Users\mwg22\Desktop\ECE-306_Code\Homework_03\clocks.c
    \   00005A   43194E10     RRUX.B  R14
    \   00005E   7EF00700     AND.B   #0x7, R14
    \   000062   074E         MOV.W   R14, R7
-     96              if(newDcoTap < 256){                    // DCOTAP < 256
+     81              if (newDcoTap < 256){                    // DCOTAP < 256
    \   000064   3C900001     CMP.W   #0x100, R12
-   \   000068   152C         JC      ??Software_Trim_6
-     97                newDcoDelta = 256 - newDcoTap;        // Delta value between DCPTAP and 256
+   \   000068   152C         JC      ??software_trim_6
+     82                newDcoDelta = 256 - newDcoTap;        // Delta value between DCPTAP and 256
    \   00006A   3E400001     MOV.W   #0x100, R14
    \   00006E   0E8C         SUB.W   R12, R14
    \   000070   0A4E         MOV.W   R14, R10
-     98                if((oldDcoTap != 0xffff) &&
-     99                   (oldDcoTap >= 256)){               // DCOTAP cross 256
+     83                if ((oldDcoTap != 0xffff) &&
+     84                   (oldDcoTap >= 256)){               // DCOTAP cross 256
    \   000072   3D93         CMP.W   #0xffff, R13
-   \   000074   0524         JEQ     ??Software_Trim_7
+   \   000074   0524         JEQ     ??software_trim_7
    \   000076   3D900001     CMP.W   #0x100, R13
-   \   00007A   0228         JNC     ??Software_Trim_7
-    100                  endLoop = 1;                        // Stop while loop
+   \   00007A   0228         JNC     ??software_trim_7
+     85                  endLoop = 1;                        // Stop while loop
    \   00007C   5443         MOV.B   #0x1, R4
-   \   00007E   1C3C         JMP     ??Software_Trim_4
-    101                }else{
-    102                  dcoFreqTrim--;
-   \                     ??Software_Trim_7:
+   \   00007E   1C3C         JMP     ??software_trim_4
+     86                } else {
+     87                  dcoFreqTrim--;
+   \                     ??software_trim_7:
    \   000080   3753         ADD.W   #0xffff, R7
-    103                  CSCTL1 = (csCtl1Read & (~DCOFTRIM)) | (dcoFreqTrim<<4);
+     88                  CSCTL1 = (csCtl1Read & (~DCOFTRIM)) | (dcoFreqTrim<<4);
    \   000082   0E47         MOV.W   R7, R14
    \   000084   5E0E         RLAM.W  #0x4, R14
    \   000086   054F         MOV.W   R15, R5
    \   000088   35F08FFF     AND.W   #0xff8f, R5
    \   00008C   05DE         BIS.W   R14, R5
    \   00008E   82458201     MOV.W   R5, &0x182
-   \   000092   123C         JMP     ??Software_Trim_4
-    104                }
-    105              }else{                                  // DCOTAP >= 256
-    106                newDcoDelta = newDcoTap - 256;        // Delta value between DCPTAP and 256
-   \                     ??Software_Trim_6:
+   \   000092   123C         JMP     ??software_trim_4
+     89                }
+     90              } else {                                  // DCOTAP >= 256
+     91                newDcoDelta = newDcoTap - 256;        // Delta value between DCPTAP and 256
+   \                     ??software_trim_6:
    \   000094   0E4C         MOV.W   R12, R14
    \   000096   3E5000FF     ADD.W   #0xff00, R14
    \   00009A   0A4E         MOV.W   R14, R10
-    107                if(oldDcoTap < 256){                  // DCOTAP cross 256
+     92                if (oldDcoTap < 256) {                  // DCOTAP cross 256
    \   00009C   3D900001     CMP.W   #0x100, R13
-   \   0000A0   022C         JC      ??Software_Trim_8
-    108                  endLoop = 1;                        // Stop while loop
+   \   0000A0   022C         JC      ??software_trim_8
+     93                  endLoop = 1;                        // Stop while loop
    \   0000A2   5443         MOV.B   #0x1, R4
-   \   0000A4   093C         JMP     ??Software_Trim_4
-    109                }else{
-    110                  dcoFreqTrim++;
-   \                     ??Software_Trim_8:
+   \   0000A4   093C         JMP     ??software_trim_4
+     94                } else {
+     95                  dcoFreqTrim++;
+   \                     ??software_trim_8:
    \   0000A6   1753         ADD.W   #0x1, R7
-    111                  CSCTL1 = (csCtl1Read & (~DCOFTRIM)) | (dcoFreqTrim<<4);
+     96                  CSCTL1 = (csCtl1Read & (~DCOFTRIM)) | (dcoFreqTrim<<4);
    \   0000A8   0E47         MOV.W   R7, R14
    \   0000AA   5E0E         RLAM.W  #0x4, R14
    \   0000AC   054F         MOV.W   R15, R5
    \   0000AE   35F08FFF     AND.W   #0xff8f, R5
    \   0000B2   05DE         BIS.W   R14, R5
    \   0000B4   82458201     MOV.W   R5, &0x182
-    112                }
-    113              }
-    114              if(newDcoDelta < bestDcoDelta){         // Record DCOTAP closest to 256
-   \                     ??Software_Trim_4:
+     97                }
+     98              }
+     99              if (newDcoDelta < bestDcoDelta) {         // Record DCOTAP closest to 256
+   \                     ??software_trim_4:
    \   0000B8   0A9B         CMP.W   R11, R10
-   \   0000BA   032C         JC      ??Software_Trim_9
-    115                csCtl0Copy = csCtl0Read;
+   \   0000BA   032C         JC      ??software_trim_9
+    100                csCtl0Copy = csCtl0Read;
    \   0000BC   0846         MOV.W   R6, R8
-    116                csCtl1Copy = csCtl1Read;
+    101                csCtl1Copy = csCtl1Read;
    \   0000BE   094F         MOV.W   R15, R9
-    117                bestDcoDelta = newDcoDelta;
+    102                bestDcoDelta = newDcoDelta;
    \   0000C0   0B4A         MOV.W   R10, R11
-    118              }
-    119            }while(endLoop == 0);                     // Poll until endLoop == 1
-   \                     ??Software_Trim_9:
+    103              }
+    104            } while (endLoop == 0);                     // Poll until endLoop == 1
+   \                     ??software_trim_9:
    \   0000C2   4493         CMP.B   #0x0, R4
-   \   0000C4   A927         JEQ     ??Software_Trim_2
-    120            CSCTL0 = csCtl0Copy;                      // Reload locked DCOTAP
+   \   0000C4   A927         JEQ     ??software_trim_2
+    105              CSCTL0 = csCtl0Copy;                      // Reload locked DCOTAP
    \   0000C6   82488001     MOV.W   R8, &0x180
-    121            CSCTL1 = csCtl1Copy;                      // Reload locked DCOFTRIM
+    106              CSCTL1 = csCtl1Copy;                      // Reload locked DCOFTRIM
    \   0000CA   82498201     MOV.W   R9, &0x182
-    122            while(CSCTL7 & (FLLUNLOCK0 | FLLUNLOCK1));// Poll until FLL is locked
-   \                     ??Software_Trim_3:
+    107            while (CSCTL7 & (FLLUNLOCK0 | FLLUNLOCK1));// Poll until FLL is locked
+   \                     ??software_trim_3:
    \   0000CE   B2B000038E01 BIT.W   #0x300, &0x18e
-   \   0000D4   FC23         JNE     ??Software_Trim_3
-    123          }
+   \   0000D4   FC23         JNE     ??software_trim_3
+    108          }
    \   0000D6   7417         POPM.W  #0x8, R11
    \   0000D8   1001         RETA
    \   0000DA                REQUIRE _A_CSCTL0_L
    \   0000DA                REQUIRE _A_CSCTL7_L
    \   0000DA                REQUIRE _A_CSCTL1_L
-    124          
-    125          
+    109          
+    110          
 
    Maximum stack usage in bytes:
 
    CSTACK Function
    ------ --------
-      4   Init_Clocks
-        4   -> Software_Trim
-     22   Software_Trim
+      4   init_clocks
+        4   -> software_trim
+     22   software_trim
 
 
    Segment part sizes:
 
    Bytes  Function/Label
    -----  --------------
-     102  Init_Clocks
-     218  Software_Trim
        2  _A_CSCTL0_L
        2  _A_CSCTL1_L
        2  _A_CSCTL2_L
@@ -371,6 +354,8 @@ C:\Users\mwg22\Desktop\ECE-306_Code\Homework_03\clocks.c
        2  _A_PM5CTL0_L
        2  _A_SFRIFG1_L
        2  _A_WDTCTL_L
+     102  init_clocks
+     218  software_trim
 
  
  320 bytes in segment CODE

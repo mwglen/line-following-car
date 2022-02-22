@@ -1,0 +1,312 @@
+###############################################################################
+#
+# IAR C/C++ Compiler V7.21.1.1000/W32 for MSP430          18/Feb/2022  18:38:38
+# Copyright 1996-2021 IAR Systems AB.
+# PC-locked license - IAR Embedded Workbench for MSP430, 8K KickStart Edition 7.21
+#
+#    __rt_version  =  3
+#    __double_size =  32
+#    __reg_r4      =  free
+#    __reg_r5      =  free
+#    __pic         =  no
+#    __core        =  430X
+#    __data_model  =  small
+#    __code_model  =  large
+#    Source file   =  C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\switches.c
+#    Command line  =  
+#        -f C:\Users\mwg22\AppData\Local\Temp\EW80A9.tmp
+#        (C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\switches.c -lC
+#        C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Debug\List -o
+#        C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Debug\Obj --no_cse
+#        --no_unroll --no_inline --no_code_motion --no_tbaa --debug
+#        -D__MSP430FR2355__ -e --double=32 --dlib_config "C:\Program Files
+#        (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.h" -I
+#        ./ --core=430X --data_model=small -On --multiplier=32
+#        --hw_workaround=CPU40 --code_model=large)
+#    Locale        =  English_USA.1252
+#    List file     =  
+#        C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Debug\List\switches.lst
+#    Object file   =  
+#        C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Debug\Obj\switches.r43
+#
+###############################################################################
+
+C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\switches.c
+      1          #include "msp430.h"
+
+   \                                 In  segment DATA16_AN, at 0x200
+   \   union <unnamed> _A_PAIN_L
+   \                     _A_PAIN_L:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_AN, at 0x220
+   \   union <unnamed> _A_PBIN_L
+   \                     _A_PBIN_L:
+   \   000000                DS8 2
+      2          #include "primitives.h"
+      3          #include "switches.h"
+      4          #include "ports.h"
+      5          
+      6          // Check switches for presses
+
+   \                                 In  segment CODE, align 2
+      7          void switches_process(void){
+   \                     switches_process:
+      8            switch1_process();
+   \   000000   ........     CALLA   #switch1_process
+      9            switch2_process();
+   \   000004   ........     CALLA   #switch2_process
+     10          }
+   \   000008   1001         RETA
+     11          
+     12          // Globals
+
+   \                                 In  segment DATA16_Z, align 2, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+     13          int count_debounce_SW1 = 0;
+   \                     count_debounce_SW1:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_Z, align 2, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+     14          int count_debounce_SW2 = 0;
+   \                     count_debounce_SW2:
+   \   000000                DS8 2
+
+   \                                 In  segment DATA16_I, align 1, align-sorted
+   \   000000                REQUIRE ?cstart_init_copy
+     15          bool okay_to_look_at_switch1 = true;
+   \                     okay_to_look_at_switch1:
+   \   000000                DS8 1
+   \   000001                REQUIRE `?<Initializer for okay_to_look_at_switch1>`
+
+   \                                 In  segment DATA16_I, align 1, align-sorted
+   \   000000                REQUIRE ?cstart_init_copy
+     16          bool okay_to_look_at_switch2 = true;
+   \                     okay_to_look_at_switch2:
+   \   000000                DS8 1
+   \   000001                REQUIRE `?<Initializer for okay_to_look_at_switch2>`
+
+   \                                 In  segment DATA16_I, align 2, align-sorted
+   \   000000                REQUIRE ?cstart_init_copy
+     17          unsigned int sw1_position = RELEASED;
+   \                     sw1_position:
+   \   000000                DS8 2
+   \   000002                REQUIRE `?<Initializer for sw1_position>`
+
+   \                                 In  segment DATA16_I, align 2, align-sorted
+   \   000000                REQUIRE ?cstart_init_copy
+     18          unsigned int sw2_position = RELEASED;
+   \                     sw2_position:
+   \   000000                DS8 2
+   \   000002                REQUIRE `?<Initializer for sw2_position>`
+     19          
+     20          
+     21          // Switch 1 Configuration
+
+   \                                 In  segment DATA16_Z, align 1, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+     22          bool SW1_PRESSED = false;
+   \                     SW1_PRESSED:
+   \   000000                DS8 1
+
+   \                                 In  segment CODE, align 2
+     23          void switch1_process(void){
+   \                     switch1_process:
+     24            if (okay_to_look_at_switch1 && sw1_position){
+   \   000000   C293....     CMP.B   #0x0, &okay_to_look_at_switch1
+   \   000004   0E24         JEQ     ??switch1_process_0
+   \   000006   8293....     CMP.W   #0x0, &sw1_position
+   \   00000A   0B24         JEQ     ??switch1_process_0
+     25              if (!(P4IN & SW1)){
+   \   00000C   E2B32102     BIT.B   #0x2, &0x221
+   \   000010   082C         JC      ??switch1_process_0
+     26                sw1_position = PRESSED;
+   \   000012   8243....     MOV.W   #0x0, &sw1_position
+     27                okay_to_look_at_switch1 = false;
+   \   000016   C243....     MOV.B   #0x0, &okay_to_look_at_switch1
+     28                count_debounce_SW1 = DEBOUNCE_RESTART;
+   \   00001A   8243....     MOV.W   #0x0, &count_debounce_SW1
+     29                // do what you want with button press
+     30                SW1_PRESSED = true;
+   \   00001E   D243....     MOV.B   #0x1, &SW1_PRESSED
+     31              }
+     32            }
+     33            if (count_debounce_SW1 <= DEBOUNCE_TIME){
+   \                     ??switch1_process_0:
+   \   000022   B2901127.... CMP.W   #0x2711, &count_debounce_SW1
+   \   000028   0334         JGE     ??switch1_process_1
+     34              count_debounce_SW1++;
+   \   00002A   9253....     ADD.W   #0x1, &count_debounce_SW1
+   \   00002E   1001         RETA
+     35            } else {
+     36              okay_to_look_at_switch1 = true;
+   \                     ??switch1_process_1:
+   \   000030   D243....     MOV.B   #0x1, &okay_to_look_at_switch1
+     37                if (P4IN & SW1){
+   \   000034   E2B32102     BIT.B   #0x2, &0x221
+   \   000038   0228         JNC     ??switch1_process_2
+     38                sw1_position = RELEASED;
+   \   00003A   9243....     MOV.W   #0x1, &sw1_position
+     39              }
+     40            }
+     41          }
+   \                     ??switch1_process_2:
+   \   00003E   1001         RETA
+   \   000040                REQUIRE _A_PBIN_L
+     42          
+     43          // Switch 2 Configuration
+
+   \                                 In  segment DATA16_Z, align 1, align-sorted
+   \   000000                REQUIRE ?cstart_init_zero
+     44          bool SW2_PRESSED = false;
+   \                     SW2_PRESSED:
+   \   000000                DS8 1
+
+   \                                 In  segment CODE, align 2
+     45          void switch2_process(void){
+   \                     switch2_process:
+     46            if (okay_to_look_at_switch2 && sw2_position){
+   \   000000   C293....     CMP.B   #0x0, &okay_to_look_at_switch2
+   \   000004   0E24         JEQ     ??switch2_process_0
+   \   000006   8293....     CMP.W   #0x0, &sw2_position
+   \   00000A   0B24         JEQ     ??switch2_process_0
+     47              if (!(P2IN & SW2)){
+   \   00000C   F2B20102     BIT.B   #0x8, &0x201
+   \   000010   082C         JC      ??switch2_process_0
+     48                sw2_position = PRESSED;
+   \   000012   8243....     MOV.W   #0x0, &sw2_position
+     49                okay_to_look_at_switch2 = false;
+   \   000016   C243....     MOV.B   #0x0, &okay_to_look_at_switch2
+     50                count_debounce_SW2 = DEBOUNCE_RESTART;
+   \   00001A   8243....     MOV.W   #0x0, &count_debounce_SW2
+     51                // do what you want with button press
+     52                SW2_PRESSED = true;
+   \   00001E   D243....     MOV.B   #0x1, &SW2_PRESSED
+     53              }
+     54            }
+     55            if (count_debounce_SW2 <= DEBOUNCE_TIME){
+   \                     ??switch2_process_0:
+   \   000022   B2901127.... CMP.W   #0x2711, &count_debounce_SW2
+   \   000028   0334         JGE     ??switch2_process_1
+     56              count_debounce_SW2++;
+   \   00002A   9253....     ADD.W   #0x1, &count_debounce_SW2
+   \   00002E   1001         RETA
+     57            } else {
+     58              okay_to_look_at_switch2 = true;
+   \                     ??switch2_process_1:
+   \   000030   D243....     MOV.B   #0x1, &okay_to_look_at_switch2
+     59              if (P2IN & SW2){
+   \   000034   F2B20102     BIT.B   #0x8, &0x201
+   \   000038   0228         JNC     ??switch2_process_2
+     60                sw2_position = RELEASED;
+   \   00003A   9243....     MOV.W   #0x1, &sw2_position
+     61              }
+     62            }
+     63          }
+   \                     ??switch2_process_2:
+   \   00003E   1001         RETA
+   \   000040                REQUIRE _A_PAIN_L
+     64          
+
+   \                                 In  segment CODE, align 2
+     65          bool get_sw1(void) {
+   \                     get_sw1:
+     66            if (SW1_PRESSED) {
+   \   000000   C293....     CMP.B   #0x0, &SW1_PRESSED
+   \   000004   0424         JEQ     ??get_sw1_0
+     67              SW1_PRESSED = false;
+   \   000006   C243....     MOV.B   #0x0, &SW1_PRESSED
+     68              return true;
+   \   00000A   5C43         MOV.B   #0x1, R12
+   \   00000C   1001         RETA
+     69            } else return false;
+   \                     ??get_sw1_0:
+   \   00000E   4C43         MOV.B   #0x0, R12
+   \   000010   1001         RETA
+     70          }
+     71          
+
+   \                                 In  segment CODE, align 2
+     72          bool get_sw2(void) {
+   \                     get_sw2:
+     73            if (SW2_PRESSED) {
+   \   000000   C293....     CMP.B   #0x0, &SW2_PRESSED
+   \   000004   0424         JEQ     ??get_sw2_0
+     74              SW2_PRESSED = false;
+   \   000006   C243....     MOV.B   #0x0, &SW2_PRESSED
+     75              return true;
+   \   00000A   5C43         MOV.B   #0x1, R12
+   \   00000C   1001         RETA
+     76            } else return false;
+   \                     ??get_sw2_0:
+   \   00000E   4C43         MOV.B   #0x0, R12
+   \   000010   1001         RETA
+     77          }
+
+   \                                 In  segment DATA16_ID, align 1, align-sorted
+   \                     `?<Initializer for okay_to_look_at_switch1>`:
+   \   000000   01           DC8 1
+
+   \                                 In  segment DATA16_ID, align 1, align-sorted
+   \                     `?<Initializer for okay_to_look_at_switch2>`:
+   \   000000   01           DC8 1
+
+   \                                 In  segment DATA16_ID, align 2, align-sorted
+   \                     `?<Initializer for sw1_position>`:
+   \   000000   0100         DC16 1
+
+   \                                 In  segment DATA16_ID, align 2, align-sorted
+   \                     `?<Initializer for sw2_position>`:
+   \   000000   0100         DC16 1
+
+   Maximum stack usage in bytes:
+
+   CSTACK Function
+   ------ --------
+      4   get_sw1
+      4   get_sw2
+      4   switch1_process
+      4   switch2_process
+      4   switches_process
+        4   -> switch1_process
+        4   -> switch2_process
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       1  ?<Initializer for okay_to_look_at_switch1>
+       1  ?<Initializer for okay_to_look_at_switch2>
+       2  ?<Initializer for sw1_position>
+       2  ?<Initializer for sw2_position>
+       1  SW1_PRESSED
+       1  SW2_PRESSED
+       2  _A_PAIN_L
+       2  _A_PBIN_L
+       2  count_debounce_SW1
+       2  count_debounce_SW2
+      18  get_sw1
+      18  get_sw2
+       1  okay_to_look_at_switch1
+       1  okay_to_look_at_switch2
+       2  sw1_position
+       2  sw2_position
+      64  switch1_process
+      64  switch2_process
+      10  switches_process
+
+ 
+ 174 bytes in segment CODE
+   4 bytes in segment DATA16_AN
+   6 bytes in segment DATA16_I
+   6 bytes in segment DATA16_ID
+   6 bytes in segment DATA16_Z
+ 
+ 174 bytes of CODE  memory
+   6 bytes of CONST memory
+  12 bytes of DATA  memory (+ 4 bytes shared)
+
+Errors: none
+Warnings: none

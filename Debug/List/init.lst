@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR C/C++ Compiler V7.21.1.1000/W32 for MSP430          07/Feb/2022  11:00:39
+# IAR C/C++ Compiler V7.21.1.1000/W32 for MSP430          18/Feb/2022  17:29:37
 # Copyright 1996-2021 IAR Systems AB.
 # PC-locked license - IAR Embedded Workbench for MSP430, 8K KickStart Edition 7.21
 #
@@ -12,101 +12,91 @@
 #    __core        =  430X
 #    __data_model  =  small
 #    __code_model  =  large
-#    Source file   =  C:\Users\mwg22\Desktop\ECE-306_Code\Homework_03\init.c
+#    Source file   =  C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\init.c
 #    Command line  =  
-#        -f C:\Users\mwg22\AppData\Local\Temp\EWE650.tmp
-#        (C:\Users\mwg22\Desktop\ECE-306_Code\Homework_03\init.c -lC
-#        C:\Users\mwg22\Desktop\ECE-306_Code\Homework_03\Debug\List -o
-#        C:\Users\mwg22\Desktop\ECE-306_Code\Homework_03\Debug\Obj --no_cse
+#        -f C:\Users\mwg22\AppData\Local\Temp\EW5371.tmp
+#        (C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\init.c -lC
+#        C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Debug\List -o
+#        C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Debug\Obj --no_cse
 #        --no_unroll --no_inline --no_code_motion --no_tbaa --debug
 #        -D__MSP430FR2355__ -e --double=32 --dlib_config "C:\Program Files
-#        (x86)\IAR Systems\Embedded Workbench 8.5_2\430\lib\dlib\dl430xlsfn.h"
-#        -I ./ --core=430X --data_model=small -On --multiplier=32
+#        (x86)\IAR Systems\Embedded Workbench 8.5\430\lib\dlib\dl430xlsfn.h" -I
+#        ./ --core=430X --data_model=small -On --multiplier=32
 #        --hw_workaround=CPU40 --code_model=large)
 #    Locale        =  English_USA.1252
 #    List file     =  
-#        C:\Users\mwg22\Desktop\ECE-306_Code\Homework_03\Debug\List\init.lst
+#        C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Debug\List\init.lst
 #    Object file   =  
-#        C:\Users\mwg22\Desktop\ECE-306_Code\Homework_03\Debug\Obj\init.r43
+#        C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\Debug\Obj\init.r43
 #
 ###############################################################################
 
-C:\Users\mwg22\Desktop\ECE-306_Code\Homework_03\init.c
-      1          //******************************************************************************
-      2          //
-      3          //  Description: This file contains Initialization Functions
-      4          //
-      5          //  Matthew Glen
-      6          //  Feb 2022
-      7          //  Built with IAR Embedded Workbench Version: V4.10A/W32 (5.40.1)
-      8          //******************************************************************************
-      9          
-     10          #include "macros.h"
-     11          #include "msp430.h"
-     12          #include "functions.h"
-     13          
-     14          //------------------------------------------------------------------------------
-     15          //
-     16          // Description: This function starts initialization process
-     17          //
-     18          //------------------------------------------------------------------------------
+C:\Users\mwg22\OneDrive\Desktop\ECE306-Project\init.c
+      1          /// Includes
+      2          #include "primitives.h"
+      3          #include "msp430.h"
+      4          #include "init.h"
+      5          #include "system.h"
+      6          #include "display.h"
+      7          
+      8          /// Functions
 
    \                                 In  segment CODE, align 2
-     19          void Init_Conditions(void){
-   \                     Init_Conditions:
+      9          void init_conditions(void){
+   \                     init_conditions:
    \   000000   0A12         PUSH.W  R10
-     20          
-     21            int i;
-     22            for(i=0;i<11;i++){
+     10          
+     11            int i;
+     12            for(i=0;i<11;i++){
    \   000002   0A43         MOV.W   #0x0, R10
-   \                     ??Init_Conditions_0:
+   \                     ??init_conditions_0:
    \   000004   3A900B00     CMP.W   #0xb, R10
-   \   000008   0A34         JGE     ??Init_Conditions_1
-     23              display_line[0][i] = RESET_STATE;
+   \   000008   0A34         JGE     ??init_conditions_1
+     13              display_line[0][i] = RESET_STATE;
    \   00000A   CA43....     MOV.B   #0x0, display_line(R10)
-     24              display_line[1][i] = RESET_STATE;
+     14              display_line[1][i] = RESET_STATE;
    \   00000E   CA43....     MOV.B   #0x0, display_line + 11(R10)
-     25              display_line[2][i] = RESET_STATE;
+     15              display_line[2][i] = RESET_STATE;
    \   000012   CA43....     MOV.B   #0x0, display_line + 22(R10)
-     26              display_line[3][i] = RESET_STATE;
+     16              display_line[3][i] = RESET_STATE;
    \   000016   CA43....     MOV.B   #0x0, display_line + 33(R10)
-     27            }
+     17            }
    \   00001A   1A53         ADD.W   #0x1, R10
-   \   00001C   F33F         JMP     ??Init_Conditions_0
-     28            display_line[0][10] = 0;
-   \                     ??Init_Conditions_1:
+   \   00001C   F33F         JMP     ??init_conditions_0
+     18            display_line[0][10] = 0;
+   \                     ??init_conditions_1:
    \   00001E   C243....     MOV.B   #0x0, &display_line + 10
-     29            display_line[1][10] = 0;
+     19            display_line[1][10] = 0;
    \   000022   C243....     MOV.B   #0x0, &display_line + 21
-     30            display_line[2][10] = 0;
+     20            display_line[2][10] = 0;
    \   000026   C243....     MOV.B   #0x0, &display_line + 32
-     31            display_line[3][10] = 0;
+     21            display_line[3][10] = 0;
    \   00002A   C243....     MOV.B   #0x0, &display_line + 43
-     32          
-     33            display[0] = &display_line[0][0];
+     22          
+     23            display[0] = &display_line[0][0];
    \   00002E   B240........ MOV.W   #display_line, &display
-     34            display[1] = &display_line[1][0];
+     24            display[1] = &display_line[1][0];
    \   000034   B240........ MOV.W   #display_line + 11, &display + 2
-     35            display[2] = &display_line[2][0];
+     25            display[2] = &display_line[2][0];
    \   00003A   B240........ MOV.W   #display_line + 22, &display + 4
-     36            display[3] = &display_line[3][0];
+     26            display[3] = &display_line[3][0];
    \   000040   B240........ MOV.W   #display_line + 33, &display + 6
-     37            update_display = 0;
-   \   000046   C243....     MOV.B   #0x0, &update_display
-     38          
-     39          // Interrupts are disabled by default, enable them.
-     40            enable_interrupts();
+     27            display_changed = 1; 
+   \   000046   D243....     MOV.B   #0x1, &display_changed
+     28          
+     29            // Interrupts are disabled by default, enable them.
+     30            enable_interrupts();
    \   00004A   ........     CALLA   #enable_interrupts
-     41          }
+     31          }
    \   00004E   3A41         POP.W   R10
    \   000050   1001         RETA
-     42          
+     32          
 
    Maximum stack usage in bytes:
 
    CSTACK Function
    ------ --------
-      6   Init_Conditions
+      6   init_conditions
         6   -> enable_interrupts
 
 
@@ -114,7 +104,7 @@ C:\Users\mwg22\Desktop\ECE-306_Code\Homework_03\init.c
 
    Bytes  Function/Label
    -----  --------------
-      82  Init_Conditions
+      82  init_conditions
 
  
  82 bytes in segment CODE
