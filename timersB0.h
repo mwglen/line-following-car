@@ -1,6 +1,5 @@
 /// Functions
-void Init_Timer_B0(void);
-
+void init_timer_B0(void);
 
 /// Defines
 #define TB0CCR0_INTERVAL (25000) // 8,000,000 / 2 / 8 / (1 / 50msec)

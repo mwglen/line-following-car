@@ -6,13 +6,7 @@ void program_start(void);
 typedef enum {
   STARTUP       = 0,
   MAIN_MENU     = 1,
-<<<<<<< Updated upstream
-  DRAW_CIRCLE   = 2,
-  DRAW_TRIANGLE = 3,
-  DRAW_FIGURE8  = 4,
-=======
   PROJECT5      = 2,
->>>>>>> Stashed changes
 } Event;
 
 // Project 5

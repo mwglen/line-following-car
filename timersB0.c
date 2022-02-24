@@ -4,7 +4,7 @@
 #include "wheels.h"
 
 /// Functions
-void Init_Timer_B0(void) {
+void init_timer_B0(void) {
   TB0CTL = TBSSEL__SMCLK; // SMCLK source
   TB0CTL |= TBCLR; // Resets TB0R, clock divider, count direction
   TB0CTL |= MC__CONTINOUS; // Continuous up
@@ -22,8 +22,6 @@ void Init_Timer_B0(void) {
   
   TB0CTL &= ~TBIE; // Disable Overflow Interrupt
   TB0CTL &= ~TBIFG; // Clear Overflow Interrupt flag
-<<<<<<< Updated upstream:timers.c
-=======
 }
 
 #pragma vector = TIMER0_B0_VECTOR
@@ -53,5 +51,4 @@ __interrupt void TIMER0_B1_ISR(void){
       
     default: break;
   }
->>>>>>> Stashed changes:timersB0.c
 }

@@ -7,6 +7,7 @@
 #include "switches.h"
 #include "wheels.h"
 #include "init.h"
+#include "timersB0.h"
 
 /// Global Variables
 volatile char slow_input_down;
@@ -31,18 +32,8 @@ void main(void){
   Init_LCD();                          // Initialize LCD
   init_display();
   init_wheels();
+  init_timer_B0();
 
-<<<<<<< Updated upstream
-  while(ALWAYS) {
-    // Update Clock
-    if (Time_Sequence != OLD_TIME_SEQUENCE) {
-      OLD_TIME_SEQUENCE = Time_Sequence;
-      program_start();
-    }
-    drive_car();
-    
-    switches_process();                // Check for switch state change
-=======
   while(true) {
     // Run Program
     fwd_left();
@@ -55,8 +46,7 @@ void main(void){
       P1OUT &= ~RED_LED;   // Turn on Red LED
       while (true) {}      // Halt Program
     }
-
->>>>>>> Stashed changes
+    
     display_process();                 // Update Display
     P3OUT ^= TEST_PROBE;               // Change State of TEST_PROBE OFF
   }
