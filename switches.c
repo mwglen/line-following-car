@@ -3,12 +3,6 @@
 #include "switches.h"
 #include "ports.h"
 
-// Check switches for presses
-void switches_process(void){
-  switch1_process();
-  switch2_process();
-}
-
 // Globals
 int count_debounce_SW1 = 0;
 int count_debounce_SW2 = 0;
@@ -20,16 +14,27 @@ unsigned int sw2_position = RELEASED;
 
 // Switch 1 Configuration
 bool SW1_PRESSED = false;
-void switch1_process(void){
-  if (okay_to_look_at_switch1 && sw1_position){
-    if (!(P4IN & SW1)){
-      sw1_position = PRESSED;
-      okay_to_look_at_switch1 = false;
-      count_debounce_SW1 = DEBOUNCE_RESTART;
-      // do what you want with button press
-      SW1_PRESSED = true;
+#pragma vector=PORT4_VECTOR
+__interrupt void switch1_interrupt(void){
+  // Handle Interrupt 
+  if (P4IFG & SW1) {
+    
+    P4IFG &= ~SW1; // Clear switch 1 flag
+    
+    // Check if  switch is pressed
+    if (okay_to_look_at_switch1 && sw1_position){
+      if (!(P4IN & SW1)){
+        sw1_position = PRESSED;
+        okay_to_look_at_switch1 = false;
+        count_debounce_SW1 = DEBOUNCE_RESTART;
+        
+        // Tell system that switch was pressed
+        SW1_PRESSED = true;
+      }
     }
   }
+  
+  // Handle Debounce
   if (count_debounce_SW1 <= DEBOUNCE_TIME){
     count_debounce_SW1++;
   } else {
@@ -42,16 +47,26 @@ void switch1_process(void){
 
 // Switch 2 Configuration
 bool SW2_PRESSED = false;
-void switch2_process(void){
-  if (okay_to_look_at_switch2 && sw2_position){
-    if (!(P2IN & SW2)){
-      sw2_position = PRESSED;
-      okay_to_look_at_switch2 = false;
-      count_debounce_SW2 = DEBOUNCE_RESTART;
-      // do what you want with button press
-      SW2_PRESSED = true;
+#pragma vector=PORT2_VECTOR
+__interrupt void switchP2_interrupt(void){
+  // Handle Interrupt 
+  if (P4IFG & SW1) {
+    P4IFG &= ~SW1;
+    
+    // Check if  switch is pressed
+    if (okay_to_look_at_switch2 && sw2_position){
+      if (!(P2IN & SW2)){
+        sw2_position = PRESSED;
+        okay_to_look_at_switch2 = false;
+        count_debounce_SW2 = DEBOUNCE_RESTART;
+        
+        // Tell system that switch was pressed
+        SW2_PRESSED = true;
+      }
     }
   }
+  
+  // Handle Debounce
   if (count_debounce_SW2 <= DEBOUNCE_TIME){
     count_debounce_SW2++;
   } else {

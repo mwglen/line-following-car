@@ -12,23 +12,8 @@ unsigned int STARTUP_TIME = 0;
 Event CURR_EVENT = STARTUP;
 Event CURR_SELECTION = MAIN_MENU;
 
-// Circle
-unsigned int CIR_TIME = 0;
-
-// Triangle
-TriangleState TRI_STATE = 0;
-unsigned int TRI_TIME = 0;
-unsigned int TRI_NUM = 0;
-
-// Figure 8
-Figure8State FIG8_STATE = 0;
-unsigned int FIG8_TIME = 0;
-unsigned int FIG8_NUM = 0;
-
-const unsigned int CIR_ROT_TIME = 3800;
-const unsigned int TRI_SIDE_TIME = 300;
-const unsigned int TRI_ROT_TIME45 = 150;
-const unsigned int FIG8_ROT_TIME = 800;
+// Project 5
+Project5State PROJECT5_STATE = STEP0;
 
 /// Functions
 // start the main program
@@ -48,19 +33,20 @@ void program_start(void) {
       break;
       
     case MAIN_MENU:
-      set_wheels_dir(0, 0);
+      stop_wheels();
       switch (CURR_SELECTION) {
         case MAIN_MENU:
           if (get_sw2()) {
-            CURR_SELECTION = DRAW_CIRCLE;
+            CURR_SELECTION = PROJECT5;
             strcpy(display_line[0], "MAIN  MENU");
             strcpy(display_line[1], "----------");
-            strcpy(display_line[2], "   DRAW   ");
-            strcpy(display_line[3], "  CIRCLE  ");
+            strcpy(display_line[2], " COMPLETE ");
+            strcpy(display_line[3], " PROJECT5 ");
             display_changed = TRUE;  
           } else get_sw1();
           break;
           
+<<<<<<< Updated upstream
         case DRAW_CIRCLE:
           if (get_sw2()) {
             CURR_SELECTION = DRAW_TRIANGLE;
@@ -227,5 +213,83 @@ void program_start(void) {
           break;
       }
       break;
+=======
+        case PROJECT5:
+          if (get_sw2()) {
+            CURR_SELECTION = PROJECT5;
+            strcpy(display_line[0], "MAIN  MENU");
+            strcpy(display_line[1], "----------");
+            strcpy(display_line[2], " COMPLETE ");
+            strcpy(display_line[3], " PROJECT5 ");
+            display_changed = TRUE; 
+          } else if (get_sw1()) {
+            CURR_EVENT = PROJECT5;
+            strcpy(display_line[0], "          ");
+            strcpy(display_line[1], "PREFORMING");
+            strcpy(display_line[2], " PROJECT5 ");
+            strcpy(display_line[3], "          ");
+            display_changed = TRUE;  
+          } break;
+      } break;
+      
+  case PROJECT5:
+    switch (PROJECT5_STATE) {
+      // Travel forwards 1 sec
+      case STEP0:
+        fwd_left();
+        fwd_right();
+        break;
+        
+      // Pause 1 sec
+      case STEP1:
+        stop_wheels();
+        break;
+      
+      // Travel reverse 2 sec
+      case STEP2:
+        bwd_left();
+        bwd_right();
+        break;
+        
+      // Pause 1 sec
+      case STEP3:
+        stop_wheels();
+        break;
+      
+      // Travel forwards 1 sec
+      case STEP4:
+        fwd_left();
+        fwd_right();
+        break;
+        
+      // Pause 1 sec
+      case STEP5:
+        stop_wheels();
+        break;
+        
+      // Spin CW for 3 secs
+      case STEP6:
+        fwd_left();
+        bwd_right();
+        break;
+        
+      // Pause 2 secs
+      case STEP7:
+        stop_wheels();
+        break;
+        
+      // Spin CCW for 3 secs
+      case STEP8:
+        bwd_left();
+        fwd_right();
+        break;
+        
+      // Pause 2 secs
+      case STEP9:
+        stop_wheels();
+        break;
+    }
+    break;
+>>>>>>> Stashed changes
   }
 }
