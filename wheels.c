@@ -44,7 +44,7 @@ void set_wheels(
 
 // Movement Functions for Project 5
 void stop_wheels()  { set_wheels(0, 0, 0, 0); }
-void fwd_left() { LEFT_FORWARD_SPEED = WHEEL_PERIOD/2; }
+void fwd_left() { LEFT_FORWARD_SPEED = WHEEL_PERIOD/4; }
 void bwd_left() { LEFT_REVERSE_SPEED = WHEEL_PERIOD/2; }
-void fwd_right() { RIGHT_FORWARD_SPEED = WHEEL_PERIOD/2; }
+void fwd_right() { RIGHT_FORWARD_SPEED = WHEEL_PERIOD/4; }
 void bwd_right() { RIGHT_REVERSE_SPEED = WHEEL_PERIOD/2; }
