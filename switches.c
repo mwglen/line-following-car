@@ -3,45 +3,21 @@
 #include "switches.h"
 #include "ports.h"
 
-// Globals
-int count_debounce_SW1 = 0;
-int count_debounce_SW2 = 0;
-bool okay_to_look_at_switch1 = true;
-bool okay_to_look_at_switch2 = true;
-unsigned int sw1_position = RELEASED;
-unsigned int sw2_position = RELEASED;
-
-
 // Switch 1 Configuration
 bool SW1_PRESSED = false;
 #pragma vector=PORT4_VECTOR
 __interrupt void switch1_interrupt(void){
   // Handle Interrupt 
   if (P4IFG & SW1) {
+    P4IFG &= ~SW1;    // Clear Interrupt Flags
+    P2IFG &= ~SW2;    // Clear Interrupt Flags
+    P4IE &= ~SW1;     // P4.2 interrupt disabled
+    P2IE &= ~SW2;     // P4.2 interrupt disabled
+    TB0CCTL2 |= CCIE; // CCR3 enable interrupt
     
-    P4IFG &= ~SW1; // Clear switch 1 flag
-    
-    // Check if  switch is pressed
-    if (okay_to_look_at_switch1 && sw1_position){
-      if (!(P4IN & SW1)){
-        sw1_position = PRESSED;
-        okay_to_look_at_switch1 = false;
-        count_debounce_SW1 = DEBOUNCE_RESTART;
-        
-        // Tell system that switch was pressed
-        SW1_PRESSED = true;
-      }
-    }
-  }
-  
-  // Handle Debounce
-  if (count_debounce_SW1 <= DEBOUNCE_TIME){
-    count_debounce_SW1++;
-  } else {
-    okay_to_look_at_switch1 = true;
-      if (P4IN & SW1){
-      sw1_position = RELEASED;
-    }
+    // Tell system that switch was pressed
+    SW1_PRESSED = true;
+    P6OUT ^= GRN_LED;
   }
 }
 
@@ -50,30 +26,16 @@ bool SW2_PRESSED = false;
 #pragma vector=PORT2_VECTOR
 __interrupt void switchP2_interrupt(void){
   // Handle Interrupt 
-  if (P4IFG & SW1) {
-    P4IFG &= ~SW1;
+  if (P2IFG & SW2) {
+    P4IFG &= ~SW1;    // Clear Interrupt Flags
+    P2IFG &= ~SW2;    // Clear Interrupt Flags
+    P4IE &= ~SW1;     // P4.2 interrupt disabled
+    P2IE &= ~SW2;     // P4.2 interrupt disabled
+    TB0CCTL2 |= CCIE; // CCR3 enable interrupt
     
-    // Check if  switch is pressed
-    if (okay_to_look_at_switch2 && sw2_position){
-      if (!(P2IN & SW2)){
-        sw2_position = PRESSED;
-        okay_to_look_at_switch2 = false;
-        count_debounce_SW2 = DEBOUNCE_RESTART;
-        
-        // Tell system that switch was pressed
-        SW2_PRESSED = true;
-      }
-    }
-  }
-  
-  // Handle Debounce
-  if (count_debounce_SW2 <= DEBOUNCE_TIME){
-    count_debounce_SW2++;
-  } else {
-    okay_to_look_at_switch2 = true;
-    if (P2IN & SW2){
-      sw2_position = RELEASED;
-    }
+    // Tell program that switch was pressed
+    SW2_PRESSED = true;
+    P6OUT |= GRN_LED;
   }
 }
 

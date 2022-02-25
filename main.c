@@ -36,8 +36,7 @@ void main(void){
 
   while(true) {
     // Run Program
-    fwd_left();
-    fwd_right();
+    program_start();
     
     // Make sure that the wheels are safe to drive and then drive 
     if ((LEFT_FORWARD_SPEED && LEFT_REVERSE_SPEED)
