@@ -2,6 +2,8 @@
 #include "primitives.h"
 #include "switches.h"
 #include "ports.h"
+#include <string.h>
+#include "display.h"
 
 // Switch 1 Configuration
 bool SW1_PRESSED = false;
@@ -17,7 +19,6 @@ __interrupt void switch1_interrupt(void){
     
     // Tell system that switch was pressed
     SW1_PRESSED = true;
-    P6OUT ^= GRN_LED;
   }
 }
 
@@ -35,7 +36,6 @@ __interrupt void switchP2_interrupt(void){
     
     // Tell program that switch was pressed
     SW2_PRESSED = true;
-    P3OUT ^= LCD_BACKLITE;
   }
 }
 

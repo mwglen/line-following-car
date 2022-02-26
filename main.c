@@ -8,6 +8,7 @@
 #include "wheels.h"
 #include "init.h"
 #include "timersB0.h"
+#include "adc.h"
 
 /// Global Variables
 volatile char slow_input_down;
@@ -33,6 +34,7 @@ void main(void){
   init_display();
   init_wheels();
   init_timer_B0();
+  init_adc();
 
   while(true) {
     // Run Program
