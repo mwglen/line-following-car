@@ -139,14 +139,14 @@ void init_port3(char smclk) {
     // P3 PIN 4
     switch (smclk) {
       case USE_SMCLK:
-        P3SEL1 &= ~SMCLK_2355;          // SMCLK operation
-        P3SEL0 |=  SMCLK_2355;          // SMCLK operation
-        P3DIR  |=  SMCLK_2355;          // Direction must be High
+        P3SEL1 &= ~SMCLK_2355;      // SMCLK operation
+        P3SEL0 |=  SMCLK_2355;      // SMCLK operation
+        P3DIR  |=  SMCLK_2355;      // Direction must be High
         break;
       case USE_GPIO:
-        P3SEL1 &= ~SMCLK_2355;          // GPIO operation
-        P3SEL0 &= ~SMCLK_2355;          // GPIO operation
-        P3DIR  &= ~SMCLK_2355;          // Direction in
+        P3SEL1 &= ~SMCLK_2355;      // GPIO operation
+        P3SEL0 &= ~SMCLK_2355;      // GPIO operation
+        P3DIR  &= ~SMCLK_2355;      // Direction in
         break;
     }
     

@@ -35,7 +35,7 @@ __interrupt void switchP2_interrupt(void){
     
     // Tell program that switch was pressed
     SW2_PRESSED = true;
-    P6OUT |= GRN_LED;
+    P3OUT ^= LCD_BACKLITE;
   }
 }
 

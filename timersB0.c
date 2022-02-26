@@ -43,6 +43,8 @@ __interrupt void Timer0_B0_ISR(void){
   TB0CCR0 += TB0CCR0_INTERVAL; // Add Offset to TBCCR0
 }
 
+unsigned short int DEBOUNCE_COUNT = 0;
+
 #pragma vector=TIMER0_B1_VECTOR
 __interrupt void TIMER0_B1_ISR(void){
   switch(__even_in_range(TB0IV,14)){
@@ -55,13 +57,15 @@ __interrupt void TIMER0_B1_ISR(void){
       break;
     
     case 4: // Debounce Timer
-      // Add What you need happen in the interrupt
       TB0CCR2 += TB0CCR2_INTERVAL; // Add Offset to TBCCR2
-      TB0CCTL2 &= ~CCIE;            // CCR2 disable interrupt
-      P4IFG &= ~SW1;    // Clear Interrupt Flags
-      P2IFG &= ~SW2;    // Clear Interrupt Flags
-      P4IE |= SW1;                 // P4.2 interrupt enabled
-      P2IE |= SW2;                 // P4.2 interrupt enabled
+      if (DEBOUNCE_COUNT == 10) {
+        DEBOUNCE_COUNT = 0;
+        TB0CCTL2 &= ~CCIE;    // CCR2 disable interrupt
+        P4IFG &= ~SW1;        // Clear Interrupt Flags
+        P2IFG &= ~SW2;        // Clear Interrupt Flags
+        P4IE |= SW1;          // P4.2 interrupt enabled
+        P2IE |= SW2;          // P4.2 interrupt enabled
+      } else DEBOUNCE_COUNT++;
       break;
       
     case 14: // overflow
