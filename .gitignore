@@ -1,6 +1,6 @@
 Debug
-project.dep
 settings
-Debug/Obj/wheels.pbi.dep
-Debug/Obj/.ninja_log
-*.dep
+*.pbi
+*.r43
+*.xcl
+project.dep
