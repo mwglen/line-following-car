@@ -30,11 +30,12 @@ build ports.pbi : index ports.xcl
 build program.pbi : index program.xcl
 build switches.pbi : index switches.xcl
 build system.pbi : index system.xcl
+build timers.pbi : index timers.xcl
 build wheels.pbi : index wheels.xcl
 build project_part0.pbi : link clocks.pbi display.pbi init.pbi
 build project_part1.pbi : link interrupts.pbi led.pbi main.pbi
 build project_part2.pbi : link ports.pbi program.pbi switches.pbi
-build project_part3.pbi : link system.pbi wheels.pbi
+build project_part3.pbi : link system.pbi timers.pbi wheels.pbi
 build project.pbd : link project_part0.pbi project_part1.pbi project_part2.pbi project_part3.pbi
 build project.pbw : browsedata project.pbd
 

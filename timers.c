@@ -13,3 +13,31 @@ void Init_Timer_B0(void) {
   TB0CTL &= ~TBIE; // Disable Overflow Interrupt
   TB0CTL &= ~TBIFG; // Clear Overflow Interrupt flag
 }
+
+#pragma vector = TIMER0_B0_VECTOR
+__interrupt void Timer0_B0_ISR(void){
+  // Add What you need happen in the interrupt
+  TB0CCR0 += TB0CCR0_INTERVAL; // Add Offset to TBCCR0
+}
+#pragma vector=TIMER0_B1_VECTOR
+__interrupt void TIMER0_B1_ISR(void){
+  switch(__even_in_range(TB0IV,14)){
+    case 0: break; // No interrupt
+    
+    case 2: // CCR1 not used
+      // Add What you need happen in the interrupt
+      TB0CCR1 += TB0CCR1_INTERVAL; // Add Offset to TBCCR1
+      break;
+    
+    case 4: // CCR2 not used
+      // Add What you need happen in the interrupt
+      TB0CCR2 += TB0CCR2_INTERVAL; // Add Offset to TBCCR2
+      break;
+    
+    case 14: // overflow
+      // Add What you need happen in the interrup
+      break;
+      
+    default: break;
+  }
+}

@@ -76,8 +76,7 @@ void program_start(void) {
             strcpy(display_line[2], "  CIRCLE  ");
             strcpy(display_line[3], "          ");
             display_changed = TRUE;  
-          } 
-          break;
+          } break;
           
         case DRAW_TRIANGLE:
           if (get_sw2()) {
@@ -91,15 +90,14 @@ void program_start(void) {
             CURR_EVENT = DRAW_TRIANGLE;
             strcpy(display_line[0], "          ");
             strcpy(display_line[1], "  DRAWING ");
-            strcpy(display_line[2], " Triangle ");
+            strcpy(display_line[2], " TRIANGLE ");
             strcpy(display_line[3], "          ");
             display_changed = TRUE; 
-          }
-          break;
+          } break;
           
         case DRAW_FIGURE8:
           if (get_sw2()) {
-            CURR_SELECTION = DRAW_CIRCLE;
+            CURR_SELECTION = PROJECT5;
             strcpy(display_line[0], "MAIN  MENU");
             strcpy(display_line[1], "----------");
             strcpy(display_line[2], "   DRAW   ");
@@ -109,13 +107,28 @@ void program_start(void) {
             CURR_EVENT = DRAW_FIGURE8;
             strcpy(display_line[0], "          ");
             strcpy(display_line[1], "  DRAWING ");
-            strcpy(display_line[2], " Figure 8 ");
+            strcpy(display_line[2], " FIGURE 8 ");
             strcpy(display_line[3], "          ");
             display_changed = TRUE; 
-          }
-          break;
-      }
-      break;
+          } break;
+          
+        case PROJECT5:
+          if (get_sw2()) {
+            CURR_SELECTION = DRAW_CIRCLE;
+            strcpy(display_line[0], "MAIN  MENU");
+            strcpy(display_line[1], "----------");
+            strcpy(display_line[2], " COMPLETE ");
+            strcpy(display_line[3], " PROJECT5 ");
+            display_changed = TRUE; 
+          } else if (get_sw1()) {
+            CURR_EVENT = PROJECT5;
+            strcpy(display_line[0], "          ");
+            strcpy(display_line[1], "PREFORMING");
+            strcpy(display_line[2], " PROJECT5 ");
+            strcpy(display_line[3], "          ");
+            display_changed = TRUE;  
+          } break;
+      } break;
       
     case DRAW_CIRCLE:
       if (CIR_TIME >= CIR_ROT_TIME) {
@@ -124,8 +137,7 @@ void program_start(void) {
       } else {
         CIR_TIME++;
         set_wheels_dir(25, 100);
-      }
-      break;
+      } break;
       
     case DRAW_TRIANGLE:
       
@@ -137,8 +149,7 @@ void program_start(void) {
           } else {
             TRI_TIME++;
             set_wheels_dir(50, 50);
-          }
-          break;
+          } break;
           
         case ROTATE1:
           if (TRI_TIME >= TRI_ROT_TIME45*2) {
@@ -147,8 +158,7 @@ void program_start(void) {
           } else {
             TRI_TIME++;
             set_wheels_dir(100, 0);
-          }
-          break;
+          } break;
           
         case DRAW_SIDE2:
           if (TRI_TIME >= TRI_SIDE_TIME) {
@@ -157,8 +167,7 @@ void program_start(void) {
           } else {
             TRI_TIME++;
             set_wheels_dir(50, 50);
-          }
-          break;
+          } break;
           
         case ROTATE2:
           if (TRI_TIME >= TRI_ROT_TIME45*2) { 
@@ -167,8 +176,7 @@ void program_start(void) {
           } else {
             TRI_TIME++;
             set_wheels_dir(100, 0);
-          }
-          break;
+          } break;
           
         case DRAW_SIDE3:
           if (TRI_TIME >= TRI_SIDE_TIME * 1.414) {
@@ -194,11 +202,9 @@ void program_start(void) {
           } else {
             TRI_TIME++;
             set_wheels_dir(100, 0);
-          }
-          break;
+          } break;
           
-      }
-      break;
+      } break;
           
     case DRAW_FIGURE8:
       switch (FIG8_STATE) {
@@ -209,8 +215,8 @@ void program_start(void) {
           } else {
             FIG8_TIME++;
             set_wheels_dir(10, 100);
-          }
-          break;
+          } break;
+          
         case CIRCLE2: 
           if (FIG8_TIME >= FIG8_ROT_TIME) {
             FIG8_NUM++;
@@ -223,9 +229,20 @@ void program_start(void) {
           } else {
             FIG8_TIME++;
             set_wheels_dir(100, 10);
-          }
-          break;
-      }
-      break;
+          } break;
+      } break;
+      
+  case PROJECT5:
+    // Travel forwards 1 sec
+    // Pause 1 sec
+    // Travel reverse 2 sec
+    // Pause 1 sec
+    // Travel forwards 1 sec
+    // Pause 1 sec
+    // Spin CW for 3 secs
+    // Pause 2 secs
+    // Spin CCW for 3 secs
+    // Pause 2 secs
+    break;
   }
 }

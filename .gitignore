@@ -1,0 +1,6 @@
+Debug
+project.dep
+settings
+Debug/Obj/wheels.pbi.dep
+Debug/Obj/.ninja_log
+*.dep

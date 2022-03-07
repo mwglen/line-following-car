@@ -121872,6 +121872,132 @@
     "scope": null
   },
   {
+    "ID": "c:@slow_input_down",
+    "What": "Variable",
+    "defdec": "Dec",
+    "display": "slow_input_down",
+    "location": {
+      "column": "15",
+      "line": "13",
+      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\main.c"
+    },
+    "name": "slow_input_down",
+    "origin": "project_file",
+    "scope": null
+  },
+  {
+    "ID": "c:@test_value",
+    "What": "Variable",
+    "defdec": "Dec",
+    "display": "test_value",
+    "location": {
+      "column": "14",
+      "line": "14",
+      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\main.c"
+    },
+    "name": "test_value",
+    "origin": "project_file",
+    "scope": null
+  },
+  {
+    "ID": "c:@chosen_direction",
+    "What": "Variable",
+    "defdec": "Dec",
+    "display": "chosen_direction",
+    "location": {
+      "column": "6",
+      "line": "15",
+      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\main.c"
+    },
+    "name": "chosen_direction",
+    "origin": "project_file",
+    "scope": null
+  },
+  {
+    "ID": "c:@change",
+    "What": "Variable",
+    "defdec": "Dec",
+    "display": "change",
+    "location": {
+      "column": "6",
+      "line": "16",
+      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\main.c"
+    },
+    "name": "change",
+    "origin": "project_file",
+    "scope": null
+  },
+  {
+    "ID": "c:@OLD_TIME_SEQUENCE",
+    "What": "Variable",
+    "defdec": "Def",
+    "display": "OLD_TIME_SEQUENCE",
+    "location": {
+      "column": "14",
+      "line": "17",
+      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\main.c"
+    },
+    "name": "OLD_TIME_SEQUENCE",
+    "origin": "project_file",
+    "scope": null
+  },
+  {
+    "ID": "c:@Time_Sequence",
+    "What": "Variable",
+    "defdec": "Dec",
+    "display": "Time_Sequence",
+    "location": {
+      "column": "30",
+      "line": "18",
+      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\main.c"
+    },
+    "name": "Time_Sequence",
+    "origin": "project_file",
+    "scope": null
+  },
+  {
+    "ID": "c:@F@Init_Timers",
+    "What": "Function",
+    "defdec": "Dec",
+    "display": "void Init_Timers(void)",
+    "location": {
+      "column": "6",
+      "line": "21",
+      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\main.c"
+    },
+    "name": "Init_Timers",
+    "origin": "project_file",
+    "scope": null
+  },
+  {
+    "ID": "c:@F@Init_LCD",
+    "What": "Function",
+    "defdec": "Dec",
+    "display": "void Init_LCD(void)",
+    "location": {
+      "column": "6",
+      "line": "22",
+      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\main.c"
+    },
+    "name": "Init_LCD",
+    "origin": "project_file",
+    "scope": null
+  },
+  {
+    "ID": "c:@F@main",
+    "What": "Function",
+    "defdec": "Def",
+    "display": "void main(void)",
+    "location": {
+      "column": "6",
+      "line": "26",
+      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\main.c"
+    },
+    "name": "main",
+    "origin": "project_file",
+    "scope": null
+  },
+  {
     "ID": "c:@F@init_ports",
     "What": "Function",
     "defdec": "Dec",
@@ -122726,129 +122852,199 @@
     "scope": null
   },
   {
-    "ID": "c:@slow_input_down",
-    "What": "Variable",
+    "ID": "c:@F@run",
+    "What": "Function",
     "defdec": "Dec",
-    "display": "slow_input_down",
+    "display": "void run(void)",
     "location": {
-      "column": "15",
-      "line": "12",
-      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\main.c"
+      "column": "6",
+      "line": "2",
+      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\wheels.h"
     },
-    "name": "slow_input_down",
-    "origin": "project_file",
+    "name": "run",
+    "origin": "user_include",
     "scope": null
   },
   {
-    "ID": "c:@test_value",
+    "ID": "c:@F@drive_car",
+    "What": "Function",
+    "defdec": "Dec",
+    "display": "void drive_car(void)",
+    "location": {
+      "column": "6",
+      "line": "3",
+      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\wheels.h"
+    },
+    "name": "drive_car",
+    "origin": "user_include",
+    "scope": null
+  },
+  {
+    "ID": "c:@F@drive_car",
+    "What": "Function",
+    "defdec": "Dec",
+    "display": "void drive_car(void)",
+    "location": {
+      "column": "6",
+      "line": "3",
+      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\wheels.h"
+    },
+    "name": "drive_car",
+    "origin": "user_include",
+    "scope": null
+  },
+  {
+    "ID": "c:@F@set_wheels_dir",
+    "What": "Function",
+    "defdec": "Dec",
+    "display": "void set_wheels_dir(unsigned int, unsigned int)",
+    "location": {
+      "column": "6",
+      "line": "4",
+      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\wheels.h"
+    },
+    "name": "set_wheels_dir",
+    "origin": "user_include",
+    "scope": null
+  },
+  {
+    "ID": "c:@F@set_wheels_dir",
+    "What": "Function",
+    "defdec": "Dec",
+    "display": "void set_wheels_dir(unsigned int, unsigned int)",
+    "location": {
+      "column": "6",
+      "line": "4",
+      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\wheels.h"
+    },
+    "name": "set_wheels_dir",
+    "origin": "user_include",
+    "scope": null
+  },
+  {
+    "ID": "c:@LEFT_TIME",
     "What": "Variable",
     "defdec": "Dec",
-    "display": "test_value",
+    "display": "LEFT_TIME",
     "location": {
-      "column": "14",
+      "column": "21",
+      "line": "7",
+      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\wheels.h"
+    },
+    "name": "LEFT_TIME",
+    "origin": "user_include",
+    "scope": null
+  },
+  {
+    "ID": "c:@LEFT_TIME",
+    "What": "Variable",
+    "defdec": "Dec",
+    "display": "LEFT_TIME",
+    "location": {
+      "column": "21",
+      "line": "7",
+      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\wheels.h"
+    },
+    "name": "LEFT_TIME",
+    "origin": "user_include",
+    "scope": null
+  },
+  {
+    "ID": "c:@RIGHT_TIME",
+    "What": "Variable",
+    "defdec": "Dec",
+    "display": "RIGHT_TIME",
+    "location": {
+      "column": "21",
+      "line": "8",
+      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\wheels.h"
+    },
+    "name": "RIGHT_TIME",
+    "origin": "user_include",
+    "scope": null
+  },
+  {
+    "ID": "c:@RIGHT_TIME",
+    "What": "Variable",
+    "defdec": "Dec",
+    "display": "RIGHT_TIME",
+    "location": {
+      "column": "21",
+      "line": "8",
+      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\wheels.h"
+    },
+    "name": "RIGHT_TIME",
+    "origin": "user_include",
+    "scope": null
+  },
+  {
+    "ID": "c:@LEFT_WHEEL_POWER",
+    "What": "Variable",
+    "defdec": "Dec",
+    "display": "LEFT_WHEEL_POWER",
+    "location": {
+      "column": "21",
+      "line": "9",
+      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\wheels.h"
+    },
+    "name": "LEFT_WHEEL_POWER",
+    "origin": "user_include",
+    "scope": null
+  },
+  {
+    "ID": "c:@LEFT_WHEEL_POWER",
+    "What": "Variable",
+    "defdec": "Dec",
+    "display": "LEFT_WHEEL_POWER",
+    "location": {
+      "column": "21",
+      "line": "9",
+      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\wheels.h"
+    },
+    "name": "LEFT_WHEEL_POWER",
+    "origin": "user_include",
+    "scope": null
+  },
+  {
+    "ID": "c:@RIGHT_WHEEL_PWOER",
+    "What": "Variable",
+    "defdec": "Dec",
+    "display": "RIGHT_WHEEL_PWOER",
+    "location": {
+      "column": "21",
+      "line": "10",
+      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\wheels.h"
+    },
+    "name": "RIGHT_WHEEL_PWOER",
+    "origin": "user_include",
+    "scope": null
+  },
+  {
+    "ID": "c:@MAX_POWER",
+    "What": "Variable",
+    "defdec": "Dec",
+    "display": "MAX_POWER",
+    "location": {
+      "column": "27",
       "line": "13",
-      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\main.c"
+      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\wheels.h"
     },
-    "name": "test_value",
-    "origin": "project_file",
+    "name": "MAX_POWER",
+    "origin": "user_include",
     "scope": null
   },
   {
-    "ID": "c:@chosen_direction",
+    "ID": "c:@MAX_POWER",
     "What": "Variable",
     "defdec": "Dec",
-    "display": "chosen_direction",
+    "display": "MAX_POWER",
     "location": {
-      "column": "6",
-      "line": "14",
-      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\main.c"
+      "column": "27",
+      "line": "13",
+      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\wheels.h"
     },
-    "name": "chosen_direction",
-    "origin": "project_file",
-    "scope": null
-  },
-  {
-    "ID": "c:@change",
-    "What": "Variable",
-    "defdec": "Dec",
-    "display": "change",
-    "location": {
-      "column": "6",
-      "line": "15",
-      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\main.c"
-    },
-    "name": "change",
-    "origin": "project_file",
-    "scope": null
-  },
-  {
-    "ID": "c:@OLD_TIME_SEQUENCE",
-    "What": "Variable",
-    "defdec": "Def",
-    "display": "OLD_TIME_SEQUENCE",
-    "location": {
-      "column": "14",
-      "line": "16",
-      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\main.c"
-    },
-    "name": "OLD_TIME_SEQUENCE",
-    "origin": "project_file",
-    "scope": null
-  },
-  {
-    "ID": "c:@Time_Sequence",
-    "What": "Variable",
-    "defdec": "Dec",
-    "display": "Time_Sequence",
-    "location": {
-      "column": "30",
-      "line": "17",
-      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\main.c"
-    },
-    "name": "Time_Sequence",
-    "origin": "project_file",
-    "scope": null
-  },
-  {
-    "ID": "c:@F@Init_Timers",
-    "What": "Function",
-    "defdec": "Dec",
-    "display": "void Init_Timers(void)",
-    "location": {
-      "column": "6",
-      "line": "20",
-      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\main.c"
-    },
-    "name": "Init_Timers",
-    "origin": "project_file",
-    "scope": null
-  },
-  {
-    "ID": "c:@F@Init_LCD",
-    "What": "Function",
-    "defdec": "Dec",
-    "display": "void Init_LCD(void)",
-    "location": {
-      "column": "6",
-      "line": "21",
-      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\main.c"
-    },
-    "name": "Init_LCD",
-    "origin": "project_file",
-    "scope": null
-  },
-  {
-    "ID": "c:@F@main",
-    "What": "Function",
-    "defdec": "Def",
-    "display": "void main(void)",
-    "location": {
-      "column": "6",
-      "line": "25",
-      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\main.c"
-    },
-    "name": "main",
-    "origin": "project_file",
+    "name": "MAX_POWER",
+    "origin": "user_include",
     "scope": null
   },
   {
@@ -123262,6 +123458,20 @@
         "name": "DRAW_FIGURE8",
         "origin": "user_include",
         "scope": null
+      },
+      {
+        "ID": "c:@EA@Event@PROJECT5",
+        "What": "Enumerator",
+        "defdec": "Def",
+        "display": "PROJECT5",
+        "location": {
+          "column": "3",
+          "line": "12",
+          "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\program.h"
+        },
+        "name": "PROJECT5",
+        "origin": "user_include",
+        "scope": null
       }
     ],
     "location": {
@@ -123280,7 +123490,7 @@
     "display": "enum Event",
     "location": {
       "column": "3",
-      "line": "12",
+      "line": "13",
       "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\program.h"
     },
     "name": "Event",
@@ -123300,7 +123510,7 @@
         "display": "DRAW_SIDE1",
         "location": {
           "column": "5",
-          "line": "16",
+          "line": "17",
           "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\program.h"
         },
         "name": "DRAW_SIDE1",
@@ -123314,7 +123524,7 @@
         "display": "ROTATE1",
         "location": {
           "column": "5",
-          "line": "17",
+          "line": "18",
           "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\program.h"
         },
         "name": "ROTATE1",
@@ -123328,7 +123538,7 @@
         "display": "DRAW_SIDE2",
         "location": {
           "column": "5",
-          "line": "18",
+          "line": "19",
           "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\program.h"
         },
         "name": "DRAW_SIDE2",
@@ -123342,7 +123552,7 @@
         "display": "ROTATE2",
         "location": {
           "column": "5",
-          "line": "19",
+          "line": "20",
           "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\program.h"
         },
         "name": "ROTATE2",
@@ -123356,17 +123566,31 @@
         "display": "DRAW_SIDE3",
         "location": {
           "column": "5",
-          "line": "20",
+          "line": "21",
           "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\program.h"
         },
         "name": "DRAW_SIDE3",
+        "origin": "user_include",
+        "scope": null
+      },
+      {
+        "ID": "c:@EA@TriangleState@ROTATE3",
+        "What": "Enumerator",
+        "defdec": "Def",
+        "display": "ROTATE3",
+        "location": {
+          "column": "5",
+          "line": "22",
+          "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\program.h"
+        },
+        "name": "ROTATE3",
         "origin": "user_include",
         "scope": null
       }
     ],
     "location": {
       "column": "9",
-      "line": "15",
+      "line": "16",
       "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\program.h"
     },
     "name": "",
@@ -123380,7 +123604,7 @@
     "display": "enum TriangleState",
     "location": {
       "column": "3",
-      "line": "21",
+      "line": "23",
       "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\program.h"
     },
     "name": "TriangleState",
@@ -123400,7 +123624,7 @@
         "display": "CIRCLE1",
         "location": {
           "column": "5",
-          "line": "25",
+          "line": "27",
           "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\program.h"
         },
         "name": "CIRCLE1",
@@ -123414,7 +123638,7 @@
         "display": "CIRCLE2",
         "location": {
           "column": "5",
-          "line": "26",
+          "line": "28",
           "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\program.h"
         },
         "name": "CIRCLE2",
@@ -123424,7 +123648,7 @@
     ],
     "location": {
       "column": "9",
-      "line": "24",
+      "line": "26",
       "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\program.h"
     },
     "name": "",
@@ -123438,7 +123662,7 @@
     "display": "enum Figure8State",
     "location": {
       "column": "3",
-      "line": "27",
+      "line": "29",
       "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\program.h"
     },
     "name": "Figure8State",
@@ -123452,7 +123676,7 @@
     "display": "CIR_ROT_TIME",
     "location": {
       "column": "27",
-      "line": "35",
+      "line": "37",
       "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\program.h"
     },
     "name": "CIR_ROT_TIME",
@@ -123466,7 +123690,7 @@
     "display": "CIR_ROT_TIME",
     "location": {
       "column": "27",
-      "line": "35",
+      "line": "37",
       "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\program.h"
     },
     "name": "CIR_ROT_TIME",
@@ -123480,7 +123704,7 @@
     "display": "TRI_SIDE_TIME",
     "location": {
       "column": "27",
-      "line": "36",
+      "line": "38",
       "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\program.h"
     },
     "name": "TRI_SIDE_TIME",
@@ -123494,7 +123718,7 @@
     "display": "TRI_SIDE_TIME",
     "location": {
       "column": "27",
-      "line": "36",
+      "line": "38",
       "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\program.h"
     },
     "name": "TRI_SIDE_TIME",
@@ -123508,21 +123732,7 @@
     "display": "TRI_ROT_TIME",
     "location": {
       "column": "27",
-      "line": "37",
-      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\program.h"
-    },
-    "name": "TRI_ROT_TIME",
-    "origin": "user_include",
-    "scope": null
-  },
-  {
-    "ID": "c:@TRI_ROT_TIME",
-    "What": "Variable",
-    "defdec": "Dec",
-    "display": "TRI_ROT_TIME",
-    "location": {
-      "column": "27",
-      "line": "37",
+      "line": "39",
       "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\program.h"
     },
     "name": "TRI_ROT_TIME",
@@ -123536,7 +123746,7 @@
     "display": "FIG8_ROT_TIME",
     "location": {
       "column": "27",
-      "line": "38",
+      "line": "40",
       "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\program.h"
     },
     "name": "FIG8_ROT_TIME",
@@ -123550,206 +123760,10 @@
     "display": "FIG8_ROT_TIME",
     "location": {
       "column": "27",
-      "line": "38",
+      "line": "40",
       "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\program.h"
     },
     "name": "FIG8_ROT_TIME",
-    "origin": "user_include",
-    "scope": null
-  },
-  {
-    "ID": "c:@F@run",
-    "What": "Function",
-    "defdec": "Dec",
-    "display": "void run(void)",
-    "location": {
-      "column": "6",
-      "line": "2",
-      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\wheels.h"
-    },
-    "name": "run",
-    "origin": "user_include",
-    "scope": null
-  },
-  {
-    "ID": "c:@F@drive_car",
-    "What": "Function",
-    "defdec": "Dec",
-    "display": "void drive_car(void)",
-    "location": {
-      "column": "6",
-      "line": "3",
-      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\wheels.h"
-    },
-    "name": "drive_car",
-    "origin": "user_include",
-    "scope": null
-  },
-  {
-    "ID": "c:@F@drive_car",
-    "What": "Function",
-    "defdec": "Dec",
-    "display": "void drive_car(void)",
-    "location": {
-      "column": "6",
-      "line": "3",
-      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\wheels.h"
-    },
-    "name": "drive_car",
-    "origin": "user_include",
-    "scope": null
-  },
-  {
-    "ID": "c:@F@set_wheels_dir",
-    "What": "Function",
-    "defdec": "Dec",
-    "display": "void set_wheels_dir(unsigned int, unsigned int)",
-    "location": {
-      "column": "6",
-      "line": "4",
-      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\wheels.h"
-    },
-    "name": "set_wheels_dir",
-    "origin": "user_include",
-    "scope": null
-  },
-  {
-    "ID": "c:@F@set_wheels_dir",
-    "What": "Function",
-    "defdec": "Dec",
-    "display": "void set_wheels_dir(unsigned int, unsigned int)",
-    "location": {
-      "column": "6",
-      "line": "4",
-      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\wheels.h"
-    },
-    "name": "set_wheels_dir",
-    "origin": "user_include",
-    "scope": null
-  },
-  {
-    "ID": "c:@LEFT_TIME",
-    "What": "Variable",
-    "defdec": "Dec",
-    "display": "LEFT_TIME",
-    "location": {
-      "column": "21",
-      "line": "7",
-      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\wheels.h"
-    },
-    "name": "LEFT_TIME",
-    "origin": "user_include",
-    "scope": null
-  },
-  {
-    "ID": "c:@LEFT_TIME",
-    "What": "Variable",
-    "defdec": "Dec",
-    "display": "LEFT_TIME",
-    "location": {
-      "column": "21",
-      "line": "7",
-      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\wheels.h"
-    },
-    "name": "LEFT_TIME",
-    "origin": "user_include",
-    "scope": null
-  },
-  {
-    "ID": "c:@RIGHT_TIME",
-    "What": "Variable",
-    "defdec": "Dec",
-    "display": "RIGHT_TIME",
-    "location": {
-      "column": "21",
-      "line": "8",
-      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\wheels.h"
-    },
-    "name": "RIGHT_TIME",
-    "origin": "user_include",
-    "scope": null
-  },
-  {
-    "ID": "c:@RIGHT_TIME",
-    "What": "Variable",
-    "defdec": "Dec",
-    "display": "RIGHT_TIME",
-    "location": {
-      "column": "21",
-      "line": "8",
-      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\wheels.h"
-    },
-    "name": "RIGHT_TIME",
-    "origin": "user_include",
-    "scope": null
-  },
-  {
-    "ID": "c:@LEFT_WHEEL_POWER",
-    "What": "Variable",
-    "defdec": "Dec",
-    "display": "LEFT_WHEEL_POWER",
-    "location": {
-      "column": "21",
-      "line": "9",
-      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\wheels.h"
-    },
-    "name": "LEFT_WHEEL_POWER",
-    "origin": "user_include",
-    "scope": null
-  },
-  {
-    "ID": "c:@LEFT_WHEEL_POWER",
-    "What": "Variable",
-    "defdec": "Dec",
-    "display": "LEFT_WHEEL_POWER",
-    "location": {
-      "column": "21",
-      "line": "9",
-      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\wheels.h"
-    },
-    "name": "LEFT_WHEEL_POWER",
-    "origin": "user_include",
-    "scope": null
-  },
-  {
-    "ID": "c:@RIGHT_WHEEL_PWOER",
-    "What": "Variable",
-    "defdec": "Dec",
-    "display": "RIGHT_WHEEL_PWOER",
-    "location": {
-      "column": "21",
-      "line": "10",
-      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\wheels.h"
-    },
-    "name": "RIGHT_WHEEL_PWOER",
-    "origin": "user_include",
-    "scope": null
-  },
-  {
-    "ID": "c:@MAX_POWER",
-    "What": "Variable",
-    "defdec": "Dec",
-    "display": "MAX_POWER",
-    "location": {
-      "column": "27",
-      "line": "13",
-      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\wheels.h"
-    },
-    "name": "MAX_POWER",
-    "origin": "user_include",
-    "scope": null
-  },
-  {
-    "ID": "c:@MAX_POWER",
-    "What": "Variable",
-    "defdec": "Dec",
-    "display": "MAX_POWER",
-    "location": {
-      "column": "27",
-      "line": "13",
-      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\wheels.h"
-    },
-    "name": "MAX_POWER",
     "origin": "user_include",
     "scope": null
   },
@@ -123936,13 +123950,27 @@
     "scope": null
   },
   {
+    "ID": "c:@TRI_NUM",
+    "What": "Variable",
+    "defdec": "Def",
+    "display": "TRI_NUM",
+    "location": {
+      "column": "14",
+      "line": "21",
+      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\program.c"
+    },
+    "name": "TRI_NUM",
+    "origin": "project_file",
+    "scope": null
+  },
+  {
     "ID": "c:@FIG8_STATE",
     "What": "Variable",
     "defdec": "Def",
     "display": "FIG8_STATE",
     "location": {
       "column": "14",
-      "line": "23",
+      "line": "24",
       "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\program.c"
     },
     "name": "FIG8_STATE",
@@ -123956,10 +123984,24 @@
     "display": "FIG8_TIME",
     "location": {
       "column": "14",
-      "line": "24",
+      "line": "25",
       "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\program.c"
     },
     "name": "FIG8_TIME",
+    "origin": "project_file",
+    "scope": null
+  },
+  {
+    "ID": "c:@FIG8_NUM",
+    "What": "Variable",
+    "defdec": "Def",
+    "display": "FIG8_NUM",
+    "location": {
+      "column": "14",
+      "line": "26",
+      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\program.c"
+    },
+    "name": "FIG8_NUM",
     "origin": "project_file",
     "scope": null
   },
@@ -123970,7 +124012,7 @@
     "display": "CIR_ROT_TIME",
     "location": {
       "column": "20",
-      "line": "26",
+      "line": "28",
       "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\program.c"
     },
     "name": "CIR_ROT_TIME",
@@ -123984,7 +124026,7 @@
     "display": "TRI_SIDE_TIME",
     "location": {
       "column": "20",
-      "line": "27",
+      "line": "29",
       "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\program.c"
     },
     "name": "TRI_SIDE_TIME",
@@ -123992,16 +124034,16 @@
     "scope": null
   },
   {
-    "ID": "c:@TRI_ROT_TIME",
+    "ID": "c:@TRI_ROT_TIME45",
     "What": "Variable",
     "defdec": "Def",
-    "display": "TRI_ROT_TIME",
+    "display": "TRI_ROT_TIME45",
     "location": {
       "column": "20",
-      "line": "28",
+      "line": "30",
       "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\program.c"
     },
-    "name": "TRI_ROT_TIME",
+    "name": "TRI_ROT_TIME45",
     "origin": "project_file",
     "scope": null
   },
@@ -124012,7 +124054,7 @@
     "display": "FIG8_ROT_TIME",
     "location": {
       "column": "20",
-      "line": "29",
+      "line": "31",
       "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\program.c"
     },
     "name": "FIG8_ROT_TIME",
@@ -124026,7 +124068,7 @@
     "display": "void program_start(void)",
     "location": {
       "column": "6",
-      "line": "33",
+      "line": "35",
       "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\program.c"
     },
     "name": "program_start",
@@ -124286,13 +124328,27 @@
     "scope": null
   },
   {
+    "ID": "c:@WHEEL_CORRECTION_FACTOR",
+    "What": "Variable",
+    "defdec": "Def",
+    "display": "WHEEL_CORRECTION_FACTOR",
+    "location": {
+      "column": "11",
+      "line": "11",
+      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\wheels.c"
+    },
+    "name": "WHEEL_CORRECTION_FACTOR",
+    "origin": "project_file",
+    "scope": null
+  },
+  {
     "ID": "c:@F@set_wheels_dir",
     "What": "Function",
     "defdec": "Def",
     "display": "void set_wheels_dir(unsigned int, unsigned int)",
     "location": {
       "column": "6",
-      "line": "14",
+      "line": "15",
       "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\wheels.c"
     },
     "name": "set_wheels_dir",
@@ -124306,10 +124362,38 @@
     "display": "void drive_car(void)",
     "location": {
       "column": "6",
-      "line": "20",
+      "line": "21",
       "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\wheels.c"
     },
     "name": "drive_car",
+    "origin": "project_file",
+    "scope": null
+  },
+  {
+    "ID": "c:wheels.c@577@F@drive_car@targ_left_time",
+    "What": "Variable",
+    "defdec": "Def",
+    "display": "targ_left_time",
+    "location": {
+      "column": "16",
+      "line": "23",
+      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\wheels.c"
+    },
+    "name": "targ_left_time",
+    "origin": "project_file",
+    "scope": null
+  },
+  {
+    "ID": "c:wheels.c@651@F@drive_car@targ_right_time",
+    "What": "Variable",
+    "defdec": "Def",
+    "display": "targ_right_time",
+    "location": {
+      "column": "16",
+      "line": "25",
+      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\wheels.c"
+    },
+    "name": "targ_right_time",
     "origin": "project_file",
     "scope": null
   },
@@ -124324,6 +124408,48 @@
       "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\system.c"
     },
     "name": "enable_interrupts",
+    "origin": "project_file",
+    "scope": null
+  },
+  {
+    "ID": "c:@F@Init_Timer_B0",
+    "What": "Function",
+    "defdec": "Def",
+    "display": "void Init_Timer_B0(void)",
+    "location": {
+      "column": "6",
+      "line": "1",
+      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\timers.c"
+    },
+    "name": "Init_Timer_B0",
+    "origin": "project_file",
+    "scope": null
+  },
+  {
+    "ID": "c:@F@Timer0_B0_ISR",
+    "What": "Function",
+    "defdec": "Def",
+    "display": "void Timer0_B0_ISR(void)",
+    "location": {
+      "column": "18",
+      "line": "18",
+      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\timers.c"
+    },
+    "name": "Timer0_B0_ISR",
+    "origin": "project_file",
+    "scope": null
+  },
+  {
+    "ID": "c:@F@TIMER0_B1_ISR",
+    "What": "Function",
+    "defdec": "Def",
+    "display": "void TIMER0_B1_ISR(void)",
+    "location": {
+      "column": "18",
+      "line": "23",
+      "path": "C:\\Users\\mwg22\\OneDrive\\Desktop\\ECE306-Project\\timers.c"
+    },
+    "name": "TIMER0_B1_ISR",
     "origin": "project_file",
     "scope": null
   }

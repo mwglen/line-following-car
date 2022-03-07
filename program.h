@@ -9,6 +9,7 @@ typedef enum {
   DRAW_CIRCLE   = 2,
   DRAW_TRIANGLE = 3,
   DRAW_FIGURE8  = 4,
+  PROJECT5      = 5,
 } Event;
 
 // Triangle
