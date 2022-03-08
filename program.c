@@ -4,6 +4,9 @@
 #include "switches.h"
 #include "display.h"
 #include "wheels.h"
+#include "timersB0.h"
+#include "ports.h"
+#include "adc.h"
 #include <string.h>
 
 /// Global Variables
@@ -12,23 +15,21 @@ unsigned int STARTUP_TIME = 0;
 Event CURR_EVENT = STARTUP;
 Event CURR_SELECTION = MAIN_MENU;
 
-// Circle
-unsigned int CIR_TIME = 0;
+// Programs
+ProjectState PROJECT5_STATE = SETUP;
+ProjectState PROJECT6_STATE = STEP0;
 
-// Triangle
-TriangleState TRI_STATE = 0;
-unsigned int TRI_TIME = 0;
-unsigned int TRI_NUM = 0;
+#define BLACK_LINE_VAL (300)
 
-// Figure 8
-Figure8State FIG8_STATE = 0;
-unsigned int FIG8_TIME = 0;
-unsigned int FIG8_NUM = 0;
-
-const unsigned int CIR_ROT_TIME = 3800;
-const unsigned int TRI_SIDE_TIME = 300;
-const unsigned int TRI_ROT_TIME45 = 150;
-const unsigned int FIG8_ROT_TIME = 800;
+// Program 6
+//char ir_status[10]  = false ? "EMITTER ON" : "  IR OFF  ";
+char program_status[] = " Program6 ";
+char ir_status[]    = "  IR OFF  ";
+char left_ir_str[]  = " L:  xxxx ";
+char right_ir_str[] = " R:  xxxx ";
+char ADC_CHAR[4];
+int LEFT_IR_VALUE;
+int RIGHT_IR_VALUE;
 
 /// Functions
 // start the main program
@@ -42,83 +43,32 @@ void program_start(void) {
         strcpy(display_line[1], "----------");
         strcpy(display_line[2], "<- RUN    ");
         strcpy(display_line[3], "   NEXT ->");
-        display_changed = TRUE; 
+        display_changed = TRUE;
         STARTUP_TIME = 0;
       }
       break;
       
     case MAIN_MENU:
-      set_wheels_dir(0, 0);
+      stop_wheels();
       switch (CURR_SELECTION) {
         case MAIN_MENU:
-          if (get_sw2()) {
-            CURR_SELECTION = DRAW_CIRCLE;
-            strcpy(display_line[0], "MAIN  MENU");
-            strcpy(display_line[1], "----------");
-            strcpy(display_line[2], "   DRAW   ");
-            strcpy(display_line[3], "  CIRCLE  ");
-            display_changed = TRUE;  
-          } else get_sw1();
-          break;
-          
-        case DRAW_CIRCLE:
-          if (get_sw2()) {
-            CURR_SELECTION = DRAW_TRIANGLE;
-            strcpy(display_line[0], "MAIN  MENU");
-            strcpy(display_line[1], "----------");
-            strcpy(display_line[2], "   DRAW   ");
-            strcpy(display_line[3], " TRIANGLE ");
-            display_changed = TRUE; 
-          } else if (get_sw1()) {
-            CURR_EVENT = DRAW_CIRCLE;
-            strcpy(display_line[0], "          ");
-            strcpy(display_line[1], "  DRAWING ");
-            strcpy(display_line[2], "  CIRCLE  ");
-            strcpy(display_line[3], "          ");
-            display_changed = TRUE;  
-          } break;
-          
-        case DRAW_TRIANGLE:
-          if (get_sw2()) {
-            CURR_SELECTION = DRAW_FIGURE8;
-            strcpy(display_line[0], "MAIN  MENU");
-            strcpy(display_line[1], "----------");
-            strcpy(display_line[2], "   DRAW   ");
-            strcpy(display_line[3], " FIGURE 8 ");
-            display_changed = TRUE; 
-          } else if (get_sw1()) {
-            CURR_EVENT = DRAW_TRIANGLE;
-            strcpy(display_line[0], "          ");
-            strcpy(display_line[1], "  DRAWING ");
-            strcpy(display_line[2], " TRIANGLE ");
-            strcpy(display_line[3], "          ");
-            display_changed = TRUE; 
-          } break;
-          
-        case DRAW_FIGURE8:
           if (get_sw2()) {
             CURR_SELECTION = PROJECT5;
             strcpy(display_line[0], "MAIN  MENU");
             strcpy(display_line[1], "----------");
-            strcpy(display_line[2], "   DRAW   ");
-            strcpy(display_line[3], "  CIRCLE  ");
+            strcpy(display_line[2], " COMPLETE ");
+            strcpy(display_line[3], " PROJECT5 ");
             display_changed = TRUE;  
-          } else if (get_sw1()) {
-            CURR_EVENT = DRAW_FIGURE8;
-            strcpy(display_line[0], "          ");
-            strcpy(display_line[1], "  DRAWING ");
-            strcpy(display_line[2], " FIGURE 8 ");
-            strcpy(display_line[3], "          ");
-            display_changed = TRUE; 
-          } break;
+          } else get_sw1();
+          break;
           
         case PROJECT5:
           if (get_sw2()) {
-            CURR_SELECTION = DRAW_CIRCLE;
+            CURR_SELECTION = PROJECT6;
             strcpy(display_line[0], "MAIN  MENU");
             strcpy(display_line[1], "----------");
             strcpy(display_line[2], " COMPLETE ");
-            strcpy(display_line[3], " PROJECT5 ");
+            strcpy(display_line[3], " PROJECT6 ");
             display_changed = TRUE; 
           } else if (get_sw1()) {
             CURR_EVENT = PROJECT5;
@@ -128,121 +78,254 @@ void program_start(void) {
             strcpy(display_line[3], "          ");
             display_changed = TRUE;  
           } break;
-      } break;
-      
-    case DRAW_CIRCLE:
-      if (CIR_TIME >= CIR_ROT_TIME) {
-        CIR_TIME = 0;
-        CURR_EVENT = MAIN_MENU;
-      } else {
-        CIR_TIME++;
-        set_wheels_dir(25, 100);
-      } break;
-      
-    case DRAW_TRIANGLE:
-      
-      switch (TRI_STATE) {
-        case DRAW_SIDE1:
-          if (TRI_TIME >= TRI_SIDE_TIME) {
-            TRI_TIME = 0;
-            TRI_STATE++;
-          } else {
-            TRI_TIME++;
-            set_wheels_dir(50, 50);
+          
+        case PROJECT6:
+          if (get_sw2()) {
+            CURR_SELECTION = PROJECT5;
+            strcpy(display_line[0], "MAIN  MENU");
+            strcpy(display_line[1], "----------");
+            strcpy(display_line[2], " COMPLETE ");
+            strcpy(display_line[3], " PROJECT5 ");
+            display_changed = TRUE; 
+          } else if (get_sw1()) {
+            CURR_EVENT = PROJECT6;
+            strcpy(display_line[0], "          ");
+            strcpy(display_line[1], "PREFORMING");
+            strcpy(display_line[2], " PROJECT6 ");
+            strcpy(display_line[3], "          ");
+            display_changed = TRUE;  
           } break;
-          
-        case ROTATE1:
-          if (TRI_TIME >= TRI_ROT_TIME45*2) {
-            TRI_TIME = 0;
-            TRI_STATE++;
-          } else {
-            TRI_TIME++;
-            set_wheels_dir(100, 0);
-          } break;
-          
-        case DRAW_SIDE2:
-          if (TRI_TIME >= TRI_SIDE_TIME) {
-            TRI_TIME = 0;
-            TRI_STATE++;
-          } else {
-            TRI_TIME++;
-            set_wheels_dir(50, 50);
-          } break;
-          
-        case ROTATE2:
-          if (TRI_TIME >= TRI_ROT_TIME45*2) { 
-            TRI_TIME = 0;
-            TRI_STATE++;
-          } else {
-            TRI_TIME++;
-            set_wheels_dir(100, 0);
-          } break;
-          
-        case DRAW_SIDE3:
-          if (TRI_TIME >= TRI_SIDE_TIME * 1.414) {
-            TRI_TIME = 0;
-            TRI_NUM++;
-            if (TRI_NUM == 2) {
-              TRI_NUM = 0;
-              CURR_EVENT = MAIN_MENU;
-              TRI_STATE = 0;
-            } else {
-              TRI_STATE++;
-            }
-          } else {
-            TRI_TIME++;
-            set_wheels_dir(50, 50);
-          }
-          break;
-          
-        case ROTATE3:
-          if (TRI_TIME >= TRI_ROT_TIME45 * 3) { 
-            TRI_TIME = 0;
-            TRI_STATE = 0;
-          } else {
-            TRI_TIME++;
-            set_wheels_dir(100, 0);
-          } break;
-          
-      } break;
-          
-    case DRAW_FIGURE8:
-      switch (FIG8_STATE) {
-        case CIRCLE1:
-          if (FIG8_TIME >= FIG8_ROT_TIME) {
-            FIG8_TIME = 0;
-            FIG8_STATE++;
-          } else {
-            FIG8_TIME++;
-            set_wheels_dir(10, 100);
-          } break;
-          
-        case CIRCLE2: 
-          if (FIG8_TIME >= FIG8_ROT_TIME) {
-            FIG8_NUM++;
-            FIG8_TIME = 0;
-            FIG8_STATE = 0;
-            if (FIG8_NUM == 2) {
-              FIG8_NUM = 0;
-              CURR_EVENT = MAIN_MENU;
-            }
-          } else {
-            FIG8_TIME++;
-            set_wheels_dir(100, 10);
-          } break;
+        
       } break;
       
   case PROJECT5:
-    // Travel forwards 1 sec
-    // Pause 1 sec
-    // Travel reverse 2 sec
-    // Pause 1 sec
-    // Travel forwards 1 sec
-    // Pause 1 sec
-    // Spin CW for 3 secs
-    // Pause 2 secs
-    // Spin CCW for 3 secs
-    // Pause 2 secs
-    break;
+    switch (PROJECT5_STATE) {
+      case SETUP:
+        PROGRAM_COUNT = 0;
+        PROJECT5_STATE++;
+        strcpy(display_line[0], " PROJECT5 ");
+        strcpy(display_line[1], "----------");
+        strcpy(display_line[2], "DRIVE  FWD");
+        strcpy(display_line[3], "  1 SECS  ");
+        display_changed = TRUE; 
+        break;
+        
+      // Travel forwards 1 sec
+      case STEP0:
+        fwd_left();
+        fwd_right();
+        if (PROGRAM_COUNT >= TIME_1_SECS) {
+          PROGRAM_COUNT = 0;
+          PROJECT5_STATE++;
+          strcpy(display_line[0], " PROJECT5 ");
+          strcpy(display_line[1], "----------");
+          strcpy(display_line[2], "   WAIT   ");
+          strcpy(display_line[3], "  1 SECS  ");
+          display_changed = TRUE; 
+        } break;
+        
+      // Pause 1 sec
+      case STEP1:
+        stop_wheels();
+        if (PROGRAM_COUNT >= TIME_1_SECS) {
+          PROGRAM_COUNT = 0;
+          PROJECT5_STATE++;
+          strcpy(display_line[0], " PROJECT5 ");
+          strcpy(display_line[1], "----------");
+          strcpy(display_line[2], "DRIVE  REV");
+          strcpy(display_line[3], "  2 SECS  ");
+          display_changed = TRUE; 
+        } break;
+      
+      // Travel reverse 2 sec
+      case STEP2:
+        bwd_left();
+        bwd_right();
+        if (PROGRAM_COUNT >= TIME_2_SECS) {
+          PROGRAM_COUNT = 0;
+          PROJECT5_STATE++;
+          strcpy(display_line[0], " PROJECT5 ");
+          strcpy(display_line[1], "----------");
+          strcpy(display_line[2], "   WAIT   ");
+          strcpy(display_line[3], "  1 SECS  ");
+          display_changed = TRUE; 
+        } break;
+        
+      // Pause 1 sec
+      case STEP3:
+        stop_wheels();
+        if (PROGRAM_COUNT >= TIME_1_SECS) {
+          PROGRAM_COUNT = 0;
+          PROJECT5_STATE++;
+          strcpy(display_line[0], " PROJECT5 ");
+          strcpy(display_line[1], "----------");
+          strcpy(display_line[2], "DRIVE  FWD");
+          strcpy(display_line[3], "  1 SECS  ");
+          display_changed = TRUE; 
+        } break;
+      
+      // Travel forwards 1 sec
+      case STEP4:
+        fwd_left();
+        fwd_right();
+        if (PROGRAM_COUNT >= TIME_1_SECS) {
+          PROGRAM_COUNT = 0;
+          PROJECT5_STATE++;
+          strcpy(display_line[0], " PROJECT5 ");
+          strcpy(display_line[1], "----------");
+          strcpy(display_line[2], "   WAIT   ");
+          strcpy(display_line[3], "  1 SECS  ");
+          display_changed = TRUE;
+        } break;
+        
+      // Pause 1 sec
+      case STEP5:
+        stop_wheels();
+        if (PROGRAM_COUNT >= TIME_1_SECS) {
+          PROGRAM_COUNT = 0;
+          PROJECT5_STATE++;
+          strcpy(display_line[0], " PROJECT5 ");
+          strcpy(display_line[1], "----------");
+          strcpy(display_line[2], " SPIN CW ");
+          strcpy(display_line[3], "  3 SECS  ");
+          display_changed = TRUE; 
+        } break;
+        
+      // Spin CW for 3 secs
+      case STEP6:
+        fwd_left();
+        bwd_right();
+        if (PROGRAM_COUNT >= TIME_3_SECS) {
+          PROGRAM_COUNT = 0;
+          PROJECT5_STATE++;
+          strcpy(display_line[0], " PROJECT5 ");
+          strcpy(display_line[1], "----------");
+          strcpy(display_line[2], "   WAIT   ");
+          strcpy(display_line[3], "  2 SECS  ");
+          display_changed = TRUE; 
+        } break;
+        
+      // Pause 2 secs
+      case STEP7:
+        stop_wheels();
+        if (PROGRAM_COUNT >= TIME_2_SECS) {
+          PROGRAM_COUNT = 0;
+          PROJECT5_STATE++;
+          strcpy(display_line[0], " PROJECT5 ");
+          strcpy(display_line[1], "----------");
+          strcpy(display_line[2], " SPIN CCW ");
+          strcpy(display_line[3], "  3 SECS  ");
+          display_changed = TRUE; 
+        } break;
+        
+      // Spin CCW for 3 secs
+      case STEP8:
+        bwd_left();
+        fwd_right();
+        if (PROGRAM_COUNT >= TIME_3_SECS) {
+          PROGRAM_COUNT = 0;
+          PROJECT5_STATE++;
+          strcpy(display_line[0], " PROJECT5 ");
+          strcpy(display_line[1], "----------");
+          strcpy(display_line[2], "   WAIT   ");
+          strcpy(display_line[3], "  1 SECS  ");
+          display_changed = TRUE; 
+        } break;
+        
+      // Pause 2 secs
+      case STEP9:
+        stop_wheels();
+        if (PROGRAM_COUNT >= TIME_2_SECS) {
+          PROGRAM_COUNT = 0;
+          PROJECT5_STATE++;
+        } break;
+    } break;
+    
+  case PROJECT6:
+    
+    // Monitor ADC    
+    // Fill in right IR sensor values
+    hex_to_bcd(LEFT_IR_VALUE);
+    for (int i = 0; i < 4; i++)
+      left_ir_str[i+5] = ADC_CHAR[i];
+    
+    // Fill in left IR sensor values
+    hex_to_bcd(RIGHT_IR_VALUE);
+    for (int i = 0; i < 4; i++)
+      right_ir_str[i+5] = ADC_CHAR[i];
+     
+    // Monitor ADC Values
+    strcpy(display_line[0], program_status);
+    strcpy(display_line[1], ir_status);
+    strcpy(display_line[2], left_ir_str);
+    strcpy(display_line[3], right_ir_str);
+    display_changed = true;
+    
+    switch (PROJECT6_STATE) {
+      // Wait for SW1
+      case STEP0:
+        if (get_sw1()) {
+          // Turn on Emitter
+          strcpy(ir_status, "EMITTER ON");
+          P6OUT |= IR_EMITTER; // On [High]
+          PROGRAM_COUNT = 0;
+          PROJECT6_STATE++;
+        } break;
+        
+      // Wait 1 Second
+      case STEP1:
+        if (PROGRAM_COUNT >= TIME_1_SECS) {
+          PROGRAM_COUNT = 0;
+          PROJECT6_STATE++;
+        } break;
+      
+      // Move forward until line is detected
+      case STEP2:
+        fwd_left();
+        fwd_right();
+        if (LEFT_IR_VALUE > BLACK_LINE_VAL || RIGHT_IR_VALUE > BLACK_LINE_VAL) {
+          stop_wheels();
+          PROGRAM_COUNT = 0;
+          PROJECT6_STATE++;
+        } break;
+        
+      // Stop for 4 Seconds
+      case STEP3:
+        strcpy(display_line[0], "          ");
+        strcpy(display_line[1], "BLACK LINE");
+        strcpy(display_line[2], " DETECTED ");
+        strcpy(display_line[3], "          ");
+        if (PROGRAM_COUNT >= TIME_4_SECS) {
+          PROGRAM_COUNT = 0;
+          PROJECT6_STATE++;
+        } break;
+        
+      // Move Forward until center of car is on line
+      case STEP4:
+        fwd_left();
+        fwd_right();
+        if (PROGRAM_COUNT >= TIME_100_MS) {
+          PROGRAM_COUNT = 0;
+          PROJECT6_STATE++;
+        } break;
+        
+      // Wait to avoid running FWD directly after REV
+      case STEP5:
+        stop_wheels();
+        if (PROGRAM_COUNT >= TIME_100_MS) {
+          PROGRAM_COUNT = 0;
+          PROJECT6_STATE++;
+        } break;
+        
+      // Rotate until lined up
+      case STEP6:
+        fwd_left();
+        bwd_right();
+        if (LEFT_IR_VALUE > 300) {
+          stop_wheels();
+          PROJECT6_STATE = STEP0;
+          CURR_EVENT = MAIN_MENU;
+        } break;
+    } break;
   }
 }

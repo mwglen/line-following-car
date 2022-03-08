@@ -1,7 +1,6 @@
 /// Includes
 #include "msp430.h"
 #include "ports.h"
-#include "primitives.h"
 
 /// Functions
 // initialize all pins in all ports
@@ -30,12 +29,12 @@ void init_port1(void) {
     P1SEL0 |=  A1_SEEED;            // ADC Function
 
     // P1 PIN 2
-    P1SEL1 |=  V_DETECT_L;          // ADC Function
-    P1SEL0 |=  V_DETECT_L;          // ADC Function
+    P1SEL1 |=  LEFT_IR;             // ADC Function A2
+    P1SEL0 |=  LEFT_IR;             // ADC Function A2
 
     // P1 PIN 3
-    P1SEL1 |=  V_DETECT_R;          // ADC Function
-    P1SEL0 |=  V_DETECT_R;          // ADC Function
+    P1SEL1 |=  RIGHT_IR;            // ADC Function A3
+    P1SEL0 |=  RIGHT_IR;            // ADC Function A3
 
     // P1 PIN 4
     P1SEL1 &= ~SMCLK_2476;          // GPIO operation
@@ -43,8 +42,8 @@ void init_port1(void) {
     P1DIR  &= ~SMCLK_2476;          // Input
 
     // P1 PIN 5
-    P1SEL1 |= V_THUMB;              // ADC Function
-    P1SEL0 |= V_THUMB;              // ADC Function
+    P1SEL1 |= THUMB;                // ADC Channel A5
+    P1SEL0 |= THUMB;                // ADC Channel A5
 
     // P1 PIN 6
     P1SEL1 &= ~UCA0RXD;             // UCA0RXD Function
@@ -79,13 +78,15 @@ void init_port2(void) {
     // P2 PIN 3
     P2SEL1 &= ~SW2;                 // GPIO Operation
     P2SEL0 &= ~SW2;                 // GPIO Operation
-    P2OUT  |=  SW2;                 // Configure pullup resistor
     P2DIR  &= ~SW2;                 // Input
+    // Pullup Resistor
+    P2OUT  |=  SW2;                 // Configure pullup resistor
     P2REN  |=  SW2;                 // Enable pullup resistor
-    //P2IES |=  SW2;                  // P2.0 Hi/Lo edge interrupt
-    //P2IFG &= ~SW2;                  // Clear all P2.6 interrupt flags
-    //P2IE  |=  SW2;                  // P2.6 interrupt enabled
-
+    // Interrupts
+    P2IFG &= ~SW2;                  // Clear all P2.6 interrupt flags
+    P2IES |=  SW2;                  // P2.6 Hi/Lo edge interrupt
+    P2IE  |=  SW2;                  // P2.6 interrupt enabled
+    
     // P2 PIN 4
     P2SEL1 &= ~IOT_RUN_CPU;         // GPIO operation
     P2SEL0 &= ~IOT_RUN_CPU;         // GPIO operation
@@ -137,14 +138,14 @@ void init_port3(char smclk) {
     // P3 PIN 4
     switch (smclk) {
       case USE_SMCLK:
-        P3SEL1 &= ~SMCLK_2355;          // SMCLK operation
-        P3SEL0 |=  SMCLK_2355;          // SMCLK operation
-        P3DIR  |=  SMCLK_2355;          // Direction must be High
+        P3SEL1 &= ~SMCLK_2355;      // SMCLK operation
+        P3SEL0 |=  SMCLK_2355;      // SMCLK operation
+        P3DIR  |=  SMCLK_2355;      // Direction must be High
         break;
       case USE_GPIO:
-        P3SEL1 &= ~SMCLK_2355;          // GPIO operation
-        P3SEL0 &= ~SMCLK_2355;          // GPIO operation
-        P3DIR  &= ~SMCLK_2355;          // Direction in
+        P3SEL1 &= ~SMCLK_2355;      // GPIO operation
+        P3SEL0 &= ~SMCLK_2355;      // GPIO operation
+        P3DIR  &= ~SMCLK_2355;      // Direction in
         break;
     }
     
@@ -179,15 +180,14 @@ void init_port4(void) {
     // P4 PIN 1
     P4SEL1 &= ~SW1;                 // GPIO operation
     P4SEL0 &= ~SW1;                 // GPIO operation
-    P4OUT  |=  SW1;                 // Configure pullup resistor
     P4DIR  &= ~SW1;                 // Input
-    // Pull Up Resistor
-    //P4PUD  |=  SW1;                 // Configure pull-up resistor
+    // Pullup Resistor
+    P4OUT  |=  SW1;                 // Configure pullup resistor
     P4REN  |=  SW1;                 // Enable pullup resistor
-    // Enable Interrupts
-    //P4IFG  &= ~SW1;                 // Clear all P2.6 interrupt flags
-    //P4IES  |=  SW1;                 // P4.2 Hi/Lo edge interrupt
-    //P4IE   |=  SW1;                 // P4.2 interrupt enabled
+    // Interrupts
+    P4IFG  &= ~SW1;                 // Clear all P2.6 interrupt flags
+    P4IES  |=  SW1;                 // P4.2 Hi/Lo edge interrupt
+    P4IE   |=  SW1;                 // P4.2 interrupt enabled
     
     // P4 PIN 2
     P4SEL1 &= ~UCA1TXD;             // UART operation
@@ -250,38 +250,35 @@ void init_port6(void) {
     P6DIR = RESET_STATE;            // Set P4 direction to output
     
     // P6 PIN 0
-    P6SEL1 &= ~R_FORWARD;           // GPIO operation
-    P6SEL0 &= ~R_FORWARD;           // GPIO operation
+    P6SEL1 &= ~R_FORWARD;           // TB3.1 operation
+    P6SEL0 |=  R_FORWARD;           // TB3.1 operation
     P6DIR  |=  R_FORWARD;           // Output
-    P6OUT  &= ~R_FORWARD;           // Off [Low]
     
     // P6 PIN 1
-    P6SEL1 &= ~L_FORWARD;           // GPIO operation
-    P6SEL0 &= ~L_FORWARD;           // GPIO operation
+    P6SEL1 &= ~L_FORWARD;           // TB3.2 operation
+    P6SEL0 |=  L_FORWARD;           // TB3.2 operation
     P6DIR  |=  L_FORWARD;           // Output
-    P6OUT  &= ~L_FORWARD;           // Off [Low]
 
     // P6 PIN 2
-    P6SEL1 &= ~R_REVERSE;           // GPIO operation
-    P6SEL0 &= ~R_REVERSE;           // GPIO operation
+    P6SEL1 &= ~R_REVERSE;           // TB3.3 operation
+    P6SEL0 |=  R_REVERSE;           // TB3.3 operation
     P6DIR  |=  R_REVERSE;           // Output
-    P6OUT  &= ~R_REVERSE;           // Off [Low]
     
     // P6 PIN 3
-    P6SEL1 &= ~L_REVERSE;      // GPIO operation
-    P6SEL0 &= ~L_REVERSE;      // GPIO operation
-    P6DIR  |=  L_REVERSE;      // Output
-    P6OUT  &= ~L_REVERSE;      // Off [Low]
+    P6SEL1 &= ~L_REVERSE;           // TB3.4 operation
+    P6SEL0 |=  L_REVERSE;           // TB3.4 operation
+    P6DIR  |=  L_REVERSE;           // Output
     
     // P6 PIN 4
-    P6SEL1 &= ~IR_SENSOR;           // GPIO operation
-    P6SEL0 &= ~IR_SENSOR;           // GPIO operation
-    P6DIR  |=  R_REVERSE;           // Input
+    P6SEL1 &= ~IR_EMITTER;          // GPIO operation
+    P6SEL0 &= ~IR_EMITTER;          // GPIO operation
+    P6DIR  |=  IR_EMITTER;          // Output
+    P6OUT  &= ~IR_EMITTER;          // Off [Low]
     
     // P6 PIN 5
     P6SEL1 &= ~P6_5;                // GPIO operation
     P6SEL0 &= ~P6_5;                // GPIO operation
-    P6DIR  |=  P6_5;                // Input
+    P6DIR  &= ~P6_5;                // Input
     
     // P6 PIN 6
     P6SEL1 &= ~GRN_LED;             // GPIO operation

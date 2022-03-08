@@ -8,17 +8,17 @@
 #include "switches.h"
 #include "wheels.h"
 #include "init.h"
+#include "timersB0.h"
+#include "timersB1.h"
+#include "adc.h"
 
 /// Global Variables
 volatile char slow_input_down;
 unsigned int test_value;
 char chosen_direction;
 char change;
-unsigned int OLD_TIME_SEQUENCE = 0;
-extern volatile unsigned int Time_Sequence;
 
 /// External Functions
-void Init_Timers(void);
 void Init_LCD(void);
 
 /// Functions
@@ -32,30 +32,26 @@ void main(void){
   init_ports();                        // Initialize Ports
   init_clocks();                       // Initialize Clock System
   init_conditions();                   // Initialize Variables and Initial Conditions
-  Init_Timers();                       // Initialize Timers
   Init_LCD();                          // Initialize LCD
   init_display();
+  init_wheels();
+  init_timer_B0();
+  init_timer_B1();
+  init_adc();
 
   while(true) {
-    // Update Clock
-    if (Time_Sequence != OLD_TIME_SEQUENCE) {
-      OLD_TIME_SEQUENCE = Time_Sequence;
-      program_start();
-    }
+    // Run Program
+    program_start();
     
     // Make sure that the wheels are safe to drive and then drive 
-    if (((P6IN & L_FORWARD) && (P6IN & L_REVERSE)) 
-        || ((P6IN & R_FORWARD) && (P6IN & R_REVERSE))) {
-      P6OUT &= ~L_FORWARD;
-      P6OUT &= ~L_REVERSE;
-      P6OUT &= ~R_FORWARD;
-      P6OUT &= ~R_REVERSE;
-      P1OUT &= ~RED_LED;   // Turn on Red LED
+    if ((LEFT_FORWARD_SPEED && LEFT_REVERSE_SPEED)
+        || (RIGHT_FORWARD_SPEED && RIGHT_REVERSE_SPEED)) {
+      stop_wheels();
+      P1OUT &= ~RED_LED; // Turn on Red LED
       while (true) {}    // Halt Program
-    } else drive_car();
-
-    switches_process();                // Check for switch state change
-    display_process();                 // Update Display
-    P3OUT ^= TEST_PROBE;               // Change State of TEST_PROBE OFF
+    }
+    
+    display_process();   // Update Display
+    P3OUT ^= TEST_PROBE; // Change State of TEST_PROBE OFF
   }
 }

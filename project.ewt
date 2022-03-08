@@ -2160,10 +2160,10 @@
         <file>
             <name>$PROJ_DIR$\Compiled\LCD.r43</name>
         </file>
-        <file>
-            <name>$PROJ_DIR$\Compiled\timersB0.r43</name>
-        </file>
     </group>
+    <file>
+        <name>$PROJ_DIR$\adc.c</name>
+    </file>
     <file>
         <name>$PROJ_DIR$\clocks.c</name>
     </file>
@@ -2193,6 +2193,12 @@
     </file>
     <file>
         <name>$PROJ_DIR$\system.c</name>
+    </file>
+    <file>
+        <name>$PROJ_DIR$\timersB0.c</name>
+    </file>
+    <file>
+        <name>$PROJ_DIR$\timersB1.c</name>
     </file>
     <file>
         <name>$PROJ_DIR$\wheels.c</name>
