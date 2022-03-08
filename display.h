@@ -1,3 +1,4 @@
+/// Includes
 #include "primitives.h"
 
 /// Functions
@@ -11,4 +12,4 @@ void init_display(void);
 extern char *display[4];
 extern volatile unsigned char display_changed;
 extern volatile unsigned char update_display;
-extern volatile unsigned int update_display_count;
+extern volatile unsigned int  update_display_count;

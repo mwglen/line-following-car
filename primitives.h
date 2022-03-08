@@ -15,4 +15,3 @@ extern void Display_Update(char, char, char, char);
 /// Defines
 #define ALWAYS          (1)
 #define TRUE            (0x01)
-#define RESET_STATE     (0)

@@ -1,3 +1,4 @@
+/// Includes
 #include "msp430.h"
 #include "primitives.h"
 #include "switches.h"
@@ -5,6 +6,7 @@
 #include <string.h>
 #include "display.h"
 
+/// Functions
 // Switch 1 Configuration
 bool SW1_PRESSED = false;
 #pragma vector=PORT4_VECTOR

@@ -2340,6 +2340,9 @@
         <name>$PROJ_DIR$\timersB0.c</name>
     </file>
     <file>
+        <name>$PROJ_DIR$\timersB1.c</name>
+    </file>
+    <file>
         <name>$PROJ_DIR$\wheels.c</name>
     </file>
 </project>

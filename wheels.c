@@ -1,15 +1,9 @@
+/// Includes
 #include "wheels.h"
 #include "msp430.h"
 #include "ports.h"
 
 /// Functions
-//------------------------------------------------------------------------------
-// SMCLK source, up count mode, PWM Right Side
-// TB3.1 P6.0 R_FORWARD
-// TB3.2 P6.1 L_FORWARD
-// TB3.3 P6.2 R_REVERSE
-// TB3.4 P6.3 L_REVERSE
-//------------------------------------------------------------------------------
 void init_wheels(void) {
   TB3CTL = TBSSEL__SMCLK;   // SMCLK
   TB3CTL |= MC__UP;         // Up Mode
@@ -42,7 +36,7 @@ void set_wheels(
   RIGHT_REVERSE_SPEED = right_reverse_speed;
 }
 
-// Movement Functions for Project 5
+// movement functions for project 5
 void stop_wheels()  { set_wheels(0, 0, 0, 0); }
 void fwd_left() { LEFT_FORWARD_SPEED = WHEEL_PERIOD/4; }
 void bwd_left() { LEFT_REVERSE_SPEED = WHEEL_PERIOD/2; }

@@ -8,6 +8,7 @@
 #include "wheels.h"
 #include "init.h"
 #include "timersB0.h"
+#include "timersB1.h"
 #include "adc.h"
 
 /// Global Variables
@@ -34,6 +35,7 @@ void main(void){
   init_display();
   init_wheels();
   init_timer_B0();
+  init_timer_B1();
   init_adc();
 
   while(true) {
@@ -44,11 +46,11 @@ void main(void){
     if ((LEFT_FORWARD_SPEED && LEFT_REVERSE_SPEED)
         || (RIGHT_FORWARD_SPEED && RIGHT_REVERSE_SPEED)) {
       stop_wheels();
-      P1OUT &= ~RED_LED;   // Turn on Red LED
-      while (true) {}      // Halt Program
+      P1OUT &= ~RED_LED; // Turn on Red LED
+      while (true) {}    // Halt Program
     }
     
-    display_process();                 // Update Display
-    P3OUT ^= TEST_PROBE;               // Change State of TEST_PROBE OFF
+    display_process();   // Update Display
+    P3OUT ^= TEST_PROBE; // Change State of TEST_PROBE OFF
   }
 }

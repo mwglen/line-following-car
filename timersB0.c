@@ -24,6 +24,7 @@ void init_timer_B0(void) {
   
   // 100ms Timer (Debounce Timer)
   TB0CCR2 = TB0CCR2_INTERVAL; // CCR2
+  TB0CCTL2 |= CCIE; // CCR2 enable interrupt
   
   TB0CTL &= ~TBIE; // Disable Overflow Interrupt
   TB0CTL &= ~TBIFG; // Clear Overflow Interrupt flag
@@ -34,7 +35,6 @@ extern short unsigned int PROGRAM_COUNT = 0;
 
 #pragma vector = TIMER0_B0_VECTOR
 __interrupt void Timer0_B0_ISR(void){
-  // Add What you need happen in the interrupt
   DISPLAY_COUNT++;
   if (DISPLAY_COUNT == 4) {
     update_display = 1;
@@ -58,7 +58,7 @@ __interrupt void TIMER0_B1_ISR(void){
     
     case 4: // Debounce Timer
       TB0CCR2 += TB0CCR2_INTERVAL; // Add Offset to TBCCR2
-      if (DEBOUNCE_COUNT == 10) {
+      if (DEBOUNCE_COUNT == 5) {
         DEBOUNCE_COUNT = 0;
         TB0CCTL2 &= ~CCIE;    // CCR2 disable interrupt
         P4IFG &= ~SW1;        // Clear Interrupt Flags

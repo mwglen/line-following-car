@@ -1,7 +1,6 @@
 /// Includes
 #include "msp430.h"
 #include "ports.h"
-#include "primitives.h"
 
 /// Functions
 // initialize all pins in all ports
@@ -30,12 +29,12 @@ void init_port1(void) {
     P1SEL0 |=  A1_SEEED;            // ADC Function
 
     // P1 PIN 2
-    P1SEL1 |=  V_DETECT_L;          // ADC Function
-    P1SEL0 |=  V_DETECT_L;          // ADC Function
+    P1SEL1 |=  LEFT_IR;             // ADC Function A2
+    P1SEL0 |=  LEFT_IR;             // ADC Function A2
 
     // P1 PIN 3
-    P1SEL1 |=  V_DETECT_R;          // ADC Function
-    P1SEL0 |=  V_DETECT_R;          // ADC Function
+    P1SEL1 |=  RIGHT_IR;            // ADC Function A3
+    P1SEL0 |=  RIGHT_IR;            // ADC Function A3
 
     // P1 PIN 4
     P1SEL1 &= ~SMCLK_2476;          // GPIO operation
@@ -43,8 +42,8 @@ void init_port1(void) {
     P1DIR  &= ~SMCLK_2476;          // Input
 
     // P1 PIN 5
-    P1SEL1 |= V_THUMB;              // ADC Function
-    P1SEL0 |= V_THUMB;              // ADC Function
+    P1SEL1 |= THUMB;                // ADC Channel A5
+    P1SEL0 |= THUMB;                // ADC Channel A5
 
     // P1 PIN 6
     P1SEL1 &= ~UCA0RXD;             // UCA0RXD Function
@@ -271,14 +270,15 @@ void init_port6(void) {
     P6DIR  |=  L_REVERSE;           // Output
     
     // P6 PIN 4
-    P6SEL1 &= ~IR_SENSOR;           // GPIO operation
-    P6SEL0 &= ~IR_SENSOR;           // GPIO operation
-    P6DIR  |=  IR_SENSOR;           // Input
+    P6SEL1 &= ~IR_EMITTER;          // GPIO operation
+    P6SEL0 &= ~IR_EMITTER;          // GPIO operation
+    P6DIR  |=  IR_EMITTER;          // Output
+    P6OUT  &= ~IR_EMITTER;          // Off [Low]
     
     // P6 PIN 5
     P6SEL1 &= ~P6_5;                // GPIO operation
     P6SEL0 &= ~P6_5;                // GPIO operation
-    P6DIR  |=  P6_5;                // Input
+    P6DIR  &= ~P6_5;                // Input
     
     // P6 PIN 6
     P6SEL1 &= ~GRN_LED;             // GPIO operation

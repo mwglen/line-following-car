@@ -8,6 +8,9 @@ void init_port5(void);
 void init_port6(void);
 
 /// Defines
+// States
+#define RESET_STATE     (0)
+
 // SMCLK
 #define USE_GPIO   (0x00)
 #define USE_SMCLK  (0x01)
@@ -15,10 +18,10 @@ void init_port6(void);
 // Port 1 Pins
 #define RED_LED         (0x01)      // 0 RED LED 0
 #define A1_SEEED        (0x02)      // 1 A1_SEEED
-#define V_DETECT_L      (0x04)      // 2 V_DETECT_L
-#define V_DETECT_R      (0x08)      // 3 V_DETECT_R
+#define LEFT_IR         (0x04)      // 2 L_IR_SENSOR
+#define RIGHT_IR        (0x08)      // 3 R_IR_SENSOR
 #define SMCLK_2476      (0x10)      // 4 SMCLK_2476
-#define V_THUMB         (0x20)      // 5 V_THUMB
+#define THUMB           (0x20)      // 5 THUMB
 #define UCA0RXD         (0x40)      // 6 Back Channel UCA0RXD
 #define UCA0TXD         (0x80)      // 7 Back Channel UCA0XTD
 
@@ -64,6 +67,6 @@ void init_port6(void);
 #define L_FORWARD       (0x02)      // 1 L_FORWARD
 #define R_REVERSE       (0x04)      // 2 R_REVERSE
 #define L_REVERSE       (0x08)      // 3 L_REVERSE
-#define IR_SENSOR       (0x10)      // 4 IR_SENSOR
+#define IR_EMITTER      (0x10)      // 4 IR_EMITTER
 #define P6_5            (0x20)      // 5 P6_5
 #define GRN_LED         (0x40)      // 6 GRN_LED
