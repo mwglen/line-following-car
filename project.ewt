@@ -2161,6 +2161,27 @@
             <name>$PROJ_DIR$\Compiled\LCD.r43</name>
         </file>
     </group>
+    <group>
+        <name>Projects</name>
+        <file>
+            <name>$PROJ_DIR$\project_5.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\project_6.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\project_7.c</name>
+        </file>
+    </group>
+    <group>
+        <name>Timers</name>
+        <file>
+            <name>$PROJ_DIR$\timersB0.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\timersB1.c</name>
+        </file>
+    </group>
     <file>
         <name>$PROJ_DIR$\adc.c</name>
     </file>
@@ -2183,6 +2204,9 @@
         <name>$PROJ_DIR$\main.c</name>
     </file>
     <file>
+        <name>$PROJ_DIR$\main_menu.c</name>
+    </file>
+    <file>
         <name>$PROJ_DIR$\ports.c</name>
     </file>
     <file>
@@ -2193,12 +2217,6 @@
     </file>
     <file>
         <name>$PROJ_DIR$\system.c</name>
-    </file>
-    <file>
-        <name>$PROJ_DIR$\timersB0.c</name>
-    </file>
-    <file>
-        <name>$PROJ_DIR$\timersB1.c</name>
     </file>
     <file>
         <name>$PROJ_DIR$\wheels.c</name>

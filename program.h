@@ -7,8 +7,10 @@ typedef enum {
   STARTUP       = 0,
   MAIN_MENU     = 1,
   PROJECT5      = 2,
-  PROJECT6      = 3
+  PROJECT6      = 3,
+  PROJECT7      = 4
 } Event;
+extern Event CURR_EVENT;
 
 // Project States
 typedef enum {
@@ -31,3 +33,4 @@ typedef enum {
 #define TIME_2_SECS (20)
 #define TIME_3_SECS (30)
 #define TIME_4_SECS (40)
+#define CIRCLE_TIME (200)

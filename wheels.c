@@ -2,6 +2,7 @@
 #include "wheels.h"
 #include "msp430.h"
 #include "ports.h"
+#include "timersB0.h"
 
 /// Functions
 void init_wheels(void) {
@@ -23,22 +24,9 @@ void init_wheels(void) {
   LEFT_REVERSE_SPEED  = WHEEL_OFF;  // P6.3 Left Reverse PWM duty cycle
 }
 
-// set the power delivered to each wheel
-void set_wheels(
-  unsigned int left_forward_speed, 
-  unsigned int left_reverse_speed,
-  unsigned int right_forward_speed, 
-  unsigned int right_reverse_speed
-){
-  LEFT_FORWARD_SPEED = left_forward_speed;
-  LEFT_REVERSE_SPEED = left_reverse_speed;
-  RIGHT_FORWARD_SPEED = right_forward_speed;
-  RIGHT_REVERSE_SPEED = right_reverse_speed;
-}
-
 // movement functions for project 5
-void stop_wheels()  { set_wheels(0, 0, 0, 0); }
-void fwd_left() { LEFT_FORWARD_SPEED = WHEEL_PERIOD/4; }
-void bwd_left() { LEFT_REVERSE_SPEED = WHEEL_PERIOD/2; }
-void fwd_right() { RIGHT_FORWARD_SPEED = WHEEL_PERIOD/4; }
-void bwd_right() { RIGHT_REVERSE_SPEED = WHEEL_PERIOD/2; }
+void stop_wheels()  { LEFT_SPEED = 0; RIGHT_SPEED = 0;}
+void fwd_left() { LEFT_SPEED = WHEEL_PERIOD/4; }
+void bwd_left() { LEFT_SPEED = -WHEEL_PERIOD/2; }
+void fwd_right() { RIGHT_SPEED = WHEEL_PERIOD/4; }
+void bwd_right() { RIGHT_SPEED = -WHEEL_PERIOD/2; }

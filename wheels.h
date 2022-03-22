@@ -1,9 +1,5 @@
 /// Functions
 void init_wheels(void);
-void set_wheels(
-  unsigned int, unsigned int, 
-  unsigned int, unsigned int);
-
 void stop_wheels(void);
 void fwd_left(void);
 void bwd_left(void);

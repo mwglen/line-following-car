@@ -10,3 +10,5 @@ void clear_program_timer(void);
 
 extern short unsigned int PROGRAM_COUNT;
 extern short unsigned int DISPLAY_COUNT;
+extern long int LEFT_SPEED;
+extern long int RIGHT_SPEED;
