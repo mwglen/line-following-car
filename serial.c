@@ -4,22 +4,26 @@
 
 /// Globals
 char recieved_message[20];
-short unsigned int recieved_index = 0;
-short unsigned int TX_Index = 0;
+char transmission[10];
+short unsigned int recieve_index = 0;
+short unsigned int TX_index = 0;
 bool send_transmission = false;
+bool recieved_transmission = true;
+bool message_recieved = true;
 
 /// Functions
 #pragma vector=EUSCI_A0_VECTOR
 __interrupt void eUSCI_A0_ISR(void){
-   unsigned int temp;
+   char temp_char;
    switch(__even_in_range(UCA0IV,0x08)){
       case 0: // Vector 0 - no interrupt
          break;
       case 2: // Vector 2 – RXIFG
          // Recieved character in RXBUF
-         temp_char = RXBUF;
+         temp_char = UCA0RXBUF;
          if (temp_char == '\0');
          else recieved_message[recieve_index] = temp_char;
+         recieved_transmission = true;
          break;
 
       case 4: // Vector 4 – TXIFG
@@ -34,23 +38,23 @@ __interrupt void eUSCI_A0_ISR(void){
             case 7:
             case 8:
             case 9:
-               TXBUF = transmission[TX_index];
+               UCA0TXBUF = transmission[TX_index];
                TX_index++;
                break;
 
             case 10: 
                // Send New Line
-               TXBUF = '\n';
+               UCA0TXBUF = '\n';
                TX_index++;
                break;
 
             case 11: 
                // Send Carriage Return
-               TXBUF = '\r';
+               UCA0TXBUF = '\r';
                TX_index = 0;
 
                // Disable transmit interrupt
-               UCA0IFT &= ~UCTXIFG
+               UCA0IFG &= ~UCTXIFG;
                break;
          } break;
       default: break;
@@ -58,7 +62,7 @@ __interrupt void eUSCI_A0_ISR(void){
 }
 
 // Initialize UCA0
-void Init_Serial_UCA0(int mctlw, int num2) {
+void Init_Serial_UCA0(int brw, int mctlw) {
    // Configure UART 0
    UCA0CTLW0 = 0; // Use word register
    UCA0CTLW0 |= UCSWRST; // Set Software reset enable
@@ -87,10 +91,10 @@ void Init_Serial_UCA0(int mctlw, int num2) {
    // TX error (%) RX error (%)
    // BRCLK Baudrate UCOS16 UCBRx UCFx UCSx  neg  pos   neg  pos
    // 8000000 9600     1     52    1   0x49 -0.08 0.04 -0.10 0.14
-   UCA0BRW = 52; // 9,600 Baud
+   UCA0BRW = brw; // 9,600 Baud
    // UCA0MCTLW = UCSx concatenate UCFx concatenate UCOS16;
    // UCA0MCTLW = 0x49 concatenate 1 concatenate 1;
-   UCA0MCTLW = 0x4911 ;
+   UCA0MCTLW = mctlw ;
    UCA0CTLW0 &= ~UCSWRST; // Set Software reset enable
    UCA0IE |= UCRXIE; // Enable RX interrupt
 
