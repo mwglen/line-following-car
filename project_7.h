@@ -3,10 +3,14 @@
 
 /// Functions
 void project_7(void);
-bool calibrate(void);
+void drive_pid(void);
+void drive_2_pid(void);
+void drive_algorithm(void);
 
 /// Defines
-//#define base_speed (WHEEL_PERIOD / 2)
-#define base_speed (0)
-#define k_p_left  ((WHEEL_PERIOD - base_speed) / left_target_value)
-#define k_p_right ((WHEEL_PERIOD - base_speed) / right_target_value)
+#define base_speed (6000)
+#define CENTER_TIME (4)
+#define TURN_TIME   (1500)
+#define k_p (100) // 40
+#define k_d (0)
+#define k_i (0)

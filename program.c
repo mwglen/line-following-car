@@ -6,6 +6,7 @@
 #include "main_menu.h"
 #include "project_5.h"
 #include "project_6.h"
+#include "calibrate.h"
 #include "project_7.h"
 
 /// Global Variables
@@ -27,12 +28,12 @@ void program_start(void) {
         strcpy(display_line[3], "   NEXT ->");
         display_changed = TRUE;
         STARTUP_TIME = 0;
-      }
-      break;
+      } break;
       
     case MAIN_MENU: main_menu(); break;
-    case PROJECT5: project_5(); break;
-    case PROJECT6: project_6(); break;
-    case PROJECT7: project_7(); break;
+    case PROJECT5:  project_5(); break;
+    case PROJECT6:  project_6(); break;
+    case CALIBRATE: calibrate(); break;
+    case PROJECT7:  project_7(); break;
   }
 }

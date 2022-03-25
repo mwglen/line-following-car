@@ -18,6 +18,12 @@ unsigned int test_value;
 char chosen_direction;
 char change;
 
+/// Defines
+#define RIGHT_FORWARD_SPEED (TB3CCR1)
+#define LEFT_FORWARD_SPEED  (TB3CCR2)
+#define RIGHT_REVERSE_SPEED (TB3CCR3)
+#define LEFT_REVERSE_SPEED  (TB3CCR4)
+
 /// External Functions
 void Init_LCD(void);
 
@@ -38,7 +44,7 @@ void main(void){
   init_timer_B0();
   init_timer_B1();
   init_adc();
-
+  
   while(true) {
     // Run Program
     program_start();
@@ -52,6 +58,7 @@ void main(void){
     }
     
     display_process();   // Update Display
+    wheels_process();    // Update Wheels
     P3OUT ^= TEST_PROBE; // Change State of TEST_PROBE OFF
   }
 }

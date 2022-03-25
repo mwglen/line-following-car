@@ -5,17 +5,6 @@
 #include "display.h"
 #include "ports.h"
 #include "switches.h"
-#include "stdlib.h"
-
-#define LFS (LEFT_FORWARD_SPEED)
-#define RFS (RIGHT_FORWARD_SPEED)
-#define LRS (LEFT_REVERSE_SPEED)
-#define RRS (RIGHT_REVERSE_SPEED)
-
-long int LEFT_SPEED = 0;
-long int RIGHT_SPEED = 0;
-#define LS  (LEFT_SPEED)
-#define RS  (RIGHT_SPEED)
 
 /// Functions
 void init_timer_B0(void) {
@@ -42,9 +31,10 @@ void init_timer_B0(void) {
 }
 
 extern short unsigned int DISPLAY_COUNT = 0;
-extern short unsigned int PROGRAM_COUNT = 0;
+long unsigned int PROGRAM_COUNT = 0;
+long unsigned int PROGRAM_COUNT2 = 0;
 
-// 50 ms timer
+// 1 ms timer
 #pragma vector = TIMER0_B0_VECTOR
 __interrupt void Timer0_B0_ISR(void){
   // Update Display
@@ -53,23 +43,6 @@ __interrupt void Timer0_B0_ISR(void){
     update_display = 1;
     DISPLAY_COUNT = 0;
   }
-  
-  // Update Right Wheel
-  if (((RFS > 0) && (RS < 0)) || ((RRS > 0) && (RS > 0))) {
-    RFS = 0; RRS = 0;
-  } else {
-    RFS = RS > 0 ? abs(RS) : 0; 
-    RRS = RS < 0 ? abs(RS) : 0; 
-  }
-  
-  // Update Left Wheel
-  if (((LFS > 0) && (LS < 0)) || ((LRS > 0) && (LS > 0))) {
-    LFS = 0; LRS = 0;
-  } else {
-    LFS = LS > 0 ? abs(LS) : 0; 
-    LRS = LS < 0 ? abs(LS) : 0; 
-  }
-  
   TB0CCR0 += TB0CCR0_INTERVAL; // Add Offset to TBCCR0
 }
 
@@ -83,6 +56,7 @@ __interrupt void TIMER0_B1_ISR(void){
     case 2: // Program Counter
       // Add What you need happen in the interrupt
       PROGRAM_COUNT++;
+      PROGRAM_COUNT2++;
       TB0CCR1 += TB0CCR1_INTERVAL; // Add Offset to TBCCR1
       break;
     
@@ -105,3 +79,5 @@ __interrupt void TIMER0_B1_ISR(void){
     default: break;
   }
 }
+
+void reset_timers(void) {PROGRAM_COUNT = 0;}

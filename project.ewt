@@ -2162,15 +2162,27 @@
         </file>
     </group>
     <group>
-        <name>Projects</name>
+        <name>Programs</name>
+        <group>
+            <name>Projects</name>
+            <file>
+                <name>$PROJ_DIR$\project_5.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\project_6.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\project_7.c</name>
+            </file>
+        </group>
         <file>
-            <name>$PROJ_DIR$\project_5.c</name>
+            <name>$PROJ_DIR$\calibrate.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\project_6.c</name>
+            <name>$PROJ_DIR$\main_menu.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\project_7.c</name>
+            <name>$PROJ_DIR$\program.c</name>
         </file>
     </group>
     <group>
@@ -2204,13 +2216,7 @@
         <name>$PROJ_DIR$\main.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\main_menu.c</name>
-    </file>
-    <file>
         <name>$PROJ_DIR$\ports.c</name>
-    </file>
-    <file>
-        <name>$PROJ_DIR$\program.c</name>
     </file>
     <file>
         <name>$PROJ_DIR$\switches.c</name>

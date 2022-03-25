@@ -10,7 +10,7 @@ ProjectState PROJECT5_STATE = SETUP;
 void project_5(void) {
  switch (PROJECT5_STATE) {
     case SETUP:
-      PROGRAM_COUNT = 0;
+      reset_timers();
       PROJECT5_STATE++;
       strcpy(display_line[0], " PROJECT5 ");
       strcpy(display_line[1], "----------");
@@ -24,7 +24,7 @@ void project_5(void) {
       fwd_left();
       fwd_right();
       if (PROGRAM_COUNT >= TIME_1_SECS) {
-        PROGRAM_COUNT = 0;
+        reset_timers();
         PROJECT5_STATE++;
         strcpy(display_line[0], " PROJECT5 ");
         strcpy(display_line[1], "----------");
@@ -37,7 +37,7 @@ void project_5(void) {
     case STEP1:
       stop_wheels();
       if (PROGRAM_COUNT >= TIME_1_SECS) {
-        PROGRAM_COUNT = 0;
+        reset_timers();
         PROJECT5_STATE++;
         strcpy(display_line[0], " PROJECT5 ");
         strcpy(display_line[1], "----------");
@@ -51,7 +51,7 @@ void project_5(void) {
       bwd_left();
       bwd_right();
       if (PROGRAM_COUNT >= TIME_2_SECS) {
-        PROGRAM_COUNT = 0;
+        reset_timers();
         PROJECT5_STATE++;
         strcpy(display_line[0], " PROJECT5 ");
         strcpy(display_line[1], "----------");
@@ -64,7 +64,7 @@ void project_5(void) {
     case STEP3:
       stop_wheels();
       if (PROGRAM_COUNT >= TIME_1_SECS) {
-        PROGRAM_COUNT = 0;
+        reset_timers();
         PROJECT5_STATE++;
         strcpy(display_line[0], " PROJECT5 ");
         strcpy(display_line[1], "----------");
@@ -78,7 +78,7 @@ void project_5(void) {
       fwd_left();
       fwd_right();
       if (PROGRAM_COUNT >= TIME_1_SECS) {
-        PROGRAM_COUNT = 0;
+        reset_timers();
         PROJECT5_STATE++;
         strcpy(display_line[0], " PROJECT5 ");
         strcpy(display_line[1], "----------");
@@ -91,7 +91,7 @@ void project_5(void) {
     case STEP5:
       stop_wheels();
       if (PROGRAM_COUNT >= TIME_1_SECS) {
-        PROGRAM_COUNT = 0;
+        reset_timers();
         PROJECT5_STATE++;
         strcpy(display_line[0], " PROJECT5 ");
         strcpy(display_line[1], "----------");
@@ -105,7 +105,7 @@ void project_5(void) {
       fwd_left();
       bwd_right();
       if (PROGRAM_COUNT >= TIME_3_SECS) {
-        PROGRAM_COUNT = 0;
+        reset_timers();
         PROJECT5_STATE++;
         strcpy(display_line[0], " PROJECT5 ");
         strcpy(display_line[1], "----------");
@@ -118,7 +118,7 @@ void project_5(void) {
     case STEP7:
       stop_wheels();
       if (PROGRAM_COUNT >= TIME_2_SECS) {
-        PROGRAM_COUNT = 0;
+        reset_timers();
         PROJECT5_STATE++;
         strcpy(display_line[0], " PROJECT5 ");
         strcpy(display_line[1], "----------");
@@ -132,7 +132,7 @@ void project_5(void) {
       bwd_left();
       fwd_right();
       if (PROGRAM_COUNT >= TIME_3_SECS) {
-        PROGRAM_COUNT = 0;
+        reset_timers();
         PROJECT5_STATE++;
         strcpy(display_line[0], " PROJECT5 ");
         strcpy(display_line[1], "----------");
@@ -145,7 +145,7 @@ void project_5(void) {
     case STEP9:
       stop_wheels();
       if (PROGRAM_COUNT >= TIME_2_SECS) {
-        PROGRAM_COUNT = 0;
+        reset_timers();
         PROJECT5_STATE++;
       } break;
   }
