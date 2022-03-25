@@ -3,8 +3,9 @@
 #include "primitives.h"
 #include "switches.h"
 #include "ports.h"
-#include <string.h>
+#include "serial.h"
 #include "display.h"
+#include <string.h>
 
 /// Functions
 // Switch 1 Configuration
@@ -21,6 +22,23 @@ __interrupt void switch1_interrupt(void){
     
     // Tell system that switch was pressed
     SW1_PRESSED = true;
+
+    //------------------------------------
+    // HOMEWORK 8
+    //------------------------------------
+    // Reinitialize UCA0 with buad-rate
+    Init_Serial_UCA0(1, 0x4A11) //460,800
+
+    // Transmit Message for Homework 8
+    send_transmission = true;
+
+    // Load Baud Rate on Display
+    display_line[0] = "Homework 8"
+    display_line[1] = "Baud Rate:"
+    display_line[2] = " 460,800  "
+    
+    // Reset Timer
+    PROGRAM_COUNTER = 0;
   }
 }
 
@@ -38,6 +56,23 @@ __interrupt void switchP2_interrupt(void){
     
     // Tell program that switch was pressed
     SW2_PRESSED = true;
+
+    //------------------------------------
+    // HOMEWORK 8
+    //------------------------------------
+    // Reinitialize UCA0 with buad-rate
+    Init_Serial_UCA0(4, 0x5551) //115200
+
+    // Transmit Message for Homework 8
+    send_transmission = true;
+    
+    // Load Baud Rate on Display
+    display_line[0] = "Homework 8"
+    display_line[1] = "Baud Rate:"
+    display_line[2] = " 115,200  "
+    
+    // Reset Timer
+    PROGRAM_COUNTER = 0;
   }
 }
 

@@ -11,6 +11,7 @@
 #include "timersB0.h"
 #include "timersB1.h"
 #include "adc.h"
+#include "serial.h"
 
 /// Global Variables
 volatile char slow_input_down;
@@ -49,6 +50,30 @@ void main(void){
       stop_wheels();
       P1OUT &= ~RED_LED; // Turn on Red LED
       while (true) {}    // Halt Program
+
+      // Send transmission for Homework 8 
+      if (send_transmission && PROGRAM_COUNT = TIME_2_SECS) {
+
+         // Put a string into transmission global
+         transmission = "ABCDEFGHIJ";
+
+         // Enable transmission interrupt
+         UCA0IFT |= UCTXIFG;
+      }
+
+      // Display recieved messages for Homework 8
+      if (recieved_message) {
+
+         // Say that you've handled the message
+         recieved_message = false;
+
+         // Put message on display
+         for (int i = 0; i < 10; i++)
+            display_line[3][i] = recieved_message[i];
+
+         // Update the display
+         update_display = true;
+      }
     }
     
     display_process();   // Update Display
