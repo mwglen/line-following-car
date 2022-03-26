@@ -37,7 +37,7 @@ __interrupt void switch1_interrupt(void){
     strcpy(display_line[0], "Homework 8");
     strcpy(display_line[1], "Baud Rate:");
     strcpy(display_line[2], " 460,800  ");
-    update_display = true;
+    display_changed = true;
     
     // Reset Timer
     PROGRAM_COUNT = 0;
@@ -72,7 +72,7 @@ __interrupt void switchP2_interrupt(void){
     strcpy(display_line[0], "Homework 8");
     strcpy(display_line[1], "Baud Rate:");
     strcpy(display_line[2], " 115,200  ");
-    update_display = true;
+    display_changed = true;
     
     // Reset Timer
     PROGRAM_COUNT = 0;

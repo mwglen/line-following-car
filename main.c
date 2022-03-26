@@ -41,9 +41,11 @@ void main(void){
   init_timer_B1();
   init_adc();
 
+  // Clear Display  
   while(true) {
+    
     // Run Program
-    program_start();
+    //program_start();
     
     // Make sure that the wheels are safe to drive and then drive 
     if ((LEFT_FORWARD_SPEED && LEFT_REVERSE_SPEED)
@@ -54,13 +56,17 @@ void main(void){
     }
     
     // Send transmission for Homework 8 
-    if (send_transmission && PROGRAM_COUNT >= TIME_2_SECS) {
+    if (send_transmission && (PROGRAM_COUNT >= TIME_2_SECS)) {
 
        // Put a string into transmission global
        strcpy(transmission, "ABCDEFGHIJ");
 
        // Enable transmission interrupt
-       UCA0IFG |= UCTXIFG;
+       UCA0IE |= UCTXIE;
+       
+       recieve_index = 0;
+       
+       send_transmission = false;
     }
 
     // Display recieved messages for Homework 8
@@ -74,7 +80,7 @@ void main(void){
           display_line[3][i] = recieved_message[i];
 
        // Update the display
-       update_display = true;
+       display_changed = true;
     }
     
     display_process();   // Update Display

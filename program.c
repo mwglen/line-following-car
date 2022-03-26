@@ -25,7 +25,7 @@ void program_start(void) {
         strcpy(display_line[1], "----------");
         strcpy(display_line[2], "<- RUN    ");
         strcpy(display_line[3], "   NEXT ->");
-        display_changed = TRUE;
+        display_changed = true;
         STARTUP_TIME = 0;
       }
       break;

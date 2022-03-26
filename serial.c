@@ -8,8 +8,7 @@ char transmission[10];
 short unsigned int recieve_index = 0;
 short unsigned int TX_index = 0;
 bool send_transmission = false;
-bool recieved_transmission = true;
-bool message_recieved = true;
+bool message_recieved = false;
 
 /// Functions
 #pragma vector=EUSCI_A0_VECTOR
@@ -21,9 +20,10 @@ __interrupt void eUSCI_A0_ISR(void){
       case 2: // Vector 2 – RXIFG
          // Recieved character in RXBUF
          temp_char = UCA0RXBUF;
-         if (temp_char == '\0');
+         if (temp_char == '\0') break;
          else recieved_message[recieve_index] = temp_char;
-         recieved_transmission = true;
+         recieve_index++;
+         if (recieve_index == 11) message_recieved = true;
          break;
 
       case 4: // Vector 4 – TXIFG
@@ -54,7 +54,7 @@ __interrupt void eUSCI_A0_ISR(void){
                TX_index = 0;
 
                // Disable transmit interrupt
-               UCA0IFG &= ~UCTXIFG;
+               UCA0IE &= ~UCTXIE;
                break;
          } break;
       default: break;
@@ -99,7 +99,7 @@ void Init_Serial_UCA0(int brw, int mctlw) {
    UCA0IE |= UCRXIE; // Enable RX interrupt
 
    // Disable TX interrupt
-   UCA0IFG &= ~UCTXIFG;
+   UCA0IE &= ~UCTXIE;
 
    // Send null character to set interrupt flag
    // (calls ISR immediately when enabled due to flag)
