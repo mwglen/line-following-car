@@ -8,6 +8,9 @@
 #include "timersB0.h"
 #include <string.h>
 
+/// Globals
+char line_to_display[10];
+
 /// Functions
 // Switch 1 Configuration
 bool SW1_PRESSED = false;
@@ -34,9 +37,11 @@ __interrupt void switch1_interrupt(void){
     send_transmission = true;
 
     // Load Baud Rate on Display
-    strcpy(display_line[0], "Homework 8");
-    strcpy(display_line[1], "Baud Rate:");
-    strcpy(display_line[2], " 460,800  ");
+    strcpy(display_line[0], "          ");
+    strcpy(display_line[1], "          ");
+    strcpy(display_line[2], "          ");
+    strcpy(display_line[3], "          ");   
+    strcpy(line_to_display,  " 460,800  ");
     display_changed = true;
     
     // Reset Timer
@@ -69,9 +74,12 @@ __interrupt void switchP2_interrupt(void){
     send_transmission = true;
     
     // Load Baud Rate on Display
-    strcpy(display_line[0], "Homework 8");
-    strcpy(display_line[1], "Baud Rate:");
-    strcpy(display_line[2], " 115,200  ");
+    strcpy(display_line[0], "          ");
+    strcpy(display_line[1], "          ");
+    strcpy(display_line[2], "          ");
+    strcpy(display_line[3], "          ");   
+    strcpy(line_to_display,  " 115,200  ");
+ 
     display_changed = true;
     
     // Reset Timer

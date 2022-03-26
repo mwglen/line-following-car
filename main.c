@@ -75,6 +75,11 @@ void main(void){
        // Say that you've handled the message
        message_recieved = false;
 
+       // Put other info on display
+       strcpy(display_line[0], "Homework 8");
+       strcpy(display_line[1], "Baud Rate:");
+       strcpy(display_line[2], line_to_display);
+       
        // Put message on display
        for (int i = 0; i < 10; i++)
           display_line[3][i] = recieved_message[i];
