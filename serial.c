@@ -68,33 +68,10 @@ void Init_Serial_UCA0(int brw, int mctlw) {
    UCA0CTLW0 |= UCSWRST; // Set Software reset enable
    UCA0CTLW0 |= UCSSEL__SMCLK; // Set SMCLK as fBRCLK
 
-   // 9,600 Baud Rate
-   // 1. Calculate N = fBRCLK / Baudrate
-   //      N = SMCLK / 9,600 => 8,000,000 / 9,600 = 833.3333333
-   // if N > 16 continue with step 3, otherwise with step 2
-   // 
-   // 2. OS16 = 0, UCBRx = INT(N)
-   // continue with step 4
-   //
-   // 3. OS16 = 1,
-   //    UCx = INT(N/16),
-   //        = INT(N/16) = 833.333/16 => 52
-   //   UCFx = INT([(N/16) – INT(N/16)] × 16)
-   //        = ([833.333/16-INT(833.333/16)]*16)
-   //        = (52.08333333-52)*16
-   //        = 0.083*16 = 1
-   //
-   // 4. UCSx is found by looking up the fractional part of N (= N-INT(N)) in table Table 18-4
-   // Decimal of SMCLK / 8,000,000 / 9,600 = 833.3333333 => 0.333 yields 0x49 [Table]
-   //
-   // 5. If OS16 = 0 was chosen, a detailed error calculation is recommended to be performed
-   // TX error (%) RX error (%)
-   // BRCLK Baudrate UCOS16 UCBRx UCFx UCSx  neg  pos   neg  pos
-   // 8000000 9600     1     52    1   0x49 -0.08 0.04 -0.10 0.14
-   UCA0BRW = brw; // 9,600 Baud
-   // UCA0MCTLW = UCSx concatenate UCFx concatenate UCOS16;
-   // UCA0MCTLW = 0x49 concatenate 1 concatenate 1;
-   UCA0MCTLW = mctlw ;
+   // Set Baudrate
+   UCA0BRW = brw;
+   UCA0MCTLW = mctlw;
+
    UCA0CTLW0 &= ~UCSWRST; // Set Software reset enable
    UCA0IE |= UCRXIE; // Enable RX interrupt
 
@@ -106,3 +83,26 @@ void Init_Serial_UCA0(int brw, int mctlw) {
    UCA0TXBUF = '\0';
 }
 
+/*
+// Initialize UCA1
+void Init_Serial_UCA1(int brw, int mctlw) {
+   // Configure UART 1
+   UCA1CTLW0 = 0; // Use word register
+   UCA1CTLW0 |= UCSWRST; // Set Software reset enable
+   UCA1CTLW0 |= UCSSEL__SMCLK; // Set SMCLK as fBRCLK
+
+   // Set Baudrate
+   UCA1BRW = brw;
+   UCA1MCTLW = mctlw;
+
+   UCA1CTLW0 &= ~UCSWRST; // Set Software reset enable
+   UCA1IE |= UCRXIE; // Enable RX interrupt
+
+   // Disable TX interrupt
+   UCA1IE &= ~UCTXIE;
+
+   // Send null character to set interrupt flag
+   // (calls ISR immediately when enabled due to flag)
+   UCA1TXBUF = '\0';
+}
+*/

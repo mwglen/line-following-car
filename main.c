@@ -41,6 +41,11 @@ void main(void){
   init_timer_B1();
   init_adc();
 
+  // Update display for project 8
+  strcpy(display_line[0], " Waiting! ");
+  strcpy(display_line[2], "BR:       ");
+  display_changed = true;
+
   // Clear Display  
   while(true) {
     
@@ -61,6 +66,10 @@ void main(void){
        // Put a string into transmission global
        strcpy(transmission, "ABCDEFGHIJ");
 
+       // Put other info on display
+       strcpy(display_line[0], " Transmit ");
+       strcpy(display_line[1], transmission);
+
        // Enable transmission interrupt
        UCA0IE |= UCTXIE;
        
@@ -76,9 +85,7 @@ void main(void){
        message_recieved = false;
 
        // Put other info on display
-       strcpy(display_line[0], "Homework 8");
-       strcpy(display_line[1], "Baud Rate:");
-       strcpy(display_line[2], line_to_display);
+       strcpy(display_line[0], " Recieved ");
        
        // Put message on display
        for (int i = 0; i < 10; i++)
