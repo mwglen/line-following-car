@@ -2355,6 +2355,9 @@
         <name>$PROJ_DIR$\program.c</name>
     </file>
     <file>
+        <name>$PROJ_DIR$\serial.c</name>
+    </file>
+    <file>
         <name>$PROJ_DIR$\switches.c</name>
     </file>
     <file>

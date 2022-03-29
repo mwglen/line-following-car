@@ -12,6 +12,8 @@ extern bool SW1_PRESSED;
 extern bool SW2_PRESSED;
 extern unsigned int sw1_position;
 extern unsigned int sw2_position;
+extern bool send_transmission;
+extern char line_to_display [10];
 
 /// Defines
 #define DEBOUNCE_TIME (10000)

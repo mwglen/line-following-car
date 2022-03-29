@@ -3,8 +3,13 @@
 #include "primitives.h"
 #include "switches.h"
 #include "ports.h"
-#include <string.h>
+#include "serial.h"
 #include "display.h"
+#include "timersB0.h"
+#include <string.h>
+
+/// Globals
+char line_to_display[10];
 
 /// Functions
 // Switch 1 Configuration
@@ -21,6 +26,26 @@ __interrupt void switch1_interrupt(void){
     
     // Tell system that switch was pressed
     SW1_PRESSED = true;
+
+    //------------------------------------
+    // HOMEWORK 8
+    //------------------------------------
+    // Reinitialize UCA0 with buad-rate
+    Init_Serial_UCA0(1, 0x4A11); //460,800
+
+    // Transmit Message for Homework 8
+    send_transmission = true;
+
+    // Load Baud Rate on Display
+    strcpy(display_line[0], "          ");
+    strcpy(display_line[1], "          ");
+    strcpy(display_line[2], "          ");
+    strcpy(display_line[3], "          ");   
+    strcpy(line_to_display,  " 460,800  ");
+    display_changed = true;
+    
+    // Reset Timer
+    PROGRAM_COUNT = 0;
   }
 }
 
@@ -38,6 +63,27 @@ __interrupt void switchP2_interrupt(void){
     
     // Tell program that switch was pressed
     SW2_PRESSED = true;
+
+    //------------------------------------
+    // HOMEWORK 8
+    //------------------------------------
+    // Reinitialize UCA0 with buad-rate
+    Init_Serial_UCA0(4, 0x5551); //115200
+
+    // Transmit Message for Homework 8
+    send_transmission = true;
+    
+    // Load Baud Rate on Display
+    strcpy(display_line[0], "          ");
+    strcpy(display_line[1], "          ");
+    strcpy(display_line[2], "          ");
+    strcpy(display_line[3], "          ");   
+    strcpy(line_to_display,  " 115,200  ");
+ 
+    display_changed = true;
+    
+    // Reset Timer
+    PROGRAM_COUNT = 0;
   }
 }
 
