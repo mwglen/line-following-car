@@ -2,7 +2,7 @@
 #include "primitives.h"
 
 /// Globals
-extern char recieved_message[20];
+extern char recieved_message[10];
 extern short unsigned int recieve_index;
 extern short unsigned int TX_index;
 extern bool send_transmission;

@@ -19,6 +19,8 @@ volatile char slow_input_down;
 unsigned int test_value;
 char chosen_direction;
 char change;
+bool transmission_sent = false;
+bool transmission_recieved = false;
 
 /// External Functions
 void Init_LCD(void);
@@ -35,12 +37,18 @@ void main(void){
   init_clocks();                       // Initialize Clock System
   init_conditions();                   // Initialize Variables and Initial Conditions
   Init_LCD();                          // Initialize LCD
-  init_display();
+//  init_display();
   init_wheels();
   init_timer_B0();
   init_timer_B1();
   init_adc();
-
+  
+  Init_Serial_UCA0(4, 0x5551); //115200
+  buad_rate = 115200; 
+  strcpy(display_line[0], " Waiting! ");
+  strcpy(display_line[2], " 115,200  ");
+  display_changed = true;
+  
   // Clear Display  
   while(true) {
     
@@ -55,39 +63,48 @@ void main(void){
       while (true) {}    // Halt Program
     }
     
-    // Send transmission for Homework 8 
-    if (send_transmission && (PROGRAM_COUNT >= TIME_2_SECS)) {
-
-       // Put a string into transmission global
-       strcpy(transmission, "ABCDEFGHIJ");
-
-       // Enable transmission interrupt
+    if (send_transmission) {
+       strcpy(transmission, recieved_message);
        UCA0IE |= UCTXIE;
        
-       recieve_index = 0;
-       
-       send_transmission = false;
-    }
-
-    // Display recieved messages for Homework 8
-    if (message_recieved) {
-
-       // Say that you've handled the message
-       message_recieved = false;
-
-       // Put other info on display
-       strcpy(display_line[0], "Homework 8");
-       strcpy(display_line[1], "Baud Rate:");
-       strcpy(display_line[2], line_to_display);
-       
        // Put message on display
-       for (int i = 0; i < 10; i++)
-          display_line[3][i] = recieved_message[i];
-
-       // Update the display
+       strcpy(display_line[0], "Transmit! ");
+       strcpy(display_line[1], transmission);
        display_changed = true;
+       
+       // Update states
+       send_transmission = false;
+       transmission_sent = true;
+       recieve_index = 0;
+       PROGRAM_COUNT = 0;
     }
     
+    if (transmission_sent && (PROGRAM_COUNT >= TIME_2_SECS)) {
+       strcpy(display_line[0], " Waiting! ");
+       strcpy(display_line[1], "          ");
+       display_changed = true;
+       transmission_sent = false;
+    }
+    
+    if (message_recieved) {
+       // Update Display
+       strcpy(display_line[0], "Recieved! ");
+       strcpy(display_line[3], recieved_message);
+       display_changed = true;
+
+       // Update States
+       message_recieved = false;
+       transmission_recieved = true;
+       PROGRAM_COUNT = 0;
+    }
+    
+    if (transmission_recieved && (PROGRAM_COUNT >= TIME_2_SECS)) {
+       strcpy(display_line[0], " Waiting! ");
+       strcpy(display_line[3], "          ");
+       display_changed = true;
+       transmission_recieved = false;
+    }
+
     display_process();   // Update Display
     P3OUT ^= TEST_PROBE; // Change State of TEST_PROBE OFF
   }
