@@ -10,6 +10,7 @@
 
 /// Globals
 char line_to_display[10];
+long int buad_rate;
 
 /// Functions
 // Switch 1 Configuration
@@ -27,22 +28,8 @@ __interrupt void switch1_interrupt(void){
     // Tell system that switch was pressed
     SW1_PRESSED = true;
 
-    //------------------------------------
-    // HOMEWORK 8
-    //------------------------------------
-    // Reinitialize UCA0 with buad-rate
-    Init_Serial_UCA0(1, 0x4A11); //460,800
-
     // Transmit Message for Homework 8
     send_transmission = true;
-
-    // Load Baud Rate on Display
-    strcpy(display_line[0], "          ");
-    strcpy(display_line[1], "          ");
-    strcpy(display_line[2], "          ");
-    strcpy(display_line[3], "          ");   
-    strcpy(line_to_display,  " 460,800  ");
-    display_changed = true;
     
     // Reset Timer
     PROGRAM_COUNT = 0;
@@ -64,24 +51,22 @@ __interrupt void switchP2_interrupt(void){
     // Tell program that switch was pressed
     SW2_PRESSED = true;
 
-    //------------------------------------
-    // HOMEWORK 8
-    //------------------------------------
-    // Reinitialize UCA0 with buad-rate
-    Init_Serial_UCA0(4, 0x5551); //115200
+    // Change Buad Rate
+    switch (buad_rate) {
+      case 460800:
+        Init_Serial_UCA0(4, 0x5551); //115200
+        buad_rate = 115200; 
+        strcpy(display_line[2], " 115,200  ");
+        display_changed = true;
+        break;
 
-    // Transmit Message for Homework 8
-    send_transmission = true;
-    
-    // Load Baud Rate on Display
-    strcpy(display_line[0], "          ");
-    strcpy(display_line[1], "          ");
-    strcpy(display_line[2], "          ");
-    strcpy(display_line[3], "          ");   
-    strcpy(line_to_display,  " 115,200  ");
- 
-    display_changed = true;
-    
+      case 115200:
+        Init_Serial_UCA0(1, 0x4A11); //460,800
+        buad_rate = 460800; 
+        strcpy(display_line[2], " 460,800  ");
+        display_changed = true;
+        break;
+    }
     // Reset Timer
     PROGRAM_COUNT = 0;
   }

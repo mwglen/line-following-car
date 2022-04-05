@@ -3,7 +3,7 @@
 #include "msp430.h"
 
 /// Globals
-char recieved_message[20];
+char recieved_message[10] = "No Message";
 char transmission[10];
 short unsigned int recieve_index = 0;
 short unsigned int TX_index = 0;
@@ -21,9 +21,16 @@ __interrupt void eUSCI_A0_ISR(void){
          // Recieved character in RXBUF
          temp_char = UCA0RXBUF;
          if (temp_char == '\0') break;
-         else recieved_message[recieve_index] = temp_char;
-         recieve_index++;
-         if (recieve_index == 11) message_recieved = true;
+         else if (temp_char == '\n') break;
+         else if (temp_char == '\r') break;
+         else {
+           recieved_message[recieve_index] = temp_char;
+           recieve_index++;
+         }
+         if (recieve_index == 10) {
+           message_recieved = true;
+           recieve_index = 0;
+         }
          break;
 
       case 4: // Vector 4 – TXIFG
@@ -44,13 +51,13 @@ __interrupt void eUSCI_A0_ISR(void){
 
             case 10: 
                // Send New Line
-               UCA0TXBUF = '\n';
+               UCA0TXBUF = '\r';
                TX_index++;
                break;
 
             case 11: 
                // Send Carriage Return
-               UCA0TXBUF = '\r';
+               UCA0TXBUF = '\n';
                TX_index = 0;
 
                // Disable transmit interrupt

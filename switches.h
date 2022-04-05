@@ -14,6 +14,7 @@ extern unsigned int sw1_position;
 extern unsigned int sw2_position;
 extern bool send_transmission;
 extern char line_to_display [10];
+extern long int buad_rate;
 
 /// Defines
 #define DEBOUNCE_TIME (10000)
