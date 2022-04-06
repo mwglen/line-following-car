@@ -54,6 +54,9 @@ __interrupt void Timer0_B0_ISR(void){
     DISPLAY_COUNT = 0;
   }
   
+  // Turn on IOT after 50ms
+  if (!(P3OUT & IOT_EN_CPU)) P3OUT |= IOT_EN_CPU;
+  
   // Update Right Wheel
   if (((RFS > 0) && (RS < 0)) || ((RRS > 0) && (RS > 0))) {
     RFS = 0; RRS = 0;

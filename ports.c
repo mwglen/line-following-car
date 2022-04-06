@@ -90,7 +90,7 @@ void init_port2(void) {
     // P2 PIN 4
     P2SEL1 &= ~IOT_RUN_CPU;         // GPIO operation
     P2SEL0 &= ~IOT_RUN_CPU;         // GPIO operation
-    P2DIR  |=  IOT_RUN_CPU;         // Input
+    P2DIR  |=  IOT_RUN_CPU;         // Output
     P2OUT  &= ~IOT_RUN_CPU;         // Off [Low]
 
     // P2 PIN 5
@@ -158,7 +158,8 @@ void init_port3(char smclk) {
     // P3 PIN 6
     P3SEL1 &= ~IOT_LINK_CPU;        // GPIO operation
     P3SEL0 &= ~IOT_LINK_CPU;        // GPIO operation
-    P3DIR  &= ~IOT_LINK_CPU;        // Input
+    P3DIR  |=  IOT_LINK_CPU;        // Output
+    P3OUT  &= ~IOT_LINK_CPU;        // Off [Low]
 
     // P3 PIN 7
     P3SEL1 &= ~IOT_EN_CPU;          // GPIO opertaion
@@ -241,7 +242,7 @@ void init_port5(void) {
     P5SEL1 &= ~IOT_BOOT_CPU;        // GPIO operation
     P5SEL0 &= ~IOT_BOOT_CPU;        // GPIO operation
     P6DIR  |=  IOT_BOOT_CPU;        // Output
-    P4OUT  &= ~IOT_BOOT_CPU;        // Off [Low]
+    P4OUT  |=  IOT_BOOT_CPU;        // High [On]
 }
 
 // initialize all pins in port 6
