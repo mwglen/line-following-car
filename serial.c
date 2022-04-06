@@ -13,7 +13,10 @@ bool message_recieved = false;
 // Project 9
 bool UCA1_connected = false;
 
-
+// Common Baud Rates:
+//      460,800: (1, 0x4A11)
+//      115,200: (4, 0x5551)
+//      9,600:   (, 0x)
 /// Functions
 #pragma vector=EUSCI_A0_VECTOR
 __interrupt void eUSCI_A0_ISR(void){
@@ -79,32 +82,7 @@ void Init_Serial_UCA0(int brw, int mctlw) {
    UCA0CTLW0 |= UCSWRST; // Set Software reset enable
    UCA0CTLW0 |= UCSSEL__SMCLK; // Set SMCLK as fBRCLK
 
-   // 9,600 Baud Rate
-   // 1. Calculate N = fBRCLK / Baudrate
-   //      N = SMCLK / 9,600 => 8,000,000 / 9,600 = 833.3333333
-   // if N > 16 continue with step 3, otherwise with step 2
-   // 
-   // 2. OS16 = 0, UCBRx = INT(N)
-   // continue with step 4
-   //
-   // 3. OS16 = 1,
-   //    UCx = INT(N/16),
-   //        = INT(N/16) = 833.333/16 => 52
-   //   UCFx = INT([(N/16) – INT(N/16)] × 16)
-   //        = ([833.333/16-INT(833.333/16)]*16)
-   //        = (52.08333333-52)*16
-   //        = 0.083*16 = 1
-   //
-   // 4. UCSx is found by looking up the fractional part of N (= N-INT(N)) in table Table 18-4
-   // Decimal of SMCLK / 8,000,000 / 9,600 = 833.3333333 => 0.333 yields 0x49 [Table]
-   //
-   // 5. If OS16 = 0 was chosen, a detailed error calculation is recommended to be performed
-   // TX error (%) RX error (%)
-   // BRCLK Baudrate UCOS16 UCBRx UCFx UCSx  neg  pos   neg  pos
-   // 8000000 9600     1     52    1   0x49 -0.08 0.04 -0.10 0.14
    UCA0BRW = brw; // 9,600 Baud
-   // UCA0MCTLW = UCSx concatenate UCFx concatenate UCOS16;
-   // UCA0MCTLW = 0x49 concatenate 1 concatenate 1;
    UCA0MCTLW = mctlw ;
    UCA0CTLW0 &= ~UCSWRST; // Set Software reset enable
    UCA0IE |= UCRXIE; // Enable RX interrupt
@@ -142,7 +120,8 @@ __interrupt void eUSCI_A1_ISR(void){
          break;
 
       case 4: // Vector 4 – TXIFG
-         switch(TX_index) {
+        if (UCA1_connected) {
+          switch(TX_index) {
             case 0:
             case 1:
             case 2:
@@ -171,7 +150,8 @@ __interrupt void eUSCI_A1_ISR(void){
                // Disable transmit interrupt
                UCA1IE &= ~UCTXIE;
                break;
-         } break;
+          } break;
+        }
       default: break;
    }
 }
@@ -183,32 +163,7 @@ void Init_Serial_UCA1(int brw, int mctlw) {
    UCA1CTLW0 |= UCSWRST; // Set Software reset enable
    UCA1CTLW0 |= UCSSEL__SMCLK; // Set SMCLK as fBRCLK
 
-   // 9,600 Baud Rate
-   // 1. Calculate N = fBRCLK / Baudrate
-   //      N = SMCLK / 9,600 => 8,000,000 / 9,600 = 833.3333333
-   // if N > 16 continue with step 3, otherwise with step 2
-   // 
-   // 2. OS16 = 0, UCBRx = INT(N)
-   // continue with step 4
-   //
-   // 3. OS16 = 1,
-   //    UCx = INT(N/16),
-   //        = INT(N/16) = 833.333/16 => 52
-   //   UCFx = INT([(N/16) – INT(N/16)] × 16)
-   //        = ([833.333/16-INT(833.333/16)]*16)
-   //        = (52.08333333-52)*16
-   //        = 0.083*16 = 1
-   //
-   // 4. UCSx is found by looking up the fractional part of N (= N-INT(N)) in table Table 18-4
-   // Decimal of SMCLK / 8,000,000 / 9,600 = 833.3333333 => 0.333 yields 0x49 [Table]
-   //
-   // 5. If OS16 = 0 was chosen, a detailed error calculation is recommended to be performed
-   // TX error (%) RX error (%)
-   // BRCLK Baudrate UCOS16 UCBRx UCFx UCSx  neg  pos   neg  pos
-   // 8000000 9600     1     52    1   0x49 -0.08 0.04 -0.10 0.14
-   UCA1BRW = brw; // 9,600 Baud
-   // UCA0MCTLW = UCSx concatenate UCFx concatenate UCOS16;
-   // UCA0MCTLW = 0x49 concatenate 1 concatenate 1;
+   UCA1BRW = brw;
    UCA1MCTLW = mctlw ;
    UCA1CTLW0 &= ~UCSWRST; // Set Software reset enable
    UCA1IE |= UCRXIE; // Enable RX interrupt
