@@ -42,6 +42,7 @@ void main(void){
   init_timer_B0();
   init_timer_B1();
   init_adc();
+  Init_Serial_UCA1(4, 0x5551); //115200
   
   Init_Serial_UCA0(4, 0x5551); //115200
   buad_rate = 115200; 
