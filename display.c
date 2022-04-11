@@ -3,10 +3,6 @@
 #include "primitives.h"
 #include <string.h>
 
-/// Global Variables
-//bool DISPLAY_CHANGED = false;
-//bool UPDATE_DISPLAY = false;
-
 /// Functions
 void display_process(void){
   if(update_display){

@@ -43,8 +43,10 @@ void init_timer_B0(void) {
 
 extern short unsigned int DISPLAY_COUNT = 0;
 extern short unsigned int PROGRAM_COUNT = 0;
+unsigned int IOT_COUNT = 0;
 
 // 50 ms timer
+bool done_50;
 #pragma vector = TIMER0_B0_VECTOR
 __interrupt void Timer0_B0_ISR(void){
   // Update Display
@@ -54,8 +56,9 @@ __interrupt void Timer0_B0_ISR(void){
     DISPLAY_COUNT = 0;
   }
   
-  // Turn on IOT after 50ms
-  if (!(P3OUT & IOT_EN_CPU)) P3OUT |= IOT_EN_CPU;
+  if (IOT_COUNT >= 10) P3OUT |= IOT_EN_CPU;
+  
+  IOT_COUNT++;
   
   // Update Right Wheel
   if (((RFS > 0) && (RS < 0)) || ((RRS > 0) && (RS > 0))) {

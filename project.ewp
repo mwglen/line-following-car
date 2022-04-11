@@ -2331,6 +2331,9 @@
         <name>$PROJ_DIR$\clocks.c</name>
     </file>
     <file>
+        <name>$PROJ_DIR$\computer.c</name>
+    </file>
+    <file>
         <name>$PROJ_DIR$\display.c</name>
     </file>
     <file>
@@ -2338,6 +2341,9 @@
     </file>
     <file>
         <name>$PROJ_DIR$\interrupts.c</name>
+    </file>
+    <file>
+        <name>$PROJ_DIR$\iot.c</name>
     </file>
     <file>
         <name>$PROJ_DIR$\led.c</name>
@@ -2353,9 +2359,6 @@
     </file>
     <file>
         <name>$PROJ_DIR$\program.c</name>
-    </file>
-    <file>
-        <name>$PROJ_DIR$\serial.c</name>
     </file>
     <file>
         <name>$PROJ_DIR$\switches.c</name>

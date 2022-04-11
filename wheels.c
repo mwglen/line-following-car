@@ -1,5 +1,6 @@
 /// Includes
 #include "wheels.h"
+#include "primitives.h"
 #include "msp430.h"
 #include "ports.h"
 #include "timersB0.h"
@@ -30,3 +31,15 @@ void fwd_left() { LEFT_SPEED = WHEEL_PERIOD/4; }
 void bwd_left() { LEFT_SPEED = -WHEEL_PERIOD/2; }
 void fwd_right() { RIGHT_SPEED = WHEEL_PERIOD/4; }
 void bwd_right() { RIGHT_SPEED = -WHEEL_PERIOD/2; }
+
+
+// Check wheels to make sure they are safe
+void check_wheels() {
+  // Make sure that the wheels are safe to drive and then drive 
+  if ((LEFT_FORWARD_SPEED && LEFT_REVERSE_SPEED)
+    || (RIGHT_FORWARD_SPEED && RIGHT_REVERSE_SPEED)) {
+    stop_wheels();
+    P1OUT &= ~RED_LED; // Turn on Red LED
+    while (true) {}    // Halt Program
+  }
+}
