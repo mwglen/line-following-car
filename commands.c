@@ -1,12 +1,15 @@
+/// Includes
 #include "commands.h"
 #include "pc.h"
 #include "iot.h"
 #include "text.h"
 #include "ring_buffer.h"
 #include "timersB0.h"
-#include "stdbool.h"
+#include "wheels.h"
 #include "display.h"
+#include <stdbool.h>
 
+/// Functions
 // Parse and run commands
 void run_cmd(char cmd[RING_MSG_LENGTH]) {
   if (cmd[0] == '^') {
@@ -27,12 +30,47 @@ void run_cmd(char cmd[RING_MSG_LENGTH]) {
     // Update Display with IOT info
     } else if (starts_with(cmd, "^U")) {
       display_iot_flag = true;
+     
+    // TCP Commands
+    } else if (starts_with(cmd, "^0000")) {
+      
+      // Parse Direction
+      switch (cmd[5]) {
+        case 'F':
+          LEFT_SPEED  =  WHEEL_PERIOD/4;
+          RIGHT_SPEED =  WHEEL_PERIOD/4;
+          break;
+          
+        case 'B':
+          LEFT_SPEED  = -WHEEL_PERIOD/4;
+          RIGHT_SPEED = -WHEEL_PERIOD/4;
+          break;
+          
+        case 'R':
+          LEFT_SPEED  =  WHEEL_PERIOD/4;
+          RIGHT_SPEED = -WHEEL_PERIOD/4;
+          break;
+          
+        case 'L':
+          LEFT_SPEED  = -WHEEL_PERIOD/4;
+          RIGHT_SPEED =  WHEEL_PERIOD/4;
+          break;
+      }
+      
+      // Determine time to stop after
+      stop_after_time = 0;
+      for (int i = 6; cmd[i] != '\r'; i++)
+          stop_after_time = stop_after_time * 10 + cmd[i] - '0';
+      
+      // Set flag signaling to stop after time
+      stop_after_curr_time = 0;
+      stop_after_flag = true;
+      
+      write_buffer(&pc_tx_buffer, "FLAGGED");
       
     // Return Error
-    } else {
-      write_buffer(&pc_tx_buffer, "COMMAND NOT FOUND");
-    }
-  } else {
-    write_buffer(&iot_tx_buffer, cmd);
-  }
+    } else write_buffer(&pc_tx_buffer, "COMMAND NOT FOUND\r\n");
+  
+  // Passthrough to iot
+  } else write_buffer(&iot_tx_buffer, cmd);
 }

@@ -2174,6 +2174,18 @@
         </file>
     </group>
     <group>
+        <name>Program</name>
+        <file>
+            <name>$PROJ_DIR$\main.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\main_menu.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\program.c</name>
+        </file>
+    </group>
+    <group>
         <name>Projects</name>
         <file>
             <name>$PROJ_DIR$\project_7.c</name>
@@ -2219,16 +2231,7 @@
         <name>$PROJ_DIR$\led.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\main.c</name>
-    </file>
-    <file>
-        <name>$PROJ_DIR$\main_menu.c</name>
-    </file>
-    <file>
         <name>$PROJ_DIR$\ports.c</name>
-    </file>
-    <file>
-        <name>$PROJ_DIR$\program.c</name>
     </file>
     <file>
         <name>$PROJ_DIR$\switches.c</name>

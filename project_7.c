@@ -1,3 +1,4 @@
+/// Includes
 #include "program.h"
 #include "project_7.h"
 #include "wheels.h"
@@ -9,12 +10,14 @@
 #include "display.h"
 #include <string.h>
 
+/// Globals
 int right_error = 0;
 int left_error = 0;
 ProjectState PROJECT7_STATE = SETUP;
 unsigned int left_target_value  = 300;
 unsigned int right_target_value = 300;
 
+/// Functions
 void project_7(void) {
   
   // Monitor ADC Values

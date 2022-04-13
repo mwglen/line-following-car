@@ -1,3 +1,4 @@
+/// Includes
 #include "main_menu.h"
 #include "wheels.h"
 #include "display.h"
@@ -5,8 +6,11 @@
 #include "program.h"
 #include <string.h>
 
+/// Globals
 Event CURR_SELECTION = MAIN_MENU;
 
+/// Functions
+// Displays and controls a main menu
 void main_menu(void) {
   stop_wheels();
   strcpy(display_line[0], "MAIN  MENU");

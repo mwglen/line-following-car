@@ -8,7 +8,8 @@
 #include "iot.h"
 #include <stdbool.h>
 
-/// Flags
+/// Globals
+// Flags
 bool iot_process_flag = false;
 bool wheels_process_flag  = false;
 bool pc_process_flag = false;
@@ -49,9 +50,9 @@ __interrupt void Timer0_B0_ISR(void){
   B0_COUNT++;
   if (B0_COUNT % 4 == 0)   update_display = 1;
   if (B0_COUNT % 10 == 0)  P3OUT |= IOT_EN_CPU;
-  if (B0_COUNT % 10 == 0)  wheels_process_flag = true;
-  if (B0_COUNT % 10 == 0)  iot_process_flag = true;
-  if (B0_COUNT % 10 == 0)  pc_process_flag = true;
+  if (B0_COUNT % 5 == 0)  wheels_process_flag = true;
+  if (B0_COUNT % 1 == 0)   iot_process_flag = true;
+  if (B0_COUNT % 1 == 0)   pc_process_flag = true;
   if (B0_COUNT >= 100)     B0_COUNT = 0;
   
   TB0CCR0 += TB0CCR0_INTERVAL; // Add Offset to TBCCR0

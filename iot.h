@@ -3,6 +3,7 @@
 #include "ring_buffer.h"
 
 /// Globals
+// Transmissions
 extern char iot_trans[RING_MSG_LENGTH];
 extern bool message_recieved;
 
@@ -11,6 +12,8 @@ extern char ssid[20];
 extern char ip_addr[20];
 extern char ip_addr1[10];
 extern char ip_addr2[10];
+
+// Ring Buffers
 extern RingBuffer iot_tx_buffer;
 extern RingBuffer iot_tx_buffer;
 

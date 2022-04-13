@@ -4,10 +4,11 @@
 #include "iot.h"
 #include <string.h>
 
-// Display Flags
+/// Globals
 bool display_iot_flag = false;
 
 /// Functions
+// Updates display if necessary
 void display_process(void){
   if(update_display){
     update_display = false;
@@ -17,6 +18,8 @@ void display_process(void){
     }
   }
 }
+
+// Puts the display into a known state
 void init_display(void) {
   strcpy(display_line[0], "          ");
   strcpy(display_line[1], "Connecting");

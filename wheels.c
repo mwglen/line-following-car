@@ -1,11 +1,10 @@
 /// Includes
 #include "wheels.h"
-#include <stdbool.h>
 #include "msp430.h"
 #include "ports.h"
 #include "timersB0.h"
 #include "stdlib.h"
-
+#include <stdbool.h>
 
 /// Functions
 void init_wheels(void) {
@@ -27,13 +26,12 @@ void init_wheels(void) {
   LEFT_REVERSE_SPEED  = WHEEL_OFF;  // P6.3 Left Reverse PWM duty cycle
 }
 
-// movement functions for project 5
+// Movement Functions
 void stop_wheels()  { LEFT_SPEED = 0; RIGHT_SPEED = 0;}
 void fwd_left() { LEFT_SPEED = WHEEL_PERIOD/4; }
 void bwd_left() { LEFT_SPEED = -WHEEL_PERIOD/2; }
 void fwd_right() { RIGHT_SPEED = WHEEL_PERIOD/4; }
 void bwd_right() { RIGHT_SPEED = -WHEEL_PERIOD/2; }
-
 
 // Check wheels to make sure they are safe
 void check_wheels() {
@@ -46,31 +44,54 @@ void check_wheels() {
   }
 }
 
+// Indirect Wheel Speeds
 #define LFS (LEFT_FORWARD_SPEED)
 #define RFS (RIGHT_FORWARD_SPEED)
 #define LRS (LEFT_REVERSE_SPEED)
 #define RRS (RIGHT_REVERSE_SPEED)
 
+// Wheel Speed 
 long int LEFT_SPEED = 0;
 long int RIGHT_SPEED = 0;
-#define LS  (LEFT_SPEED)
-#define RS  (RIGHT_SPEED)
+#define LS (LEFT_SPEED)
+#define RS (RIGHT_SPEED)
+
+// Stop After Variables
+bool stop_after_flag = false;
+unsigned int stop_after_time = 0;
+unsigned int stop_after_curr_time = 0;
+#define SAF  (stop_after_flag)
+#define SAT  (stop_after_time)
+#define SACT (stop_after_curr_time)
+
 void wheels_process() {
-  if (wheels_process_flag) {
+  if (wheels_process_flag) {    
+    // Reset Flag
     wheels_process_flag = false;
-    if (((RFS > 0) && (RS < 0)) || ((RRS > 0) && (RS > 0))) {
-      RFS = 0; RRS = 0;
-    } else {
-      RFS = RS > 0 ? abs(RS) : 0; 
-      RRS = RS < 0 ? abs(RS) : 0; 
-    }
+      
+    // If set to stop after a certain time, stop
+    if (SAF && (SACT >= SAT)) { LS = 0; RS = 0; SAF = false; }
     
-    // Update Left Wheel
-    if (((LFS > 0) && (LS < 0)) || ((LRS > 0) && (LS > 0))) {
-      LFS = 0; LRS = 0;
-    } else {
-      LFS = LS > 0 ? abs(LS) : 0; 
-      LRS = LS < 0 ? abs(LS) : 0; 
+    // Otherwise keep going
+    else {
+      // Update count
+      SACT++;
+      
+      // Update Right Wheel
+      if (((RFS > 0) && (RS < 0)) || ((RRS > 0) && (RS > 0))) {
+        RFS = 0; RRS = 0;
+      } else {
+        RFS = RS > 0 ? abs(RS) : 0; 
+        RRS = RS < 0 ? abs(RS) : 0; 
+      }
+      
+      // Update Left Wheel
+      if (((LFS > 0) && (LS < 0)) || ((LRS > 0) && (LS > 0))) {
+        LFS = 0; LRS = 0;
+      } else {
+        LFS = LS > 0 ? abs(LS) : 0; 
+        LRS = LS < 0 ? abs(LS) : 0; 
+      }
     }
   }
 }

@@ -1,10 +1,9 @@
+/// Includes
 #include "program.h"
 #include "display.h"
-#include <string.h>
-
-// Events
 #include "main_menu.h"
 #include "project_7.h"
+#include <string.h>
 
 /// Global Variables
 // Main Function
