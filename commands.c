@@ -13,6 +13,14 @@
 
 extern void lcd_BIG_mid(void);
 
+// A buffer to hold movement commands
+// Strings are in format [FBLR][0..9]*
+RingBuffer mv_cmd_buffer = {
+  .write_idx = 0,
+  .read_idx = 0,
+  .curr_size = 0
+};
+
 /// Functions
 // Parse and run commands
 void run_cmd(char cmd[RING_MSG_LENGTH]) {
@@ -41,42 +49,68 @@ void run_cmd(char cmd[RING_MSG_LENGTH]) {
      
     // TCP Commands
     } else if (starts_with(cmd, "^0000")) {
-      
-      // Parse Direction
-      switch (cmd[5]) {
-        case 'F':
-          LEFT_SPEED  =  WHEEL_PERIOD/4;
-          RIGHT_SPEED =  WHEEL_PERIOD/4;
-          break;
-          
-        case 'B':
-          LEFT_SPEED  = -WHEEL_PERIOD/4;
-          RIGHT_SPEED = -WHEEL_PERIOD/4;
-          break;
-          
-        case 'R':
-          LEFT_SPEED  =  WHEEL_PERIOD/4;
-          RIGHT_SPEED = -WHEEL_PERIOD/4;
-          break;
-          
-        case 'L':
-          LEFT_SPEED  = -WHEEL_PERIOD/4;
-          RIGHT_SPEED =  WHEEL_PERIOD/4;
-          break;
+      // Add movement commands to buffer
+      char *ptr = cmd + 5;
+      while (*ptr != '\r') {
+        // Create a string to hold command
+        char new_mv_cmd[RING_MSG_LENGTH] = "";
+        
+        // Copy direction for command
+        strncat(new_mv_cmd, ptr++, 1);
+        
+        // Copy digits for command
+        while (isdigit(*ptr))
+          strncat(new_mv_cmd, ptr++, 1);
+        
+        // Write command to buffer
+        write_buffer(&mv_cmd_buffer, new_mv_cmd);
       }
       
-      // Determine time to stop after
-      stop_after_time = 0;
-      for (int i = 6; isdigit(cmd[i]); i++)
-          stop_after_time = stop_after_time * 10 + cmd[i] - '0';
-      
-      // Set flag signaling to stop after time
-      stop_after_curr_time = 0;
-      stop_after_flag = true;
       
     // Return Error
     } else write_buffer(&pc_tx_buffer, "COMMAND NOT FOUND\r\n");
   
   // Passthrough to iot
   } else write_buffer(&iot_tx_buffer, cmd);
+}
+
+// Reads a move command from buffer and runs the command
+void run_move_cmd(void) {
+  if (!stop_after_flag && mv_cmd_buffer.curr_size != 0) {
+    // Get movement command
+    char curr_mv_cmd[RING_MSG_LENGTH];
+    read_buffer(&mv_cmd_buffer, curr_mv_cmd);
+    
+    // Parse Direction
+    switch (curr_mv_cmd[0]) {
+      case 'F':
+        LEFT_SPEED  =  WHEEL_PERIOD/4;
+        RIGHT_SPEED =  WHEEL_PERIOD/4;
+        break;
+        
+      case 'B':
+        LEFT_SPEED  = -WHEEL_PERIOD/4;
+        RIGHT_SPEED = -WHEEL_PERIOD/4;
+        break;
+        
+      case 'R':
+        LEFT_SPEED  =  WHEEL_PERIOD/4;
+        RIGHT_SPEED = -WHEEL_PERIOD/4;
+        break;
+          
+      case 'L':
+        LEFT_SPEED  = -WHEEL_PERIOD/4;
+        RIGHT_SPEED =  WHEEL_PERIOD/4;
+        break;
+    }
+              
+    // Determine time to stop after
+    stop_after_time = 0;
+    for (int i = 1; isdigit(curr_mv_cmd[i]); i++)
+        stop_after_time = stop_after_time * 10 + curr_mv_cmd[i] - '0';
+    
+    // Set flag signaling to stop after time
+    stop_after_curr_time = 0;
+    stop_after_flag = true;
+  }
 }

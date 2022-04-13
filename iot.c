@@ -197,5 +197,8 @@ void iot_process(void) {
     
     // Display IOT Info if Needed
     if (display_iot_flag) display_iot();
+    
+    // Run any move command
+    run_move_cmd();
   }
 }

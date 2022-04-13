@@ -19,9 +19,15 @@ void display_iot(void) {
     // Get IP Address
     case 1: write_buffer(&iot_tx_buffer, "AT+CIFSR\r\n");
       
+    // Enable Multiple Connections
+    case 2: write_buffer(&iot_tx_buffer, "AT+CIPMUX=1\r\n");
+    
+    // Start Server
+    case 3: write_buffer(&iot_tx_buffer, "AT+CIPSERVER=1,8080\r\n");
+    
     // Display Data
-    case 2:
-      display_iot_state = 2;
+    case 4:
+      display_iot_state = 4;
       if (recieved_ip && recieved_ssid) {
         center_cpy(display_line[0], ssid);
         center_cpy(display_line[1], "IP address");
