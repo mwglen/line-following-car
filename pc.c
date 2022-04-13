@@ -1,16 +1,32 @@
 /// Includes
 #include "msp430.h"
-#include "primitives.h"
 #include "timersB0.h"
 #include "iot.h"
+#include "pc.h"
+#include "text.h"
+#include "ring_buffer.h"
+#include "commands.h"
 #include <string.h>
+#include <stdbool.h>
 
 /// Globals
 bool pc_connected = true;
-char pc_trans[20] = "";
+char pc_trans[RING_MSG_LENGTH] = "";
+char cmd[RING_MSG_LENGTH] = "";
 
-// Store Commands
-char cmd[10] = "";
+// A buffer to hold transmissions to send
+RingBuffer pc_tx_buffer = {
+  .write_idx = 0,
+  .read_idx = 0,
+  .curr_size = 0
+};
+
+// A buffer to hold recieved transmissions
+RingBuffer pc_rx_buffer = {
+  .write_idx = 0,
+  .read_idx = 0,
+  .curr_size = 0
+};
 
 /// Functions
 // Transmit message to computer
@@ -21,17 +37,25 @@ void transmit_pc(char *message) {
   }
 }
 
-void run_cmd(void) {
-   if (strcmp(cmd, "^^") == 0) {
-     transmit_pc("PC READY");
-   } else if (strcmp(cmd, "^F") == 0) {
-     init_iot(4, 0x5551); //115200 
-     transmit_pc("FAST BUAD");
-   } else if (strcmp(cmd, "^S") == 0) {
-     init_iot(52, 0x4911); //9600 
-     transmit_pc("SLOW BUAD");
-   }
-   strcpy(cmd, "");
+char pc_tx_msg[RING_MSG_LENGTH] = "";
+char pc_rx_msg[RING_MSG_LENGTH] = "";
+void pc_process(void) {
+  if (pc_process_flag) {
+    // Update Flag
+    pc_process_flag = false;
+    
+    // Recieve if Needed
+    if (pc_rx_buffer.curr_size != 0) {
+      read_buffer(&pc_rx_buffer, pc_rx_msg);
+      run_cmd(pc_rx_msg);
+    }
+    
+    // Transmit if Needed
+    else if (pc_tx_buffer.curr_size != 0) {
+      read_buffer(&pc_tx_buffer, pc_tx_msg);
+      transmit_pc(pc_tx_msg);
+    }
+  }
 }
 
 // Initialize UCA0
@@ -62,8 +86,7 @@ void init_pc(int brw, int mctlw) {
 //  return hash;
 //}
 
-bool send_nl = false;
-short unsigned int pc_tx_idx = 0;
+unsigned int pc_tx_idx = 0;
 #pragma vector=EUSCI_A1_VECTOR
 __interrupt void eUSCI_A1_ISR(void){
    char temp_char;
@@ -74,33 +97,28 @@ __interrupt void eUSCI_A1_ISR(void){
          pc_connected = true;
          temp_char = UCA1RXBUF;
          
-         // Run command
-         if ((cmd[0] == '^') && (temp_char == '\r')) run_cmd();
+         // Ignore null character
+         if (temp_char == '\0') break;
          
-         // Add character to string
-         else if (cmd[0] == '^') strncat(cmd, &temp_char, 1);
+         // Append character to string
+         strncat(cmd, &temp_char, 1);
          
-         // Start capturing command
-         else if (temp_char == '^') strcpy(cmd, "^");
-         
-         // Passthrough to IOT
-         else UCA0TXBUF = temp_char;
-         break;
+         // Echo character
+         UCA1TXBUF = temp_char;
+           
+         // Send commands to buffer
+         if (temp_char == '\n') {
+           write_buffer(&pc_rx_buffer, cmd);
+           strcpy(cmd, "");
+         } break;
 
       case 4: // Vector 4 – TXIFG
-        if (send_nl) {
-          UCA1TXBUF = '\n';
-          send_nl = false;
+        temp_char = pc_trans[pc_tx_idx++];
+        if (temp_char == '\0') {
           UCA1IE &= ~UCTXIE;
           pc_tx_idx = 0;
-        } else if (pc_trans[pc_tx_idx] == '\0') {
-          UCA1TXBUF = '\r';
-          send_nl = true;
-        } else {
-          UCA1TXBUF = pc_trans[pc_tx_idx];
-          pc_tx_idx++;
-        } break;
-        
+        } else UCA1TXBUF = temp_char;
+        break;
       default: break;
    }
 }

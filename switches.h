@@ -1,4 +1,4 @@
-#include "primitives.h"
+#include <stdbool.h>
 
 /// Functions
 bool get_sw1(void);

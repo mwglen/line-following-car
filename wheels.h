@@ -6,6 +6,7 @@ void bwd_left(void);
 void fwd_right(void);
 void bwd_right(void);
 void check_wheels(void);
+void wheels_process(void);
 
 /// Defines
 #define WHEEL_OFF                 (0)

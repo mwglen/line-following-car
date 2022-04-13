@@ -1,9 +1,11 @@
 /// Includes
 #include "wheels.h"
-#include "primitives.h"
+#include <stdbool.h>
 #include "msp430.h"
 #include "ports.h"
 #include "timersB0.h"
+#include "stdlib.h"
+
 
 /// Functions
 void init_wheels(void) {
@@ -41,5 +43,34 @@ void check_wheels() {
     stop_wheels();
     P1OUT &= ~RED_LED; // Turn on Red LED
     while (true) {}    // Halt Program
+  }
+}
+
+#define LFS (LEFT_FORWARD_SPEED)
+#define RFS (RIGHT_FORWARD_SPEED)
+#define LRS (LEFT_REVERSE_SPEED)
+#define RRS (RIGHT_REVERSE_SPEED)
+
+long int LEFT_SPEED = 0;
+long int RIGHT_SPEED = 0;
+#define LS  (LEFT_SPEED)
+#define RS  (RIGHT_SPEED)
+void wheels_process() {
+  if (wheels_process_flag) {
+    wheels_process_flag = false;
+    if (((RFS > 0) && (RS < 0)) || ((RRS > 0) && (RS > 0))) {
+      RFS = 0; RRS = 0;
+    } else {
+      RFS = RS > 0 ? abs(RS) : 0; 
+      RRS = RS < 0 ? abs(RS) : 0; 
+    }
+    
+    // Update Left Wheel
+    if (((LFS > 0) && (LS < 0)) || ((LRS > 0) && (LS > 0))) {
+      LFS = 0; LRS = 0;
+    } else {
+      LFS = LS > 0 ? abs(LS) : 0; 
+      LRS = LS < 0 ? abs(LS) : 0; 
+    }
   }
 }

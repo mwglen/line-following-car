@@ -1,9 +1,10 @@
 /// Includes
-#include "primitives.h"
+#include <stdbool.h>
 
 /// Functions
 void project_7(void);
 bool calibrate(void);
+void monitor_ir_sensors(void);
 
 /// Defines
 //#define base_speed (WHEEL_PERIOD / 2)

@@ -12,7 +12,7 @@
 #include "timersB1.h"
 #include "adc.h"
 #include "iot.h"
-#include "computer.h"
+#include "pc.h"
 #include <string.h>
 
 /// Global Variables
@@ -38,32 +38,25 @@ void main(void){
   init_clocks();                       // Initialize Clock System
   init_conditions();                   // Initialize Variables and Initial Conditions
   Init_LCD();                          // Initialize LCD
-  //init_display();
+  init_display();
   init_wheels();
   init_timer_B0();
   init_timer_B1();
   init_adc();
   init_pc(4, 0x5551); //115200 
   init_iot(4, 0x5551); //115200
- 
-  strcpy(display_line[0], " Waiting! ");
-  strcpy(display_line[2], " 115,200  ");
-  display_changed = true;
   
-  // Clear Display  
   while(true) {
     
     // Run Program
     //program_start();
     check_wheels();
-    
-    //if (PROGRAM_COUNT >= TIME_2_SECS) {
-    //   strcpy(iot_transmission, "Hello World!");
-    //   transmit_pc(iot_transmission);
-    //   PROGRAM_COUNT = 0;
-    //}
 
-    display_process();   // Update Display
+    // Run processes
+    display_process();
+    wheels_process();
+    iot_process();
+    pc_process();
     P3OUT ^= TEST_PROBE; // Change State of TEST_PROBE OFF
   }
 }

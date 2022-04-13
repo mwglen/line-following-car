@@ -1,9 +1,9 @@
 /// Includes
 #include "msp430.h"
-#include "primitives.h"
 #include "switches.h"
 #include "ports.h"
 #include "timersB0.h"
+#include <stdbool.h>
 
 /// Functions
 // Switch 1 Configuration

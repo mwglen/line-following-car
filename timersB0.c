@@ -5,17 +5,13 @@
 #include "display.h"
 #include "ports.h"
 #include "switches.h"
-#include "stdlib.h"
+#include "iot.h"
+#include <stdbool.h>
 
-#define LFS (LEFT_FORWARD_SPEED)
-#define RFS (RIGHT_FORWARD_SPEED)
-#define LRS (LEFT_REVERSE_SPEED)
-#define RRS (RIGHT_REVERSE_SPEED)
-
-long int LEFT_SPEED = 0;
-long int RIGHT_SPEED = 0;
-#define LS  (LEFT_SPEED)
-#define RS  (RIGHT_SPEED)
+/// Flags
+bool iot_process_flag = false;
+bool wheels_process_flag  = false;
+bool pc_process_flag = false;
 
 /// Functions
 void init_timer_B0(void) {
@@ -47,34 +43,16 @@ unsigned int IOT_COUNT = 0;
 
 // 50 ms timer
 bool done_50;
+unsigned int B0_COUNT = 0;
 #pragma vector = TIMER0_B0_VECTOR
 __interrupt void Timer0_B0_ISR(void){
-  // Update Display
-  DISPLAY_COUNT++;
-  if (DISPLAY_COUNT == 4) {
-    update_display = 1;
-    DISPLAY_COUNT = 0;
-  }
-  
-  if (IOT_COUNT >= 10) P3OUT |= IOT_EN_CPU;
-  
-  IOT_COUNT++;
-  
-  // Update Right Wheel
-  if (((RFS > 0) && (RS < 0)) || ((RRS > 0) && (RS > 0))) {
-    RFS = 0; RRS = 0;
-  } else {
-    RFS = RS > 0 ? abs(RS) : 0; 
-    RRS = RS < 0 ? abs(RS) : 0; 
-  }
-  
-  // Update Left Wheel
-  if (((LFS > 0) && (LS < 0)) || ((LRS > 0) && (LS > 0))) {
-    LFS = 0; LRS = 0;
-  } else {
-    LFS = LS > 0 ? abs(LS) : 0; 
-    LRS = LS < 0 ? abs(LS) : 0; 
-  }
+  B0_COUNT++;
+  if (B0_COUNT % 4 == 0)   update_display = 1;
+  if (B0_COUNT % 10 == 0)  P3OUT |= IOT_EN_CPU;
+  if (B0_COUNT % 10 == 0)  wheels_process_flag = true;
+  if (B0_COUNT % 10 == 0)  iot_process_flag = true;
+  if (B0_COUNT % 10 == 0)  pc_process_flag = true;
+  if (B0_COUNT >= 100)     B0_COUNT = 0;
   
   TB0CCR0 += TB0CCR0_INTERVAL; // Add Offset to TBCCR0
 }
