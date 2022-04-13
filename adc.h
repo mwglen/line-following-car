@@ -1,4 +1,4 @@
-#include "primitives.h"
+#include <stdbool.h>
 
 /// Globals
 extern char ADC_CHAR[4];

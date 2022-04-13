@@ -1,12 +1,9 @@
+/// Includes
 #include "program.h"
 #include "display.h"
-#include <string.h>
-
-// Events
 #include "main_menu.h"
-#include "project_5.h"
-#include "project_6.h"
 #include "project_7.h"
+#include <string.h>
 
 /// Global Variables
 // Main Function
@@ -31,8 +28,6 @@ void program_start(void) {
       break;
       
     case MAIN_MENU: main_menu(); break;
-    case PROJECT5: project_5(); break;
-    case PROJECT6: project_6(); break;
     case PROJECT7: project_7(); break;
   }
 }

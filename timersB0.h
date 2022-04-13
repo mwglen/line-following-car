@@ -1,3 +1,6 @@
+/// Includes
+#include <stdbool.h>
+
 /// Functions
 void init_timer_B0(void);
 void clear_program_timer(void);
@@ -9,6 +12,9 @@ void clear_program_timer(void);
 #define TB0CCR2_INTERVAL (50000) // 8,000,000 / 2 / 8 / (1 / 100msec)
 
 extern short unsigned int PROGRAM_COUNT;
-extern short unsigned int DISPLAY_COUNT;
+//extern short unsigned int DISPLAY_COUNT;
+extern bool wheels_process_flag;
+extern bool iot_process_flag;
+extern bool pc_process_flag;
 extern long int LEFT_SPEED;
 extern long int RIGHT_SPEED;

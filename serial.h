@@ -10,4 +10,4 @@ extern char transmission[10];
 extern bool message_recieved;
 
 /// Functions
-void Init_Serial_UCA0(int, int);
+void init_iot(int, int);

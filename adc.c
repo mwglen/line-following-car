@@ -8,6 +8,8 @@
 short int ADC_CHANNEL;
 int THUMB_VALUE;
 bool NEW_ADC_VALUES;
+int LEFT_IR_VALUE;
+int RIGHT_IR_VALUE;
 
 /// Functions
 void init_adc(void) {

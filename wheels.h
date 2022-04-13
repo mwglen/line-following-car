@@ -1,3 +1,6 @@
+/// Includes
+#include <stdbool.h>
+
 /// Functions
 void init_wheels(void);
 void stop_wheels(void);
@@ -5,6 +8,13 @@ void fwd_left(void);
 void bwd_left(void);
 void fwd_right(void);
 void bwd_right(void);
+void check_wheels(void);
+void wheels_process(void);
+
+/// Globals
+extern bool stop_after_flag;
+extern unsigned int stop_after_time;
+extern unsigned int stop_after_curr_time;
 
 /// Defines
 #define WHEEL_OFF                 (0)

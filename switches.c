@@ -1,16 +1,9 @@
 /// Includes
 #include "msp430.h"
-#include "primitives.h"
 #include "switches.h"
 #include "ports.h"
-#include "serial.h"
-#include "display.h"
 #include "timersB0.h"
-#include <string.h>
-
-/// Globals
-char line_to_display[10];
-long int buad_rate;
+#include <stdbool.h>
 
 /// Functions
 // Switch 1 Configuration
@@ -27,9 +20,6 @@ __interrupt void switch1_interrupt(void){
     
     // Tell system that switch was pressed
     SW1_PRESSED = true;
-
-    // Transmit Message for Homework 8
-    send_transmission = true;
     
     // Reset Timer
     PROGRAM_COUNT = 0;
@@ -50,23 +40,7 @@ __interrupt void switchP2_interrupt(void){
     
     // Tell program that switch was pressed
     SW2_PRESSED = true;
-
-    // Change Buad Rate
-    switch (buad_rate) {
-      case 460800:
-        Init_Serial_UCA0(4, 0x5551); //115200
-        buad_rate = 115200; 
-        strcpy(display_line[2], " 115,200  ");
-        display_changed = true;
-        break;
-
-      case 115200:
-        Init_Serial_UCA0(1, 0x4A11); //460,800
-        buad_rate = 460800; 
-        strcpy(display_line[2], " 460,800  ");
-        display_changed = true;
-        break;
-    }
+    
     // Reset Timer
     PROGRAM_COUNT = 0;
   }

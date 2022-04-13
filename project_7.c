@@ -1,3 +1,4 @@
+/// Includes
 #include "program.h"
 #include "project_7.h"
 #include "wheels.h"
@@ -6,13 +7,17 @@
 #include "ports.h"
 #include "msp430.h"
 #include "timersB0.h"
-#include "project_6.h"
+#include "display.h"
 #include <string.h>
 
+/// Globals
 int right_error = 0;
 int left_error = 0;
 ProjectState PROJECT7_STATE = SETUP;
+unsigned int left_target_value  = 300;
+unsigned int right_target_value = 300;
 
+/// Functions
 void project_7(void) {
   
   // Monitor ADC Values
@@ -133,4 +138,28 @@ bool calibrate(void) {
     return true;
   }
   return false;
+}
+
+// Writes IR Sensor data to display and updates display
+void monitor_ir_sensors(void) {
+    char left_ir_str[]  = " L:  xxxx ";
+    char right_ir_str[] = " R:  xxxx ";
+    const char ir_off[] = "  IR OFF  ";
+    const char ir_on[]  = "EMITTER ON";
+    
+    // Fill in right IR sensor values
+    hex_to_bcd(LEFT_IR_VALUE);
+    for (int i = 0; i < 4; i++)
+      left_ir_str[i+5] = ADC_CHAR[i];
+    
+    // Fill in left IR sensor values
+    hex_to_bcd(RIGHT_IR_VALUE);
+    for (int i = 0; i < 4; i++)
+      right_ir_str[i+5] = ADC_CHAR[i];
+    
+    // Print to display
+    strcpy(display_line[1], (P6OUT & IR_EMITTER) ? ir_on : ir_off);
+    strcpy(display_line[2], left_ir_str);
+    strcpy(display_line[3], right_ir_str);
+    display_changed = true;
 }
