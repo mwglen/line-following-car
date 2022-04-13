@@ -1,8 +1,8 @@
 #pragma once
 
 /// Defines
-#define	RING_MSG_LENGTH 20
-#define RING_BUF_LENGTH 20
+#define	RING_MSG_LENGTH 30
+#define RING_BUF_LENGTH 5
 
 /// Typedefs
 typedef char RingMessage[RING_MSG_LENGTH];

@@ -7,7 +7,7 @@ void write_buffer(RingBuffer *buf, char *msg) {
   if (buf->curr_size == RING_BUF_LENGTH) return;
   
   // Write to buffer
-  strncpy(buf->msg[buf->write_idx++], msg, RING_MSG_LENGTH-1);
+  strncpy(buf->msg[buf->write_idx++], msg, RING_MSG_LENGTH - 1);
   
   // Update curr_size
   buf->curr_size++;
@@ -21,7 +21,7 @@ void read_buffer(RingBuffer *buf, char *msg) {
   if (buf->curr_size == 0) return;
   
   // Read buffer
-  strncpy(msg, buf->msg[buf->read_idx++], RING_MSG_LENGTH);
+  strncpy(msg, buf->msg[buf->read_idx++], RING_MSG_LENGTH - 1);
   
   // Update curr_size
   buf->curr_size--;

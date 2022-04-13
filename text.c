@@ -16,7 +16,6 @@ void center_cpy(char *dst, char *src) {
   } else strncpy(dst, src, 10);
 }
 
-
 bool starts_with(char *src1, char *src2) {
   if (strncmp(src1, src2, strlen(src2)) == 0) return true;
   else return false;

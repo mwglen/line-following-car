@@ -13,6 +13,7 @@
 bool pc_connected = true;
 char pc_trans[RING_MSG_LENGTH] = "";
 char cmd[RING_MSG_LENGTH] = "";
+unsigned int pc_count = 0;
 
 // A buffer to hold transmissions to send
 RingBuffer pc_tx_buffer = {
@@ -32,7 +33,7 @@ RingBuffer pc_rx_buffer = {
 // Transmit message to computer
 void transmit_pc(char *message) {
   if (pc_connected) {
-    strcpy(pc_trans, message);
+    strncpy(pc_trans, message, RING_MSG_LENGTH - 1);
     UCA1IE |= UCTXIE;
   }
 }
@@ -101,7 +102,10 @@ __interrupt void eUSCI_A1_ISR(void){
          if (temp_char == '\0') break;
          
          // Append character to string
-         strncat(cmd, &temp_char, 1);
+         if (pc_count < RING_MSG_LENGTH-2) {
+           strncat(cmd, &temp_char, 1);
+           pc_count++;
+         }
          
          // Echo character
          UCA1TXBUF = temp_char;
@@ -110,6 +114,7 @@ __interrupt void eUSCI_A1_ISR(void){
          if (temp_char == '\n') {
            write_buffer(&pc_rx_buffer, cmd);
            strcpy(cmd, "");
+           pc_count = 0;
          } break;
 
       case 4: // Vector 4 – TXIFG

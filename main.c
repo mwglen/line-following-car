@@ -28,8 +28,7 @@ void Init_LCD(void);
 
 /// Functions
 // main function
-void main(void){
-  
+void main(void){  
   // set PM5CTL0
   PM5CTL0 &= ~LOCKLPM5;
 

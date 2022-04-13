@@ -25,7 +25,6 @@ char ip_addr2[10] = "";
 // TCP Strings
 char tcp_msg[10] = "";
 unsigned int tcp_msg_src;
-unsigned int tcp_num_chr;
 
 // A buffer to hold recieved iot messages
 RingBuffer iot_rx_buffer = {
@@ -64,18 +63,16 @@ void parse_iot_res(char *res) {
   else if (starts_with(res, "+IPD,")) {
     char msg_src_str[10] = "";
     char num_chr_str[10] = "";
-    char cmd[10] = "";
     strcpy(tcp_msg, "");
 
     char *c = res + 5;
     while (*c != ',') strncat(msg_src_str, c++, 1); c++; // Source of Message
     while (*c != ':') strncat(num_chr_str, c++, 1); c++; // Number of Characters
     tcp_msg_src = atoi(msg_src_str);
-    tcp_num_chr = atoi(num_chr_str);
+    unsigned int tcp_num_chr = atoi(num_chr_str);
     char *k = c; // Save current index
-    while (c != k + tcp_num_chr) strncat(cmd, c++, 1);
-    run_cmd(cmd);
-    strcpy(cmd, "");
+    while (c != k + tcp_num_chr) strncat(tcp_msg, c++, 1);
+    run_cmd(tcp_msg);
   }
   
   // +CIFSR:APIP,"192.168.4.1"
@@ -101,8 +98,10 @@ void parse_iot_res(char *res) {
     
     // Add the fourth IP Mask
     while (c[0] != '"') strncat(ip_addr2, c++, 1);
+    //strcpy(ip_addr1, "192.168");
+    //strcpy(ip_addr2, "1.1");
     
-    strcpy(ip_addr, ip_addr1);
+    strncpy(ip_addr, ip_addr1, sizeof(ip_addr) - 1);
     strcat(ip_addr, ip_addr2);
     recieved_ip = true;
     
@@ -111,6 +110,7 @@ void parse_iot_res(char *res) {
   }
 }
 
+int iot_count = 0;
 #pragma vector=EUSCI_A0_VECTOR
 __interrupt void eUSCI_A0_ISR(void){
    char temp_char;
@@ -131,12 +131,16 @@ __interrupt void eUSCI_A0_ISR(void){
          if (temp_char == '\0') break;
          
          // Add Character to Response
-         strncat(iot_res, &temp_char, 1);
+         if (iot_count < RING_MSG_LENGTH-2) {
+           strncat(iot_res, &temp_char, 1);
+           iot_count++;
+         }
 
          // Read IOT Responses
          if (temp_char == '\n') {
            write_buffer(&iot_rx_buffer, iot_res);
            strcpy(iot_res, "");
+           iot_count = 0;
          } break;
 
       case 4: // Vector 4 – TXIFG
