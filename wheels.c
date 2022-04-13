@@ -53,6 +53,9 @@ void check_wheels() {
 // Wheel Speed 
 long int LEFT_SPEED = 0;
 long int RIGHT_SPEED = 0;
+long int prev_ls = 0;
+long int prev_rs = 0;
+
 #define LS (LEFT_SPEED)
 #define RS (RIGHT_SPEED)
 
@@ -70,7 +73,12 @@ void wheels_process() {
     wheels_process_flag = false;
       
     // If set to stop after a certain time, stop
-    if (SAF && (SACT >= SAT)) { LS = 0; RS = 0; SAF = false; }
+    if (SAF && (SACT >= SAT)) { 
+      LS = 0; RS = 0; 
+      LFS = 0; LRS = 0;
+      RFS = 0; RRS = 0;
+      SAF = false;
+    }
     
     // Otherwise keep going
     else {
@@ -78,19 +86,25 @@ void wheels_process() {
       SACT++;
       
       // Update Right Wheel
-      if (((RFS > 0) && (RS < 0)) || ((RRS > 0) && (RS > 0))) {
-        RFS = 0; RRS = 0;
-      } else {
-        RFS = RS > 0 ? abs(RS) : 0; 
-        RRS = RS < 0 ? abs(RS) : 0; 
+      if (RS != prev_rs) {
+        if (((RFS > 0) && (RS < 0)) || ((RRS > 0) && (RS > 0))) {
+          RFS = 0; RRS = 0;
+        } else {
+          RFS = RS > 0 ? abs(RS) : 0; 
+          RRS = RS < 0 ? abs(RS) : 0; 
+          prev_rs = RS;
+        }
       }
       
       // Update Left Wheel
-      if (((LFS > 0) && (LS < 0)) || ((LRS > 0) && (LS > 0))) {
-        LFS = 0; LRS = 0;
-      } else {
-        LFS = LS > 0 ? abs(LS) : 0; 
-        LRS = LS < 0 ? abs(LS) : 0; 
+      if (LS != prev_ls) {
+        if (((LFS > 0) && (LS < 0)) || ((LRS > 0) && (LS > 0))) {
+          LFS = 0; LRS = 0;
+        } else {
+          LFS = LS > 0 ? abs(LS) : 0; 
+          LRS = LS < 0 ? abs(LS) : 0; 
+          prev_ls = LS;
+        }
       }
     }
   }
