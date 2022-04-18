@@ -1,6 +1,7 @@
 /// Includes
-#include "string.h"
 #include "text.h"
+#include <stdint.h>
+#include <string.h>
 
 /// Functions
 // Copies src into dst and tries to center it 
@@ -22,4 +23,15 @@ void center_cpy(char *dst, char *src) {
 bool starts_with(char *src1, char *src2) {
   if (strncmp(src1, src2, strlen(src2)) == 0) return true;
   else return false;
+}
+
+
+// Hashes a string so that it can be matched in constant time
+uint32_t hash(char *str) {
+    uint32_t hash = 5381;
+    int c;
+    while ((c = *str++) && (c != '\r'))
+        hash = ((hash << 5) + hash) + c; /* hash * 33 + c */;
+
+    return hash;
 }

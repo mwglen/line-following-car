@@ -2,6 +2,7 @@
 #include "adc.h"
 #include "msp430.h"
 #include "ports.h"
+#include "timersB0.h"
 #include "primitives.h"
 
 /// Global Variables
@@ -10,6 +11,7 @@ int THUMB_VALUE;
 bool NEW_ADC_VALUES;
 int LEFT_IR_VALUE;
 int RIGHT_IR_VALUE;
+char ADC_CHAR[4];
 
 /// Functions
 void init_adc(void) {
@@ -151,4 +153,11 @@ void init_ref(void){
   // recommended without an exit strategy.
   // This while statement is the suggested 
   // operation to allow the reference to settle.
+}
+
+void adc_process(void) {
+  if (adc_process_flag) {
+    ADCCTL0 |= ADCENC; // Enable Conversions
+    ADCCTL0 |= ADCSC;  // Start next sample
+  }
 }

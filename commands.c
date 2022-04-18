@@ -24,52 +24,62 @@ RingBuffer mv_cmd_buffer = {
 /// Functions
 // Parse and run commands
 void run_cmd(char cmd[RING_MSG_LENGTH]) {
+  
+  // Parse commands
   if (cmd[0] == '^') {
-    
-    center_cpy(display_line[1], cmd);
+    // Print command to screen
     lcd_BIG_mid();
     
-    // Test Response 
-    if (starts_with(cmd, "^^")) {
-      write_buffer(&pc_tx_buffer, "PC READY\r\n");
-     
-    // Change IOT to Fast Mode  
-    } else if (starts_with(cmd, "^F")) {
-      init_iot(4, 0x5551); //115200 
-      write_buffer(&pc_tx_buffer, "FAST BUAD\r\n");
-     
-    // Change IOT to Slow Mode
-    } else if (starts_with(cmd, "^S")) {
-      init_iot(52, 0x4911); //9600 
-      write_buffer(&pc_tx_buffer, "SLOW BUAD\r\n");
-     
-    // Update Display with IOT info
-    } else if (starts_with(cmd, "^U")) {
-      display_iot_flag = true;
-     
-    // TCP Commands
-    } else if (starts_with(cmd, "^0000")) {
-      // Add movement commands to buffer
-      char *ptr = cmd + 5;
-      while (*ptr != '\r') {
-        // Create a string to hold command
-        char new_mv_cmd[RING_MSG_LENGTH] = "";
+    // Run command
+    switch (hash(cmd)) {
+      // ^^: Test Response
+      case 0x5976c1UL:
+        write_buffer(&pc_tx_buffer, "PC READY\r\n");
+        break;
         
-        // Copy direction for command
-        strncat(new_mv_cmd, ptr++, 1);
-        
-        // Copy digits for command
-        while (isdigit(*ptr))
-          strncat(new_mv_cmd, ptr++, 1);
-        
-        // Write command to buffer
-        write_buffer(&mv_cmd_buffer, new_mv_cmd);
-      }
+      // ^S: Change IOT to Slow Mode
+      case 0x5976b6UL: // ^S           
+        init_iot(52, 0x4911); //9600 
+        write_buffer(&pc_tx_buffer, "SLOW BUAD\r\n");
+        break;
+
+      // ^F: Change IOT to Fast Mode:
+      case 0x5976a9UL:
+        init_iot(4, 0x5551); //115200 
+        write_buffer(&pc_tx_buffer, "FAST BUAD\r\n");
+        break;
+       
+      // ^U: Update Display with IOT info:
+      case 0x5976b8UL:
+        display_iot_flag = true;
+        break;
       
-      
-    // Return Error
-    } else write_buffer(&pc_tx_buffer, "COMMAND NOT FOUND\r\n");
-  
+      //--------------------------------------
+      //      Direct Movement Commands
+      //--------------------------------------
+      case 0xed37f29UL: // ^Stop
+        LEFT_SPEED  = 0;
+        RIGHT_SPEED = 0;
+        break;
+      case 0xe95615feUL: // ^TurnR
+        LEFT_SPEED  = -WHEEL_PERIOD/4;
+        RIGHT_SPEED =  WHEEL_PERIOD/4;
+        break;
+      case 0xe95615f8UL: // ^TurnL
+        LEFT_SPEED  =  WHEEL_PERIOD/4;
+        RIGHT_SPEED = -WHEEL_PERIOD/4;
+        break;   
+      case 0xe8d43000UL: // ^MoveF
+        LEFT_SPEED  =  WHEEL_PERIOD/4;
+        RIGHT_SPEED =  WHEEL_PERIOD/4;
+        break; 
+      case 0xe8d42ffcUL: // ^MoveB
+        LEFT_SPEED  = -WHEEL_PERIOD/4;
+        RIGHT_SPEED = -WHEEL_PERIOD/4;
+        break; 
+      default: write_buffer(&pc_tx_buffer, "COMMAND NOT FOUND\r\n");
+    } 
+ 
   // Passthrough to iot
   } else write_buffer(&iot_tx_buffer, cmd);
 }

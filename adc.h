@@ -10,3 +10,4 @@ extern bool NEW_ADC_VALUES;
 void init_adc(void);
 void hex_to_bcd(int);
 void init_ref(void);
+void adc_process(void);

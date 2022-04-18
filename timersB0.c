@@ -13,6 +13,7 @@
 bool iot_process_flag = false;
 bool wheels_process_flag  = false;
 bool pc_process_flag = false;
+bool adc_process_flag = false;
 
 /// Functions
 void init_timer_B0(void) {
@@ -48,12 +49,13 @@ unsigned int B0_COUNT = 0;
 #pragma vector = TIMER0_B0_VECTOR
 __interrupt void Timer0_B0_ISR(void){
   B0_COUNT++;
-  if (B0_COUNT % 4 == 0)   update_display = 1;
-  if (B0_COUNT % 10 == 0)  P3OUT |= IOT_EN_CPU;
-  if (B0_COUNT % 5 == 0)  wheels_process_flag = true;
-  if (B0_COUNT % 1 == 0)   iot_process_flag = true;
-  if (B0_COUNT % 1 == 0)   pc_process_flag = true;
-  if (B0_COUNT >= 100)     B0_COUNT = 0;
+  if (B0_COUNT % 40 == 0)  update_display = 1;
+  if (B0_COUNT % 100 == 0) P3OUT |= IOT_EN_CPU;
+  if (B0_COUNT % 10 == 0)   wheels_process_flag = true;   
+  if (B0_COUNT % 10 == 0)  iot_process_flag = true;
+  if (B0_COUNT % 10 == 0)  pc_process_flag = true;
+  if (B0_COUNT % 10 == 0)  adc_process_flag = true;
+  if (B0_COUNT >= 400)     B0_COUNT = 0;
   
   TB0CCR0 += TB0CCR0_INTERVAL; // Add Offset to TBCCR0
 }

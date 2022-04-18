@@ -40,11 +40,11 @@ void main(void){
   init_display();
   init_wheels();
   init_timer_B0();
-  init_timer_B1();
+  //init_timer_B1();
   init_adc();
   init_pc(4, 0x5551); //115200 
   init_iot(4, 0x5551); //115200
-  
+   
   while(true) {
     
     // Run Program
@@ -52,6 +52,7 @@ void main(void){
     check_wheels();
     
     // Run processes
+    adc_process();
     display_process();
     wheels_process();
     iot_process();
