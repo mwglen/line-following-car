@@ -10,6 +10,7 @@ void init_display(void);
 //extern bool DISPLAY_CHANGED;
 //extern bool UPDATE_DISPLAY;
 extern bool display_iot_flag;
+extern bool timer_enable;
 
 // External Variables
 extern char display_line[4][11];

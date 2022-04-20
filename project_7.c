@@ -16,7 +16,7 @@ int right_error = 0;
 int left_error = 0;
 ProjectState PROJECT7_STATE = SETUP;
 extern void follow_circle(void);
-extern void reset_follow_circle(void);
+#define CIRCLE_TIME (30 * TIME_1_SECS)
 
 /// Functions
 void project_7(void) {
@@ -28,13 +28,16 @@ void project_7(void) {
     // Turn on IR_EMITTER and callibrate system using SW1
     case SETUP:
       P6OUT |= IR_EMITTER; // On [High]
-      if (calibrate()) PROJECT7_STATE++;
-      break;
+      if (calibrate()) {
+        strcpy(display_line[0], "Place Car!");
+        PROJECT7_STATE++;
+      } break;
     
     // Wait for SW1
     case STEP0:
-      strcpy(display_line[0], "Place Car!");
       if (get_sw1()) {
+        strcpy(display_line[0], "Intercept!");
+        timer_enable = true;
         fwd_left();
         fwd_right();
         PROJECT7_STATE++;
@@ -42,9 +45,9 @@ void project_7(void) {
       
     // Intercepting
     case STEP1:
-      strcpy(display_line[0], "Intercept!");
       if (LEFT_IR_VALUE > (max_left_white + 100)
           || RIGHT_IR_VALUE > (max_right_white + 100)) {
+        strcpy(display_line[0], " Waiting! ");
         stop_wheels();
         PROJECT7_STATE++;
         PROGRAM_COUNT = 0;
@@ -52,8 +55,8 @@ void project_7(void) {
       
     // Waiting
     case STEP2:
-      strcpy(display_line[0], " Waiting! ");
       if (PROGRAM_COUNT >= TIME_4_SECS) {
+        strcpy(display_line[0], " Turning! ");
         LEFT_SPEED  = WHEEL_PERIOD/8;
         RIGHT_SPEED = WHEEL_PERIOD/8;
         PROJECT7_STATE++;
@@ -72,14 +75,15 @@ void project_7(void) {
     case STEP4:
       if (LEFT_IR_VALUE > (max_left_white + 100)) {
         stop_wheels();
+        strcpy(display_line[0], " Waiting! ");
         PROJECT7_STATE++;
         PROGRAM_COUNT = 0;
       } break;
       
     // Waiting
     case STEP5:
-      strcpy(display_line[0], " Waiting! ");
       if (PROGRAM_COUNT >= TIME_4_SECS) {
+        strcpy(display_line[0], " Circling ");
         PROJECT7_STATE++;
         PROGRAM_COUNT = 0;
       } break;
@@ -87,20 +91,37 @@ void project_7(void) {
     // Circling
     case STEP6:
       // Update Status
-      strcpy(display_line[0], " Circling ");
-      //if (PROGRAM_COUNT >= TIME_4_SECS) {
-      if (false) {
+      if (PROGRAM_COUNT >= CIRCLE_TIME) {
+        strcpy(display_line[0], " Exiting! ");
+        LEFT_SPEED  =  WHEEL_PERIOD/8;
+        RIGHT_SPEED = -WHEEL_PERIOD/4;
+        PROGRAM_COUNT = 0;
         PROJECT7_STATE++;
-        reset_follow_circle();
       } else follow_circle();
       break;
       
-    // Exiting
     case STEP7:
-      strcpy(display_line[0], " Exiting! ");
-      PROJECT7_STATE = 0;
-      CURR_EVENT = MAIN_MENU;
-      break;
+      if (PROGRAM_COUNT >= TIME_100_MS) {
+        LEFT_SPEED  =  WHEEL_PERIOD/4;
+        RIGHT_SPEED =  WHEEL_PERIOD/4;
+        PROGRAM_COUNT = 0;
+        PROJECT7_STATE++;
+      } break;
+      
+    // Exiting
+    case STEP8:
+      if (PROGRAM_COUNT >= TIME_4_SECS) {
+        timer_enable = false;
+        strcpy(display_line[0], " Stopped! ");
+        PROJECT7_STATE++;
+      } break;
+ 
+    // Stopped
+    case STEP9:
+      if (get_sw1()) {
+        PROJECT7_STATE = 0;
+        CURR_EVENT = MAIN_MENU;
+      } break;
   }
 }
 
@@ -205,34 +226,9 @@ void monitor_ir_sensors(void) {
 }
 
 
-#define CIRCLE_SPEED (WHEEL_PERIOD/6)
 #define FWD_SPEED (WHEEL_PERIOD/8)
-#define BWD_SPEED (WHEEL_PERIOD/8)
-#define BASE_SPEED   (WHEEL_PERIOD/4)
-#define K_S (0)
-#define K_P (25)
-#define K_D (10)
-int speed = BASE_SPEED;
-int prev_error = 0;
-ProjectState CIRCLE_STATE;
 bool turn_left;
 bool turn_right;
-void follow_circle_raw(void) {
-  if ((LEFT_IR_VALUE > max_left_white) && (RIGHT_IR_VALUE > max_right_white)) {
-    LEFT_SPEED  =  FWD_SPEED;
-    RIGHT_SPEED =  FWD_SPEED;
-  } else if ((LEFT_IR_VALUE > max_left_white) && (RIGHT_IR_VALUE < max_left_white)) {
-    LEFT_SPEED  = -BWD_SPEED;
-    RIGHT_SPEED =  FWD_SPEED;
-  } else if ((LEFT_IR_VALUE < max_left_white) && (RIGHT_IR_VALUE > max_left_white)) {
-    LEFT_SPEED  =  FWD_SPEED;
-    RIGHT_SPEED = -BWD_SPEED;
-  } else {
-    LEFT_SPEED  = 0;
-    RIGHT_SPEED = 0;
-  }
-}
-
 void follow_circle(void) {
   if (NEW_ADC_VALUES) {
     turn_left  = false;
@@ -249,11 +245,4 @@ void follow_circle(void) {
     LEFT_SPEED  = turn_left  ? FWD_SPEED : 0;
     RIGHT_SPEED = turn_right ? FWD_SPEED : 0;
   }
-}
-
-
-void reset_follow_circle(void) {
-  CIRCLE_STATE = 0;
-  turn_left  = false;
-  turn_right = false;
 }

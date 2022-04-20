@@ -35,4 +35,3 @@ typedef enum {
 #define TIME_2_SECS (40)
 #define TIME_3_SECS (60)
 #define TIME_4_SECS (80)
-#define CIRCLE_TIME (200)
