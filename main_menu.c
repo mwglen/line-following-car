@@ -35,10 +35,10 @@ void main_menu(void) {
       } else if (get_sw1()) {
         CURR_EVENT = PROJECT7;
         strcpy(display_line[0], "          ");
-        strcpy(display_line[1], "PREFORMING");
-        strcpy(display_line[2], " PROJECT7 ");
+        strcpy(display_line[1], "          ");
+        strcpy(display_line[2], "          ");
         strcpy(display_line[3], "          ");
-        display_changed = true;  
+        display_changed = true;
       } break;
   }
 }

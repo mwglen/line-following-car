@@ -16,7 +16,7 @@ int right_error = 0;
 int left_error = 0;
 ProjectState PROJECT7_STATE = SETUP;
 extern void follow_circle(void);
-#define CIRCLE_TIME (30 * TIME_1_SECS)
+#define CIRCLE_TIME (60 * TIME_1_SECS)
 
 /// Functions
 void project_7(void) {
@@ -65,15 +65,15 @@ void project_7(void) {
 
     case STEP3:
       if (PROGRAM_COUNT >= TIME_100_MS) {
-        LEFT_SPEED  =  WHEEL_PERIOD/8;
-        RIGHT_SPEED = -WHEEL_PERIOD/4;
+        LEFT_SPEED  = -WHEEL_PERIOD/4;
+        RIGHT_SPEED =  WHEEL_PERIOD/8;
         PROJECT7_STATE++;
         PROGRAM_COUNT = 0;
       } break;
       
     // Rotate until lined up
     case STEP4:
-      if (LEFT_IR_VALUE > (max_left_white + 100)) {
+      if (RIGHT_IR_VALUE > (max_right_white + 100)) {
         stop_wheels();
         strcpy(display_line[0], " Waiting! ");
         PROJECT7_STATE++;
@@ -93,17 +93,17 @@ void project_7(void) {
       // Update Status
       if (PROGRAM_COUNT >= CIRCLE_TIME) {
         strcpy(display_line[0], " Exiting! ");
-        LEFT_SPEED  =  WHEEL_PERIOD/8;
-        RIGHT_SPEED = -WHEEL_PERIOD/4;
+        LEFT_SPEED  = -WHEEL_PERIOD/4;
+        RIGHT_SPEED =  WHEEL_PERIOD/8;
         PROGRAM_COUNT = 0;
         PROJECT7_STATE++;
       } else follow_circle();
       break;
       
     case STEP7:
-      if (PROGRAM_COUNT >= TIME_100_MS) {
-        LEFT_SPEED  =  WHEEL_PERIOD/4;
-        RIGHT_SPEED =  WHEEL_PERIOD/4;
+      if (PROGRAM_COUNT >= 4*TIME_150_MS) {
+        LEFT_SPEED  =  WHEEL_PERIOD/8;
+        RIGHT_SPEED =  WHEEL_PERIOD/8;
         PROGRAM_COUNT = 0;
         PROJECT7_STATE++;
       } break;
@@ -111,6 +111,7 @@ void project_7(void) {
     // Exiting
     case STEP8:
       if (PROGRAM_COUNT >= TIME_4_SECS) {
+        stop_wheels();
         timer_enable = false;
         strcpy(display_line[0], " Stopped! ");
         PROJECT7_STATE++;
@@ -205,8 +206,6 @@ bool calibrate(void) {
 void monitor_ir_sensors(void) {
     char left_ir_str[]  = " L:  xxxx ";
     char right_ir_str[] = " R:  xxxx ";
-    const char ir_off[] = "  IR OFF  ";
-    const char ir_on[]  = "EMITTER ON";
     
     // Fill in right IR sensor values
     hex_to_bcd(LEFT_IR_VALUE);
@@ -219,7 +218,6 @@ void monitor_ir_sensors(void) {
       right_ir_str[i+5] = ADC_CHAR[i];
     
     // Print to display
-    strcpy(display_line[1], (P6OUT & IR_EMITTER) ? ir_on : ir_off);
     strcpy(display_line[2], left_ir_str);
     strcpy(display_line[3], right_ir_str);
     display_changed = true;
