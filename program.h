@@ -28,9 +28,11 @@ typedef enum {
 } ProjectState;
 
 /// Defines
-#define TIME_100_MS  (1)
-#define TIME_1_SECS (10)
-#define TIME_2_SECS (20)
-#define TIME_3_SECS (30)
-#define TIME_4_SECS (40)
+#define TIME_50_MS   (1)
+#define TIME_100_MS  (2)
+#define TIME_150_MS   (3)
+#define TIME_1_SECS (20)
+#define TIME_2_SECS (40)
+#define TIME_3_SECS (60)
+#define TIME_4_SECS (80)
 #define CIRCLE_TIME (200)

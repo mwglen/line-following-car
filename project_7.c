@@ -9,19 +9,14 @@
 #include "timersB0.h"
 #include "display.h"
 #include <string.h>
+#include <stdlib.h>
 
 /// Globals
 int right_error = 0;
 int left_error = 0;
 ProjectState PROJECT7_STATE = SETUP;
-unsigned int left_target_value  = 300;
-unsigned int right_target_value = 300;
 extern void follow_circle(void);
 extern void reset_follow_circle(void);
-
-// MOVE THESE
-#define TIME_50_MS (250)
-#define TIME_150_MS (750)
 
 /// Functions
 void project_7(void) {
@@ -33,24 +28,23 @@ void project_7(void) {
     // Turn on IR_EMITTER and callibrate system using SW1
     case SETUP:
       P6OUT |= IR_EMITTER; // On [High]
-      if (calibrate()) {
-        PROJECT7_STATE++;
-      } break;
+      if (calibrate()) PROJECT7_STATE++;
+      break;
     
     // Wait for SW1
     case STEP0:
       strcpy(display_line[0], "Place Car!");
       if (get_sw1()) {
+        fwd_left();
+        fwd_right();
         PROJECT7_STATE++;
       } break;
       
     // Intercepting
     case STEP1:
-      fwd_left();
-      fwd_right();
       strcpy(display_line[0], "Intercept!");
-      if (LEFT_IR_VALUE > left_target_value 
-          || RIGHT_IR_VALUE > right_target_value) {
+      if (LEFT_IR_VALUE > (max_left_white + 100)
+          || RIGHT_IR_VALUE > (max_right_white + 100)) {
         stop_wheels();
         PROJECT7_STATE++;
         PROGRAM_COUNT = 0;
@@ -58,42 +52,32 @@ void project_7(void) {
       
     // Waiting
     case STEP2:
-      stop_wheels();
       strcpy(display_line[0], " Waiting! ");
       if (PROGRAM_COUNT >= TIME_4_SECS) {
+        LEFT_SPEED  = WHEEL_PERIOD/8;
+        RIGHT_SPEED = WHEEL_PERIOD/8;
         PROJECT7_STATE++;
         PROGRAM_COUNT = 0;
       } break;
-        
-    // Move Forward until center of car is on line
+
     case STEP3:
-      fwd_left();
-      fwd_right();
       if (PROGRAM_COUNT >= TIME_100_MS) {
-        PROGRAM_COUNT = 0;
+        LEFT_SPEED  =  WHEEL_PERIOD/8;
+        RIGHT_SPEED = -WHEEL_PERIOD/4;
         PROJECT7_STATE++;
-      } break;
-      
-    // Wait to avoid running FWD directly after REV
-    case STEP4:
-      stop_wheels();
-      if (PROGRAM_COUNT >= TIME_100_MS) {
         PROGRAM_COUNT = 0;
-        PROJECT7_STATE++;
       } break;
       
     // Rotate until lined up
-    case STEP5:
-      fwd_left();
-      bwd_right();
-      if (LEFT_IR_VALUE > left_target_value) {
+    case STEP4:
+      if (LEFT_IR_VALUE > (max_left_white + 100)) {
         stop_wheels();
         PROJECT7_STATE++;
+        PROGRAM_COUNT = 0;
       } break;
       
     // Waiting
-    case STEP6:
-      stop_wheels();
+    case STEP5:
       strcpy(display_line[0], " Waiting! ");
       if (PROGRAM_COUNT >= TIME_4_SECS) {
         PROJECT7_STATE++;
@@ -101,17 +85,18 @@ void project_7(void) {
       } break;
       
     // Circling
-    case STEP7:
+    case STEP6:
       // Update Status
       strcpy(display_line[0], " Circling ");
-      if (PROGRAM_COUNT >= TIME_4_SECS) {
+      //if (PROGRAM_COUNT >= TIME_4_SECS) {
+      if (false) {
         PROJECT7_STATE++;
         reset_follow_circle();
       } else follow_circle();
       break;
       
     // Exiting
-    case STEP8:
+    case STEP7:
       strcpy(display_line[0], " Exiting! ");
       PROJECT7_STATE = 0;
       CURR_EVENT = MAIN_MENU;
@@ -126,43 +111,72 @@ int max_right_white;
 int max_left_black;
 int max_right_black;
 bool calibrate(void) {
-  switch (CALIBRATION_STATE) {
-    case 0:
-      strcpy(display_line[0], "Place on W");
-      max_left_white = 0;
-      max_right_white = 0;
-      max_left_black = 0;
-      max_right_black = 0;
-      CALIBRATION_STATE++;
-      break;
-      
-    case 1:
-      if (LEFT_IR_VALUE  > max_left_white)  max_left_white  = LEFT_IR_VALUE;
-      if (RIGHT_IR_VALUE > max_right_white) max_right_white = RIGHT_IR_VALUE;
-      if (get_sw1()) {
-        strcpy(display_line[0], "Place on B");
-        CALIBRATION_STATE++;
-      } break;
-      
-    case 2:      
-      if (LEFT_IR_VALUE  > max_left_black)  max_left_black  = LEFT_IR_VALUE;
-      if (RIGHT_IR_VALUE > max_right_black) max_right_black = RIGHT_IR_VALUE;
-      if (get_sw1()) {
-        // Show Results
-        strcpy(display_line[0], "MLW: xxxxx");
-        strcpy(display_line[1], "MRW: xxxxx");
-        strcpy(display_line[2], "MLB: xxxxx");
-        strcpy(display_line[3], "MRB: xxxxx");
+  if (NEW_ADC_VALUES) {
+    switch (CALIBRATION_STATE) {
+      case 0:
+        strcpy(display_line[0], "Place on W");
+        display_changed = true;
+        if (get_sw1()) {
+          strcpy(display_line[0], "Getting  W");
+          display_changed = true;
+          max_left_white = 0;
+          max_right_white = 0;
+          max_left_black = 0;
+          max_right_black = 0;
+          CALIBRATION_STATE++;
+        } break;
+        
+      case 1:
+        if (LEFT_IR_VALUE  > max_left_white)  max_left_white  = LEFT_IR_VALUE;
+        if (RIGHT_IR_VALUE > max_right_white) max_right_white = RIGHT_IR_VALUE;
+        if (get_sw1()) {
+          strcpy(display_line[0], "Place on B");
+          display_changed = true;
+          CALIBRATION_STATE++;
+        } break;
+        
+      case 2:      
+        if (LEFT_IR_VALUE  > max_left_black)  max_left_black  = LEFT_IR_VALUE;
+        if (RIGHT_IR_VALUE > max_right_black) max_right_black = RIGHT_IR_VALUE;
+        if (get_sw1()) {
+          // Show Results
+          strcpy(display_line[0], "MLW:  xxxx");
+          strcpy(display_line[1], "MRW:  xxxx");
+          strcpy(display_line[2], "MLB:  xxxx");
+          strcpy(display_line[3], "MRB:  xxxx");
+          
+          // Fill in MLW sensor values
+          hex_to_bcd(max_left_white);
+          for (int i = 0; i < 4; i++)
+            display_line[0][i+6] = ADC_CHAR[i];
+          
+          // Fill in MRW sensor values
+          hex_to_bcd(max_right_white);
+          for (int i = 0; i < 4; i++)
+            display_line[1][i+6] = ADC_CHAR[i];
 
-        // Advance to next state        
-        CALIBRATION_STATE++;
-      } break;
-      
-    case 3:
-      if (get_sw1()) {
-        CALIBRATION_STATE = 0;
-        return true;
-      } break;
+          // Fill in MLB sensor values
+          hex_to_bcd(max_left_black);
+          for (int i = 0; i < 4; i++)
+            display_line[2][i+6] = ADC_CHAR[i];
+          
+          // Fill in MRB sensor values
+          hex_to_bcd(max_right_black);
+          for (int i = 0; i < 4; i++)
+            display_line[3][i+6] = ADC_CHAR[i];
+          
+          display_changed = true;
+          
+          // Advance to next state        
+          CALIBRATION_STATE++;
+        } break;
+        
+      case 3:
+        if (get_sw1()) {
+          CALIBRATION_STATE = 0;
+          return true;
+        } break;
+    }
   } return false;
 }
 
@@ -191,82 +205,49 @@ void monitor_ir_sensors(void) {
 }
 
 
-#define CIRCLE_SPEED (WHEEL_PERIOD/4)
-short int CIRCLE_STATE = 0;
-bool turn_left  = false;
-bool turn_right = false;
-void follow_circle(void) {
-  switch (CIRCLE_STATE) {
-    case 0:
-      // Figure out which wheels to turn
-      turn_left = false;
-      turn_right = false;
-      if ((LEFT_IR_VALUE < (max_left_white + 300)) && (RIGHT_IR_VALUE > (max_right_white + 150))) {
-        turn_left = true; 
-        turn_right = true;
-      } else {
-        if (RIGHT_IR_VALUE < max_right_white + 50) turn_left = true;
-        else turn_right = true;
-      }
-      
-      // Run that motor
-      if (turn_left)  LEFT_SPEED  = CIRCLE_SPEED;
-      if (turn_right) RIGHT_SPEED = CIRCLE_SPEED;
-      
-      // Advance to next state
-      CIRCLE_STATE++;
-      PROGRAM_COUNT = 0;
-      break;
-      
-    case 1:
-      // Wait for 100ms
-      if (PROGRAM_COUNT <= TIME_100_MS) {
-        
-        // Stop Wheels
-        LEFT_SPEED = 0;
-        RIGHT_SPEED = 0;
-        
-        // Advance to next state
-        CIRCLE_STATE++;
-        PROGRAM_COUNT = 0;
-      } break;
+#define CIRCLE_SPEED (WHEEL_PERIOD/6)
+#define FWD_SPEED (WHEEL_PERIOD/8)
+#define BWD_SPEED (WHEEL_PERIOD/8)
+#define BASE_SPEED   (WHEEL_PERIOD/4)
+#define K_S (0)
+#define K_P (25)
+#define K_D (10)
+int speed = BASE_SPEED;
+int prev_error = 0;
+ProjectState CIRCLE_STATE;
+bool turn_left;
+bool turn_right;
+void follow_circle_raw(void) {
+  if ((LEFT_IR_VALUE > max_left_white) && (RIGHT_IR_VALUE > max_right_white)) {
+    LEFT_SPEED  =  FWD_SPEED;
+    RIGHT_SPEED =  FWD_SPEED;
+  } else if ((LEFT_IR_VALUE > max_left_white) && (RIGHT_IR_VALUE < max_left_white)) {
+    LEFT_SPEED  = -BWD_SPEED;
+    RIGHT_SPEED =  FWD_SPEED;
+  } else if ((LEFT_IR_VALUE < max_left_white) && (RIGHT_IR_VALUE > max_left_white)) {
+    LEFT_SPEED  =  FWD_SPEED;
+    RIGHT_SPEED = -BWD_SPEED;
+  } else {
+    LEFT_SPEED  = 0;
+    RIGHT_SPEED = 0;
+  }
+}
 
-    case 3:
-     // Wait for 150 ms, then proceed
-      if (PROGRAM_COUNT >= TIME_50_MS) {
-        // If both were forwards go back to step one
-        if ((turn_left) && (turn_right)) CIRCLE_STATE = 0;
-        
-        else {
-          // Put the wheel that was moving in reverse
-          if (turn_left)  LEFT_SPEED  = -CIRCLE_SPEED;
-          if (turn_right) RIGHT_SPEED = -CIRCLE_SPEED;
-          
-          // Advance to next state
-          CIRCLE_STATE++;
-          PROGRAM_COUNT = 0;
-        }
-      } break;
-      
+void follow_circle(void) {
+  if (NEW_ADC_VALUES) {
+    turn_left  = false;
+    turn_right = false;
+    if ((LEFT_IR_VALUE < (max_left_white + 300)) && (RIGHT_IR_VALUE < (max_right_white + 150))) {
+      turn_left = true;
+      turn_right = true;
+    } else {
+      if (RIGHT_IR_VALUE < (max_right_white + 50)) {
+        turn_left = true;
+      } else turn_right = true;
+    }
     
-    case 4:
-      // Wait for 8 ms, then proceed
-      if (PROGRAM_COUNT >= TIME_50_MS) {
-        // Turn all motors off
-        LEFT_SPEED = 0; RIGHT_SPEED = 0;
-        
-        // Advance to next state
-        CIRCLE_STATE++;
-        PROGRAM_COUNT = 0;
-      } break;
-      
-    case 5:
-      // Wait for 150 ms, then proceed
-      if (PROGRAM_COUNT >= TIME_150_MS) {
-        
-        // Return to First State
-        CIRCLE_STATE = 0;
-      } break;
+    LEFT_SPEED  = turn_left  ? FWD_SPEED : 0;
+    RIGHT_SPEED = turn_right ? FWD_SPEED : 0;
   }
 }
 

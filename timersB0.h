@@ -7,7 +7,7 @@ void clear_program_timer(void);
 
 /// Defines
 // CHANGE ME
-#define TB0CCR0_SR   (5) // Every 5ms
+#define TB0CCR0_SR  (50) // Every 50ms
 #define TB0CCR1_SR (100) // Every 100ms
 #define TB0CCR2_SR (100) // Every 100ms
 
@@ -17,7 +17,7 @@ void clear_program_timer(void);
 #define TB0CCR2_INTERVAL (TB0CCR2_SR * 500U)
 
 
-extern short unsigned int PROGRAM_COUNT;
+extern long unsigned int PROGRAM_COUNT;
 //extern short unsigned int DISPLAY_COUNT;
 extern bool wheels_process_flag;
 extern bool iot_process_flag;

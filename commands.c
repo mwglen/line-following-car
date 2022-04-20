@@ -28,6 +28,7 @@ void run_cmd(char cmd[RING_MSG_LENGTH]) {
   // Parse commands
   if (cmd[0] == '^') {
     // Print command to screen
+    strncpy(display_line[1], cmd, 10);
     lcd_BIG_mid();
     
     // Run command
@@ -62,12 +63,12 @@ void run_cmd(char cmd[RING_MSG_LENGTH]) {
         RIGHT_SPEED = 0;
         break;
       case 0xe95615feUL: // ^TurnR
-        LEFT_SPEED  = -WHEEL_PERIOD/4;
-        RIGHT_SPEED =  WHEEL_PERIOD/4;
+        LEFT_SPEED  =  WHEEL_PERIOD/8;
+        RIGHT_SPEED = -WHEEL_PERIOD/8;
         break;
       case 0xe95615f8UL: // ^TurnL
-        LEFT_SPEED  =  WHEEL_PERIOD/4;
-        RIGHT_SPEED = -WHEEL_PERIOD/4;
+        LEFT_SPEED  = -WHEEL_PERIOD/8;
+        RIGHT_SPEED =  WHEEL_PERIOD/8;
         break;   
       case 0xe8d43000UL: // ^MoveF
         LEFT_SPEED  =  WHEEL_PERIOD/4;
@@ -76,7 +77,16 @@ void run_cmd(char cmd[RING_MSG_LENGTH]) {
       case 0xe8d42ffcUL: // ^MoveB
         LEFT_SPEED  = -WHEEL_PERIOD/4;
         RIGHT_SPEED = -WHEEL_PERIOD/4;
-        break; 
+        break;
+        
+      //case 0x0: //^Intercept
+      //  display_line[0]
+      //  break;
+        
+      //case 0x0: //^Exit
+      //  (display_line[0]);
+      //  break;
+        
       default: write_buffer(&pc_tx_buffer, "COMMAND NOT FOUND\r\n");
     } 
  

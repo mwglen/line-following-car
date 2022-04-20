@@ -33,10 +33,10 @@ void main(void){
   PM5CTL0 &= ~LOCKLPM5;
 
   // Initialize system
-  init_ports();                        // Initialize Ports
-  init_clocks();                       // Initialize Clock System
-  init_conditions();                   // Initialize Variables and Initial Conditions
-  Init_LCD();                          // Initialize LCD
+  init_ports();           // Initialize Ports
+  init_clocks();          // Initialize Clock System
+  init_conditions();      // Initialize Variables and Initial Conditions
+  Init_LCD();             // Initialize LCD
   init_display();
   init_wheels();
   init_timer_B0();
@@ -48,7 +48,7 @@ void main(void){
   while(true) {
     
     // Run Program
-    //program_start();
+    program_start();
     check_wheels();
     
     // Run processes

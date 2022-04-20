@@ -23,7 +23,7 @@ void display_iot(void) {
     case 2: write_buffer(&iot_tx_buffer, "AT+CIPMUX=1\r\n");
     
     // Start Server
-    case 3: write_buffer(&iot_tx_buffer, "AT+CIPSERVER=1,8080\r\n");
+    case 3: write_buffer(&iot_tx_buffer, "AT+CIPSERVER=1,8480\r\n");
     
     // Display Data
     case 4:

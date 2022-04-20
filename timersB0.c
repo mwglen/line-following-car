@@ -28,8 +28,8 @@ void init_timer_B0(void) {
   TB0CCTL0 |= CCIE; // CCR0 enable interrupt
   
   // 100ms Timer (Counts every 1s for program use)
-  TB0CCR1 = TB0CCR1_INTERVAL; // CCR1
-  TB0CCTL1 |= CCIE; // CCR1 enable interrupt
+  //TB0CCR1 = TB0CCR1_INTERVAL; // CCR1
+  //TB0CCTL1 |= CCIE; // CCR1 enable interrupt
   
   // 100ms Timer (Debounce Timer)
   TB0CCR2 = TB0CCR2_INTERVAL; // CCR2
@@ -39,38 +39,36 @@ void init_timer_B0(void) {
   TB0CTL &= ~TBIFG; // Clear Overflow Interrupt flag
 }
 
-extern short unsigned int DISPLAY_COUNT = 0;
-extern short unsigned int PROGRAM_COUNT = 0;
-unsigned int IOT_COUNT = 0;
-
 // 50 ms timer
-bool done_50;
-unsigned int B0_COUNT = 0;
+short unsigned int IOT_EN_COUNT  = 0;
+//extern short unsigned int DISPLAY_COUNT = 0;
+short unsigned int DISPLAY_COUNT = 0;
+long  unsigned int PROGRAM_COUNT = 0;
 #pragma vector = TIMER0_B0_VECTOR
 __interrupt void Timer0_B0_ISR(void){
-  B0_COUNT++;
-  if (B0_COUNT % 40 == 0)  update_display = 1;
-  if (B0_COUNT % 100 == 0) P3OUT |= IOT_EN_CPU;
-  if (B0_COUNT % 10 == 0)   wheels_process_flag = true;   
-  if (B0_COUNT % 10 == 0)  iot_process_flag = true;
-  if (B0_COUNT % 10 == 0)  pc_process_flag = true;
-  if (B0_COUNT % 10 == 0)  adc_process_flag = true;
-  if (B0_COUNT >= 400)     B0_COUNT = 0;
+  // Update Counts
+  PROGRAM_COUNT++;
+  DISPLAY_COUNT++;
+  IOT_EN_COUNT++;
+  
+  // Set Flags
+  if (++DISPLAY_COUNT ==  4) {update_display = 1;  DISPLAY_COUNT = 0;}
+  //if (++IOT_EN_COUNT  == 10) {P3OUT |= IOT_EN_CPU; IOT_EN_COUNT  = 0;}
+  wheels_process_flag = true;   
+  //iot_process_flag    = true;
+  //pc_process_flag     = true;
+  adc_process_flag    = true;
   
   TB0CCR0 += TB0CCR0_INTERVAL; // Add Offset to TBCCR0
 }
 
 unsigned short int DEBOUNCE_COUNT = 0;
-
 #pragma vector=TIMER0_B1_VECTOR
 __interrupt void TIMER0_B1_ISR(void){
   switch(__even_in_range(TB0IV,14)){
     case 0: break; // No interrupt
     
-    case 2: // Program Counter
-      // Add What you need happen in the interrupt
-      PROGRAM_COUNT++;
-      TB0CCR1 += TB0CCR1_INTERVAL; // Add Offset to TBCCR1
+    case 2:
       break;
     
     case 4: // Debounce Timer

@@ -85,22 +85,12 @@ __interrupt void ADC_ISR(void){
       
     case 0x02:                  // Channel A3 (Right IR)
       ADCMCTL0 &= ~ADCINCH_3;   // Disable Last channel A3
-      ADCMCTL0 |= ADCINCH_5;    // Enable Next channel A5
+      ADCMCTL0 |= ADCINCH_2;    // Enable Next channel A2
       RIGHT_IR_VALUE = ADCMEM0; // Move result into Global
       RIGHT_IR_VALUE =          // Divide the result by 4
         RIGHT_IR_VALUE >> 2;
-      ADCCTL0 |= ADCENC;        // Enable Conversions
-      ADCCTL0 |= ADCSC;         // Start next sample
-      break;
-      
-    case 0x03:
-      ADCMCTL0 &= ~ADCINCH_5;   // Disable Last channel A5
-      ADCMCTL0 |= ADCINCH_2;    // Enable Next channel A3
-      THUMB_VALUE = ADCMEM0;    // Move result into Global
-      THUMB_VALUE =             // Divide the result by 4
-        THUMB_VALUE >> 2;
-      ADCCTL0 &= ~ADCENC;        // Enable Conversions
-      ADCCTL0 &= ~ADCSC;         // Start next sample
+      ADCCTL0 &= ~ADCENC;        // Disable Conversions
+      ADCCTL0 &= ~ADCSC;         // Don't start next sample
       ADC_CHANNEL = 0;
       NEW_ADC_VALUES = true;
       break;

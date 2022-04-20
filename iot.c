@@ -51,6 +51,8 @@ void transmit_iot(char *message) {
 }
 
 void parse_iot_res(char *res) {
+    strcpy(display_line[0], "THERE");
+
   // +CWJAP:"my_ssid"
   if (starts_with(res, "+CWJAP:\"")) {
     strcpy(ssid, "");
@@ -72,6 +74,7 @@ void parse_iot_res(char *res) {
     unsigned int tcp_num_chr = atoi(num_chr_str);
     char *k = c; // Save current index
     while (c != k + tcp_num_chr) strncat(tcp_msg, c++, 1);
+    strcpy(display_line[0], "HERE");
     run_cmd(tcp_msg);
   }
   
@@ -98,8 +101,6 @@ void parse_iot_res(char *res) {
     
     // Add the fourth IP Mask
     while (c[0] != '"') strncat(ip_addr2, c++, 1);
-    //strcpy(ip_addr1, "192.168");
-    //strcpy(ip_addr2, "1.1");
     
     strncpy(ip_addr, ip_addr1, sizeof(ip_addr) - 1);
     strcat(ip_addr, ip_addr2);
@@ -125,10 +126,7 @@ __interrupt void eUSCI_A0_ISR(void){
          if (temp_char == '\0') break;
          
          // Echo character to pc
-         UCA1TXBUF = temp_char;
-         
-         // Ignore null characters (just in case)
-         if (temp_char == '\0') break;
+         if (pc_connected) UCA1TXBUF = temp_char;
          
          // Add Character to Response
          if (iot_count < RING_MSG_LENGTH-2) {
@@ -138,7 +136,10 @@ __interrupt void eUSCI_A0_ISR(void){
 
          // Read IOT Responses
          if (temp_char == '\n') {
-           write_buffer(&iot_rx_buffer, iot_res);
+           if (iot_res[0] != '\r' && iot_res[0] != '\n') {
+             strcpy(display_line[0], "TEST");
+             write_buffer(&iot_rx_buffer, iot_res);
+           }
            strcpy(iot_res, "");
            iot_count = 0;
          } break;
@@ -199,6 +200,6 @@ void iot_process(void) {
     if (display_iot_flag) display_iot();
     
     // Run any move command
-    run_move_cmd();
+    //run_move_cmd();
   }
 }
