@@ -16,7 +16,10 @@ int right_error = 0;
 int left_error = 0;
 ProjectState PROJECT7_STATE = SETUP;
 extern void follow_circle(void);
-#define CIRCLE_TIME (60 * TIME_1_SECS)
+extern void follow_circle_2(void);
+//#define CIRCLE_TIME (2 * TIME_1_SECS)
+#define CIRCLE_TIME (100 * TIME_1_SECS)
+#define FWD_SPEED (WHEEL_PERIOD/4)
 
 /// Functions
 void project_7(void) {
@@ -73,7 +76,7 @@ void project_7(void) {
       
     // Rotate until lined up
     case STEP4:
-      if (RIGHT_IR_VALUE > (max_right_white + 100)) {
+      if (RIGHT_IR_VALUE > (max_right_white + 300)) {
         stop_wheels();
         strcpy(display_line[0], " Waiting! ");
         PROJECT7_STATE++;
@@ -91,17 +94,17 @@ void project_7(void) {
     // Circling
     case STEP6:
       // Update Status
-      if (PROGRAM_COUNT >= CIRCLE_TIME) {
+      if (PROGRAM_COUNT >= 2*CIRCLE_TIME) {
         strcpy(display_line[0], " Exiting! ");
         LEFT_SPEED  = -WHEEL_PERIOD/4;
         RIGHT_SPEED =  WHEEL_PERIOD/8;
         PROGRAM_COUNT = 0;
         PROJECT7_STATE++;
-      } else follow_circle();
+      } else follow_circle_2();
       break;
       
     case STEP7:
-      if (PROGRAM_COUNT >= 4*TIME_150_MS) {
+      if (PROGRAM_COUNT >= 8*TIME_100_MS) {
         LEFT_SPEED  =  WHEEL_PERIOD/8;
         RIGHT_SPEED =  WHEEL_PERIOD/8;
         PROGRAM_COUNT = 0;
@@ -224,7 +227,7 @@ void monitor_ir_sensors(void) {
 }
 
 
-#define FWD_SPEED (WHEEL_PERIOD/8)
+//#define FWD_SPEED (WHEEL_PERIOD/8)
 bool turn_left;
 bool turn_right;
 void follow_circle(void) {
@@ -242,5 +245,45 @@ void follow_circle(void) {
     
     LEFT_SPEED  = turn_left  ? FWD_SPEED : 0;
     RIGHT_SPEED = turn_right ? FWD_SPEED : 0;
+  }
+}
+
+ProjectState CIRCLE_STATE = SETUP;
+void follow_circle_2(void) {
+  if (NEW_ADC_VALUES) {
+    switch (CIRCLE_STATE) {
+      // Determine which wheel to move and start moving it
+      case SETUP:
+        // If wheels on same color go forwards
+        // else turn the wheel that is on white
+        turn_right = (RIGHT_IR_VALUE < max_right_white + 100);
+        turn_left  = (LEFT_IR_VALUE < max_left_white + 100);
+        if (!turn_left && !turn_right) {
+           turn_left = true;
+           turn_right = true;
+        }
+    
+        // Move wheels according to flags
+        LEFT_SPEED  = turn_left  ? FWD_SPEED : 0;
+        RIGHT_SPEED = turn_right ? FWD_SPEED : 0;
+        
+        // Go to next state
+        CIRCLE_STATE++;
+        TASK_COUNT = 0;
+        break;
+
+      // After 50ms, stop wheels
+      case STEP0:
+        if (TASK_COUNT > TIME_50_MS) {
+          stop_wheels();
+          CIRCLE_STATE++;
+          TASK_COUNT = 0;
+        } break;
+
+      // After 50ms, return to first state
+      case STEP1:
+        if (TASK_COUNT > TIME_50_MS) CIRCLE_STATE = 0;
+        break;
+    }
   }
 }

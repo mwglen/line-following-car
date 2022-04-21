@@ -5,6 +5,7 @@
 #include "display.h"
 #include "ports.h"
 #include "switches.h"
+#include "program.h"
 #include "iot.h"
 #include <stdbool.h>
 
@@ -40,24 +41,57 @@ void init_timer_B0(void) {
 }
 
 // 50 ms timer
-short unsigned int IOT_EN_COUNT  = 0;
+unsigned int IOT_EN_COUNT  = 0;
 //extern short unsigned int DISPLAY_COUNT = 0;
-short unsigned int DISPLAY_COUNT = 0;
-long  unsigned int PROGRAM_COUNT = 0;
+unsigned int DISPLAY_COUNT = 0;
+long unsigned int PROGRAM_COUNT = 0;
+long unsigned int TASK_COUNT = 0;
+unsigned int WHEEL_COUNT = 0;
+unsigned int PC_COUNT = 0;
+unsigned int IOT_COUNT = 0;
+unsigned int ADC_COUNT = 0;
+
 #pragma vector = TIMER0_B0_VECTOR
 __interrupt void Timer0_B0_ISR(void){
-  // Update Counts
+  // Update Program Count
   PROGRAM_COUNT++;
-  DISPLAY_COUNT++;
-  IOT_EN_COUNT++;
+  TASK_COUNT++;
   
-  // Set Flags
-  if (++DISPLAY_COUNT ==  4) {update_display = 1;  DISPLAY_COUNT = 0;}
-  //if (++IOT_EN_COUNT  == 10) {P3OUT |= IOT_EN_CPU; IOT_EN_COUNT  = 0;}
-  wheels_process_flag = true;   
-  //iot_process_flag    = true;
-  //pc_process_flag     = true;
-  adc_process_flag    = true;
+  // Set Display Process Flag
+  if (++DISPLAY_COUNT == TIME_200_MS) {
+    update_display = 1;
+    DISPLAY_COUNT = 0;
+  }
+  
+  // Set IOT EN Process Flag
+  //if (++IOT_EN_COUNT == TIME_200_MS) {
+  //  P3OUT |= IOT_EN_CPU; 
+  //  IOT_EN_COUNT = 0;
+  //}
+  
+  // Set Wheel Process Flag
+  if (++WHEEL_COUNT == TIME_50_MS) {
+    wheels_process_flag = true; 
+    WHEEL_COUNT = 0;
+  } 
+  
+  // Set IOT Process Flag  
+  //if (++IOT_COUNT   == TIME_50_MS) {
+  //  iot_process_flag = true; 
+  //  IOT_COUNT = 0;
+  //}
+  
+  // Set PC Process Flag
+  //if (++PC_COUNT    == TIME_50_MS) {
+  //  pc_process_flag = true; 
+  //  PC_COUNT = 0;
+  //}   
+
+  // Set ADC Process Flag
+  if (++ADC_COUNT == TIME_50_MS) {
+    adc_process_flag = true;
+    ADC_COUNT = 0;
+  } 
   
   TB0CCR0 += TB0CCR0_INTERVAL; // Add Offset to TBCCR0
 }
