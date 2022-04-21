@@ -2,7 +2,7 @@
 
 /// Defines
 #define	RING_MSG_LENGTH 30
-#define RING_BUF_LENGTH 5
+#define RING_BUF_LENGTH 10
 
 /// Typedefs
 typedef char RingMessage[RING_MSG_LENGTH];

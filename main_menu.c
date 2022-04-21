@@ -19,7 +19,7 @@ void main_menu(void) {
   switch (CURR_SELECTION) {
     case MAIN_MENU:
       if (get_sw2()) {
-        CURR_SELECTION = PROJECT5;
+        CURR_SELECTION = PROJECT7;
         strcpy(display_line[2], " COMPLETE ");
         strcpy(display_line[3], " PROJECT7 ");
         display_changed = true;  
@@ -35,10 +35,10 @@ void main_menu(void) {
       } else if (get_sw1()) {
         CURR_EVENT = PROJECT7;
         strcpy(display_line[0], "          ");
-        strcpy(display_line[1], "PREFORMING");
-        strcpy(display_line[2], " PROJECT7 ");
+        strcpy(display_line[1], "          ");
+        strcpy(display_line[2], "          ");
         strcpy(display_line[3], "          ");
-        display_changed = true;  
+        display_changed = true;
       } break;
   }
 }

@@ -27,6 +27,6 @@ void read_buffer(RingBuffer *buf, char *msg) {
   buf->curr_size--;
   
   // Update read_idx
-  if (buf->read_idx >= RING_BUF_LENGTH)
+  if (buf->read_idx >= RING_BUF_LENGTH-1)
     buf->read_idx = 0;
 }

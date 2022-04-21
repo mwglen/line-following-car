@@ -9,42 +9,48 @@
 #include "timersB0.h"
 #include "display.h"
 #include <string.h>
+#include <stdlib.h>
 
 /// Globals
 int right_error = 0;
 int left_error = 0;
 ProjectState PROJECT7_STATE = SETUP;
-unsigned int left_target_value  = 300;
-unsigned int right_target_value = 300;
+extern void follow_circle(void);
+extern void follow_circle_2(void);
+//#define CIRCLE_TIME (2 * TIME_1_SECS)
+#define CIRCLE_TIME (100 * TIME_1_SECS)
+#define FWD_SPEED (WHEEL_PERIOD/4)
 
 /// Functions
 void project_7(void) {
   
   // Monitor ADC Values
-  monitor_ir_sensors();
+  if (PROJECT7_STATE != SETUP) monitor_ir_sensors();
   
   switch (PROJECT7_STATE) {
     // Turn on IR_EMITTER and callibrate system using SW1
     case SETUP:
       P6OUT |= IR_EMITTER; // On [High]
       if (calibrate()) {
+        strcpy(display_line[0], "Place Car!");
         PROJECT7_STATE++;
       } break;
     
     // Wait for SW1
     case STEP0:
-      strcpy(display_line[0], "Place Car!");
       if (get_sw1()) {
+        strcpy(display_line[0], "Intercept!");
+        timer_enable = true;
+        fwd_left();
+        fwd_right();
         PROJECT7_STATE++;
       } break;
       
     // Intercepting
     case STEP1:
-      fwd_left();
-      fwd_right();
-      strcpy(display_line[0], "Intercept!");
-      if (LEFT_IR_VALUE > left_target_value 
-          || RIGHT_IR_VALUE > right_target_value) {
+      if (LEFT_IR_VALUE > (max_left_white + 100)
+          || RIGHT_IR_VALUE > (max_right_white + 100)) {
+        strcpy(display_line[0], " Waiting! ");
         stop_wheels();
         PROJECT7_STATE++;
         PROGRAM_COUNT = 0;
@@ -52,100 +58,157 @@ void project_7(void) {
       
     // Waiting
     case STEP2:
-      stop_wheels();
-      strcpy(display_line[0], " Waiting! ");
       if (PROGRAM_COUNT >= TIME_4_SECS) {
+        strcpy(display_line[0], " Turning! ");
+        LEFT_SPEED  = WHEEL_PERIOD/8;
+        RIGHT_SPEED = WHEEL_PERIOD/8;
         PROJECT7_STATE++;
         PROGRAM_COUNT = 0;
       } break;
-        
-    // Move Forward until center of car is on line
+
     case STEP3:
-      fwd_left();
-      fwd_right();
       if (PROGRAM_COUNT >= TIME_100_MS) {
-        PROGRAM_COUNT = 0;
+        LEFT_SPEED  = -WHEEL_PERIOD/4;
+        RIGHT_SPEED =  WHEEL_PERIOD/8;
         PROJECT7_STATE++;
-      } break;
-      
-    // Wait to avoid running FWD directly after REV
-    case STEP4:
-      stop_wheels();
-      if (PROGRAM_COUNT >= TIME_100_MS) {
         PROGRAM_COUNT = 0;
-        PROJECT7_STATE++;
       } break;
       
     // Rotate until lined up
-    case STEP5:
-      fwd_left();
-      bwd_right();
-      if (LEFT_IR_VALUE > left_target_value) {
+    case STEP4:
+      if (RIGHT_IR_VALUE > (max_right_white + 300)) {
         stop_wheels();
+        strcpy(display_line[0], " Waiting! ");
         PROJECT7_STATE++;
+        PROGRAM_COUNT = 0;
       } break;
       
     // Waiting
-    case STEP6:
-      stop_wheels();
-      strcpy(display_line[0], " Waiting! ");
+    case STEP5:
       if (PROGRAM_COUNT >= TIME_4_SECS) {
+        strcpy(display_line[0], " Circling ");
         PROJECT7_STATE++;
         PROGRAM_COUNT = 0;
       } break;
       
     // Circling
-    case STEP7:
+    case STEP6:
       // Update Status
-      strcpy(display_line[0], " Circling ");
-      
-      // Calculate errors
-      if (NEW_ADC_VALUES) {
-        left_error  = left_target_value - LEFT_IR_VALUE;
-        right_error = right_target_value - RIGHT_IR_VALUE;
-      
-        // Ignore negative errors
-        if (left_error < 0) left_error = 0;
-        if (right_error < 0) right_error = 0;
-                       
-        // Set speeds
-        LEFT_SPEED  = base_speed + (k_p_left * left_error);
-        RIGHT_SPEED = base_speed + (k_p_right * right_error);
-        NEW_ADC_VALUES = false;
-      }
-      
-      //if (PROGRAM_COUNT >= 2*CIRCLE_TIME) {
-      //  PROJECT7_STATE++;
-      //  PROGRAM_COUNT = 0;
-      //}
+      if (PROGRAM_COUNT >= 2*CIRCLE_TIME) {
+        strcpy(display_line[0], " Exiting! ");
+        LEFT_SPEED  = -WHEEL_PERIOD/4;
+        RIGHT_SPEED =  WHEEL_PERIOD/8;
+        PROGRAM_COUNT = 0;
+        PROJECT7_STATE++;
+      } else follow_circle_2();
       break;
+      
+    case STEP7:
+      if (PROGRAM_COUNT >= 8*TIME_100_MS) {
+        LEFT_SPEED  =  WHEEL_PERIOD/8;
+        RIGHT_SPEED =  WHEEL_PERIOD/8;
+        PROGRAM_COUNT = 0;
+        PROJECT7_STATE++;
+      } break;
       
     // Exiting
     case STEP8:
-      strcpy(display_line[0], " Exiting! ");
-      PROJECT7_STATE = 0;
-      CURR_EVENT = MAIN_MENU;
-      break;
+      if (PROGRAM_COUNT >= TIME_4_SECS) {
+        stop_wheels();
+        timer_enable = false;
+        strcpy(display_line[0], " Stopped! ");
+        PROJECT7_STATE++;
+      } break;
+ 
+    // Stopped
+    case STEP9:
+      if (get_sw1()) {
+        PROJECT7_STATE = 0;
+        CURR_EVENT = MAIN_MENU;
+      } break;
   }
 }
 
 // Returns true once calibration is finished
+short int CALIBRATION_STATE = 0;
+int max_left_white;
+int max_right_white;
+int max_left_black;
+int max_right_black;
 bool calibrate(void) {
-  strcpy(display_line[0], "Target Cal");
-  if (get_sw1()) {
-    left_target_value  = LEFT_IR_VALUE  - (int)(0.2*LEFT_IR_VALUE);
-    right_target_value = RIGHT_IR_VALUE - (int)(0.2*RIGHT_IR_VALUE);
-    return true;
-  }
-  return false;
+  if (NEW_ADC_VALUES) {
+    switch (CALIBRATION_STATE) {
+      case 0:
+        strcpy(display_line[0], "Place on W");
+        display_changed = true;
+        if (get_sw1()) {
+          strcpy(display_line[0], "Getting  W");
+          display_changed = true;
+          max_left_white = 0;
+          max_right_white = 0;
+          max_left_black = 0;
+          max_right_black = 0;
+          CALIBRATION_STATE++;
+        } break;
+        
+      case 1:
+        if (LEFT_IR_VALUE  > max_left_white)  max_left_white  = LEFT_IR_VALUE;
+        if (RIGHT_IR_VALUE > max_right_white) max_right_white = RIGHT_IR_VALUE;
+        if (get_sw1()) {
+          strcpy(display_line[0], "Place on B");
+          display_changed = true;
+          CALIBRATION_STATE++;
+        } break;
+        
+      case 2:      
+        if (LEFT_IR_VALUE  > max_left_black)  max_left_black  = LEFT_IR_VALUE;
+        if (RIGHT_IR_VALUE > max_right_black) max_right_black = RIGHT_IR_VALUE;
+        if (get_sw1()) {
+          // Show Results
+          strcpy(display_line[0], "MLW:  xxxx");
+          strcpy(display_line[1], "MRW:  xxxx");
+          strcpy(display_line[2], "MLB:  xxxx");
+          strcpy(display_line[3], "MRB:  xxxx");
+          
+          // Fill in MLW sensor values
+          hex_to_bcd(max_left_white);
+          for (int i = 0; i < 4; i++)
+            display_line[0][i+6] = ADC_CHAR[i];
+          
+          // Fill in MRW sensor values
+          hex_to_bcd(max_right_white);
+          for (int i = 0; i < 4; i++)
+            display_line[1][i+6] = ADC_CHAR[i];
+
+          // Fill in MLB sensor values
+          hex_to_bcd(max_left_black);
+          for (int i = 0; i < 4; i++)
+            display_line[2][i+6] = ADC_CHAR[i];
+          
+          // Fill in MRB sensor values
+          hex_to_bcd(max_right_black);
+          for (int i = 0; i < 4; i++)
+            display_line[3][i+6] = ADC_CHAR[i];
+          
+          display_changed = true;
+          
+          // Advance to next state        
+          CALIBRATION_STATE++;
+        } break;
+        
+      case 3:
+        if (get_sw1()) {
+          CALIBRATION_STATE = 0;
+          return true;
+        } break;
+    }
+  } return false;
 }
 
 // Writes IR Sensor data to display and updates display
 void monitor_ir_sensors(void) {
     char left_ir_str[]  = " L:  xxxx ";
     char right_ir_str[] = " R:  xxxx ";
-    const char ir_off[] = "  IR OFF  ";
-    const char ir_on[]  = "EMITTER ON";
     
     // Fill in right IR sensor values
     hex_to_bcd(LEFT_IR_VALUE);
@@ -158,8 +221,69 @@ void monitor_ir_sensors(void) {
       right_ir_str[i+5] = ADC_CHAR[i];
     
     // Print to display
-    strcpy(display_line[1], (P6OUT & IR_EMITTER) ? ir_on : ir_off);
     strcpy(display_line[2], left_ir_str);
     strcpy(display_line[3], right_ir_str);
     display_changed = true;
+}
+
+
+//#define FWD_SPEED (WHEEL_PERIOD/8)
+bool turn_left;
+bool turn_right;
+void follow_circle(void) {
+  if (NEW_ADC_VALUES) {
+    turn_left  = false;
+    turn_right = false;
+    if ((LEFT_IR_VALUE < (max_left_white + 300)) && (RIGHT_IR_VALUE < (max_right_white + 150))) {
+      turn_left = true;
+      turn_right = true;
+    } else {
+      if (RIGHT_IR_VALUE < (max_right_white + 50)) {
+        turn_left = true;
+      } else turn_right = true;
+    }
+    
+    LEFT_SPEED  = turn_left  ? FWD_SPEED : 0;
+    RIGHT_SPEED = turn_right ? FWD_SPEED : 0;
+  }
+}
+
+ProjectState CIRCLE_STATE = SETUP;
+void follow_circle_2(void) {
+  if (NEW_ADC_VALUES) {
+    switch (CIRCLE_STATE) {
+      // Determine which wheel to move and start moving it
+      case SETUP:
+        // If wheels on same color go forwards
+        // else turn the wheel that is on white
+        turn_right = (RIGHT_IR_VALUE < max_right_white + 100);
+        turn_left  = (LEFT_IR_VALUE < max_left_white + 100);
+        if (!turn_left && !turn_right) {
+           turn_left = true;
+           turn_right = true;
+        }
+    
+        // Move wheels according to flags
+        LEFT_SPEED  = turn_left  ? FWD_SPEED : 0;
+        RIGHT_SPEED = turn_right ? FWD_SPEED : 0;
+        
+        // Go to next state
+        CIRCLE_STATE++;
+        TASK_COUNT = 0;
+        break;
+
+      // After 50ms, stop wheels
+      case STEP0:
+        if (TASK_COUNT > TIME_50_MS) {
+          stop_wheels();
+          CIRCLE_STATE++;
+          TASK_COUNT = 0;
+        } break;
+
+      // After 50ms, return to first state
+      case STEP1:
+        if (TASK_COUNT > TIME_50_MS) CIRCLE_STATE = 0;
+        break;
+    }
+  }
 }
