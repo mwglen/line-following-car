@@ -23,8 +23,8 @@ ProgramState program_state = WAIT_FOR_WIFI;
 // start the main program
 void run_program(void) {
   // Increment stop count
-  if (stop_cmd_recieved) {
-    stop_cmd_recieved = false;
+  if (inc_cmd_recieved) {
+    inc_cmd_recieved = false;
     display_line[0][9]++;
     display_changed = true;
   }

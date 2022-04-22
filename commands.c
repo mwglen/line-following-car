@@ -14,7 +14,7 @@
 /// Globals
 bool circle_cmd_recieved = false;
 bool exit_cmd_recieved = false;
-bool stop_cmd_recieved = false;
+bool inc_cmd_recieved = false;
 bool cmd_recieved = false;
 
 // A buffer to hold movement commands
@@ -73,7 +73,6 @@ void run_cmd(char cmd[RING_MSG_LENGTH]) {
       case 0xed37f29UL: // ^Stop
         LEFT_SPEED  = 0;
         RIGHT_SPEED = 0;
-        stop_cmd_recieved = true;
         break;
       case 0xe95615feUL: // ^TurnR
         LEFT_SPEED  =  WHEEL_PERIOD/8;
@@ -84,21 +83,28 @@ void run_cmd(char cmd[RING_MSG_LENGTH]) {
         RIGHT_SPEED =  WHEEL_PERIOD/8;
         break;   
       case 0xe8d43000UL: // ^MoveF
-        LEFT_SPEED  =  WHEEL_PERIOD/4;
-        RIGHT_SPEED =  WHEEL_PERIOD/4;
+        LEFT_SPEED  =  WHEEL_PERIOD/2;
+        RIGHT_SPEED =  WHEEL_PERIOD/2;
         break; 
       case 0xe8d42ffcUL: // ^MoveB
-        LEFT_SPEED  = -WHEEL_PERIOD/4;
-        RIGHT_SPEED = -WHEEL_PERIOD/4;
+        LEFT_SPEED  = -WHEEL_PERIOD/2;
+        RIGHT_SPEED = -WHEEL_PERIOD/2;
         break;
-
+        
+      //--------------------------------------
+      //      Other Commands
+      //--------------------------------------
+      case 0x7c91e03dUL: // ^Inc
+        inc_cmd_recieved = true;
+        break;
+        
       //--------------------------------------
       //      Circle Movement Commands
       //--------------------------------------
-      case 0xeb97d1f5: // ^Circle
+      case 0xeb97d1f5UL: // ^Circle
         circle_cmd_recieved = true;
         break;
-      case 0xecbe21d: // ^Exit
+      case 0xecbe21dUL: // ^Exit
          exit_cmd_recieved = true;
         break;
         

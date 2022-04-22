@@ -5,7 +5,7 @@
 /// Globals
 extern bool circle_cmd_recieved;
 extern bool exit_cmd_recieved;
-extern bool stop_cmd_recieved;
+extern bool inc_cmd_recieved;
 extern bool cmd_recieved;
 
 /// Functions
