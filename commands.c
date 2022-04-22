@@ -11,7 +11,11 @@
 #include <string.h>
 #include <ctype.h>
 
-extern void lcd_BIG_mid(void);
+/// Globals
+bool circle_cmd_recieved = false;
+bool exit_cmd_recieved = false;
+bool stop_cmd_recieved = false;
+bool cmd_recieved = false;
 
 // A buffer to hold movement commands
 // Strings are in format [FBLR][0..9]*
@@ -27,9 +31,17 @@ void run_cmd(char cmd[RING_MSG_LENGTH]) {
   
   // Parse commands
   if (cmd[0] == '^') {
-    // Print command to screen
-    strncpy(display_line[1], cmd, 10);
-    lcd_BIG_mid();
+    // Announce that a command was read
+    cmd_recieved = true;
+    
+    // Add Characters for Command
+    int i = 0;
+    while ((cmd[i+1] != '\0') && (i < 6)) {
+      display_line[3][i] = cmd[i+1]; 
+      i++;
+    }
+    while (i < 6) display_line[3][i++] = ' ';
+    display_changed = true;
     
     // Run command
     switch (hash(cmd)) {
@@ -61,6 +73,7 @@ void run_cmd(char cmd[RING_MSG_LENGTH]) {
       case 0xed37f29UL: // ^Stop
         LEFT_SPEED  = 0;
         RIGHT_SPEED = 0;
+        stop_cmd_recieved = true;
         break;
       case 0xe95615feUL: // ^TurnR
         LEFT_SPEED  =  WHEEL_PERIOD/8;
@@ -78,59 +91,20 @@ void run_cmd(char cmd[RING_MSG_LENGTH]) {
         LEFT_SPEED  = -WHEEL_PERIOD/4;
         RIGHT_SPEED = -WHEEL_PERIOD/4;
         break;
-        
-      //case 0x0: //^Intercept
-      //  display_line[0]
-      //  break;
-        
-      //case 0x0: //^Exit
-      //  (display_line[0]);
-      //  break;
+
+      //--------------------------------------
+      //      Circle Movement Commands
+      //--------------------------------------
+      case 0xeb97d1f5: // ^Circle
+        circle_cmd_recieved = true;
+        break;
+      case 0xecbe21d: // ^Exit
+         exit_cmd_recieved = true;
+        break;
         
       default: write_buffer(&pc_tx_buffer, "COMMAND NOT FOUND\r\n");
     } 
  
   // Passthrough to iot
   } else write_buffer(&iot_tx_buffer, cmd);
-}
-
-// Reads a move command from buffer and runs the command
-void run_move_cmd(void) {
-  if (!stop_after_flag && mv_cmd_buffer.curr_size != 0) {
-    // Get movement command
-    char curr_mv_cmd[RING_MSG_LENGTH];
-    read_buffer(&mv_cmd_buffer, curr_mv_cmd);
-    
-    // Parse Direction
-    switch (curr_mv_cmd[0]) {
-      case 'F':
-        LEFT_SPEED  =  WHEEL_PERIOD/4;
-        RIGHT_SPEED =  WHEEL_PERIOD/4;
-        break;
-        
-      case 'B':
-        LEFT_SPEED  = -WHEEL_PERIOD/4;
-        RIGHT_SPEED = -WHEEL_PERIOD/4;
-        break;
-        
-      case 'R':
-        LEFT_SPEED  =  WHEEL_PERIOD/4;
-        RIGHT_SPEED = -WHEEL_PERIOD/4;
-        break;
-          
-      case 'L':
-        LEFT_SPEED  = -WHEEL_PERIOD/4;
-        RIGHT_SPEED =  WHEEL_PERIOD/4;
-        break;
-    }
-              
-    // Determine time to stop after
-    stop_after_time = 0;
-    for (int i = 1; isdigit(curr_mv_cmd[i]); i++)
-        stop_after_time = stop_after_time * 10 + curr_mv_cmd[i] - '0';
-    
-    // Set flag signaling to stop after time
-    stop_after_curr_time = 0;
-    stop_after_flag = true;
-  }
 }

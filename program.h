@@ -1,18 +1,20 @@
 /// Functions
-void program_start(void);
+void run_program(void);
 
 /// Types
-// Program Control
-typedef enum {
-  STARTUP       = 0,
-  MAIN_MENU     = 1,
-  PROJECT5      = 2,
-  PROJECT6      = 3,
-  PROJECT7      = 4
-} Event;
-extern Event CURR_EVENT;
-
 // Project States
+typedef enum {
+  WAIT_FOR_WIFI = 0,
+  CALIBRATE     = 1,
+  WAIT_FOR_CMD  = 2,
+  WAIT_FOR_CIRC = 3,
+  INTERCEPTING  = 4,
+  CIRCLING      = 5,
+  EXITING       = 6,
+  FINISHED      = 7
+} ProgramState;
+
+// Program States
 typedef enum {
   SETUP = 0,
   STEP0 = 1,
@@ -36,3 +38,4 @@ typedef enum {
 #define TIME_2_SECS (2000 / TB0CCR0_SR)
 #define TIME_3_SECS (3000 / TB0CCR0_SR)
 #define TIME_4_SECS (4000 / TB0CCR0_SR)
+#define TIME_5_SECS (5000 / TB0CCR0_SR)

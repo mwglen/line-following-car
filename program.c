@@ -1,33 +1,134 @@
 /// Includes
 #include "program.h"
 #include "display.h"
-#include "main_menu.h"
-#include "project_7.h"
+#include "circle.h"
+#include "ports.h"
+#include "msp430.h"
+#include "calibrate.h"
+#include "text.h"
+#include "commands.h"
+#include "iot.h"
+#include "switches.h"
+#include "timersB0.h"
+#include "text.h"
+#include "adc.h"
+#include <stdbool.h>
 #include <string.h>
 
 /// Global Variables
-// Main Function
-unsigned int STARTUP_TIME = 0;
-Event CURR_EVENT = STARTUP;
+bool circle_flag = false;
+ProgramState program_state = WAIT_FOR_WIFI; 
 
 /// Functions
 // start the main program
-void program_start(void) {
-  switch (CURR_EVENT) {
-    case STARTUP:
-      STARTUP_TIME++;
-      if (STARTUP_TIME > 400) {
-        CURR_EVENT = MAIN_MENU;
-        strcpy(display_line[0], "MAIN  MENU");
-        strcpy(display_line[1], "----------");
-        strcpy(display_line[2], "<- RUN    ");
-        strcpy(display_line[3], "   NEXT ->");
+void run_program(void) {
+  // Increment stop count
+  if (stop_cmd_recieved) {
+    stop_cmd_recieved = false;
+    display_line[0][9]++;
+    display_changed = true;
+  }
+  
+  // Update displayed timer value
+  if (timer_enable && timer_updated) {
+    // Reset Flag
+    timer_updated = false;
+    
+    // Display Timer
+    hex_to_bcd(timer_count);
+    for (int i = 0; i < 3; i++)
+      display_line[3][i+6] = ADC_CHAR[i+1];
+    display_line[3][9] = 's'; 
+    display_changed = true;
+  }
+  
+  switch (program_state) {
+    
+    // Wait for switch press 
+    // It's intended that you press switch after wifi is connected
+    case WAIT_FOR_WIFI:
+      if (get_sw1()) program_state++;
+      break;
+    
+    // Start calibration
+    // Continue when finished
+    case CALIBRATE:
+      P6OUT |= IR_EMITTER; // On [High]
+      if (calibrate()) {
+        strcpy(display_line[0], " Waiting  ");
+        strcpy(display_line[1], "for input ");
+        center_cpy(display_line[2], ip_addr1);
+        center_cpy(display_line[3], ip_addr2);
         display_changed = true;
-        STARTUP_TIME = 0;
-      }
+        program_state++;
+      } break;
+          
+    // Wait for any command
+    case WAIT_FOR_CMD:
+      if (cmd_recieved) {
+        // Reset Flag
+        cmd_recieved = false;
+        
+        // Update display
+        strcpy(display_line[0], "Arrived 00");
+        center_cpy(display_line[1], ip_addr1);
+        center_cpy(display_line[2], ip_addr2);
+        display_changed = true;
+        
+        // Enable timer
+        timer_enable = true;
+        
+        // Advance state
+        program_state++;
+      } break;
+    
+    // Wait for circle command
+    case WAIT_FOR_CIRC:
+      if (circle_cmd_recieved) {
+        // Reset Flag
+        circle_cmd_recieved = false;
+        
+        // Update display
+        strcpy(display_line[3], "Auto.");
+        display_changed = true;
+        
+        // Advance to next state
+        program_state++;
+      } break;
+
+      
+    // Intercept circle and then continue
+    case INTERCEPTING:
+      if (intercept_circle()) program_state++;
       break;
       
-    case MAIN_MENU: main_menu(); break;
-    case PROJECT7: project_7(); break;
-  }
+    // Follow the circle until the exit command was recieved
+    case CIRCLING:
+      if (exit_cmd_recieved) program_state++;
+      else follow_circle();
+      break;
+      
+    // Exit the circle and stop at least 2 feet away
+    // Continue once finished
+    case EXITING:
+      if (exit_circle()) {
+        // Disable Timer
+        timer_enable = false;
+        
+        // Update Display
+        center_cpy(display_line[0], " BL STOP  ");
+        center_cpy(display_line[1], " That was ");
+        center_cpy(display_line[2], "easy!! ;-)");
+        center_cpy(display_line[3], "      ");
+        center_cpy(display_line[3], "Time: ");
+        display_changed = true;
+        
+        // Advance to next state
+        program_state++;
+      } break;
+      
+    // Do nothing forever
+    case FINISHED:
+      break;
+  }      
 }

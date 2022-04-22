@@ -40,7 +40,6 @@ void main(void){
   init_display();
   init_wheels();
   init_timer_B0();
-  //init_timer_B1();
   init_adc();
   init_pc(4, 0x5551); //115200 
   init_iot(4, 0x5551); //115200
@@ -48,7 +47,10 @@ void main(void){
   while(true) {
     
     // Run Program
-    program_start();
+    run_program();
+    
+    // Make sure wheels aren't moving forwards and 
+    // backwords at the same time
     check_wheels();
     
     // Run processes
