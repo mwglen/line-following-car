@@ -152,7 +152,7 @@
                     <name>NoRwDynamicInit</name>
                     <state>0</state>
                 </option>
-                <option>
+               <option>
                     <name>GRuntimeLibThreads</name>
                     <state>0</state>
                 </option>
@@ -2300,70 +2300,70 @@
     <group>
         <name>Compiled</name>
         <file>
-            <name>$PROJ_DIR$\Compiled\LCD.r43</name>
+            <name>$PROJ_DIR$\src\Compiled\LCD.r43</name>
         </file>
     </group>
     <group>
         <name>Projects</name>
         <file>
-            <name>$PROJ_DIR$\project_5.c</name>
+            <name>$PROJ_DIR$\src\project_5.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\project_6.c</name>
+            <name>$PROJ_DIR$\src\project_6.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\project_7.c</name>
+            <name>$PROJ_DIR$\src\project_7.c</name>
         </file>
     </group>
     <group>
         <name>Timers</name>
         <file>
-            <name>$PROJ_DIR$\timersB0.c</name>
+            <name>$PROJ_DIR$\src\timersB0.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\timersB1.c</name>
+            <name>$PROJ_DIR$\src\timersB1.c</name>
         </file>
     </group>
     <file>
-        <name>$PROJ_DIR$\adc.c</name>
+        <name>$PROJ_DIR$\src\adc.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\clocks.c</name>
+        <name>$PROJ_DIR$\src\clocks.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\display.c</name>
+        <name>$PROJ_DIR$\src\display.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\init.c</name>
+        <name>$PROJ_DIR$\src\init.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\interrupts.c</name>
+        <name>$PROJ_DIR$\src\interrupts.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\led.c</name>
+        <name>$PROJ_DIR$\src\led.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\main.c</name>
+        <name>$PROJ_DIR$\src\main.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\main_menu.c</name>
+        <name>$PROJ_DIR$\src\main_menu.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\ports.c</name>
+        <name>$PROJ_DIR$\src\ports.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\program.c</name>
+        <name>$PROJ_DIR$\src\program.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\serial.c</name>
+        <name>$PROJ_DIR$\src\serial.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\switches.c</name>
+        <name>$PROJ_DIR$\src\switches.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\system.c</name>
+        <name>$PROJ_DIR$\src\system.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\wheels.c</name>
+       <name>$PROJ_DIR$\src\wheels.c</name>
     </file>
 </project>
