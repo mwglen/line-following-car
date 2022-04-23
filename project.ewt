@@ -2162,15 +2162,46 @@
         </file>
     </group>
     <group>
-        <name>Projects</name>
+        <name>Display</name>
         <file>
-            <name>$PROJ_DIR$\src\project_5.c</name>
+            <name>$PROJ_DIR$\display.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\src\project_6.c</name>
+            <name>$PROJ_DIR$\display_iot.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\src\project_7.c</name>
+            <name>$PROJ_DIR$\text.c</name>
+        </file>
+    </group>
+    <group>
+        <name>Program</name>
+        <file>
+            <name>$PROJ_DIR$\calibrate.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\circle.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\main.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\program.c</name>
+        </file>
+    </group>
+    <group>
+        <name>Serial</name>
+        <file>
+            <name>$PROJ_DIR$\commands.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\iot.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\pc.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\ring_buffer.c</name>
+>>>>>>> b117484771621bb0e6ac1b03d80fe6db86e19d5f
         </file>
     </group>
     <group>

@@ -125,7 +125,7 @@
                 </option>
                 <option>
                     <name>RadioHeapSizeType</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>RadioHardwareMultiplierType</name>
@@ -317,7 +317,7 @@
                 <option>
                     <name>CCAllowList</name>
                     <version>1</version>
-                    <state>00000</state>
+                    <state>11111</state>
                 </option>
                 <option>
                     <name>CCObjUseModuleName</name>
@@ -421,7 +421,7 @@
                 </option>
                 <option>
                     <name>ReduceStack</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>Save20bit</name>
@@ -433,7 +433,7 @@
                 </option>
                 <option>
                     <name>CCOptLevel</name>
-                    <state>0</state>
+                    <state>3</state>
                 </option>
                 <option>
                     <name>CCOptStrategy</name>
@@ -442,7 +442,7 @@
                 </option>
                 <option>
                     <name>CCOptLevelSlave</name>
-                    <state>0</state>
+                    <state>3</state>
                 </option>
                 <option>
                     <name>CInput</name>
@@ -2304,15 +2304,46 @@
         </file>
     </group>
     <group>
-        <name>Projects</name>
+        <name>Display</name>
         <file>
-            <name>$PROJ_DIR$\src\project_5.c</name>
+            <name>$PROJ_DIR$\display.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\src\project_6.c</name>
+            <name>$PROJ_DIR$\display_iot.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\src\project_7.c</name>
+            <name>$PROJ_DIR$\text.c</name>
+        </file>
+    </group>
+    <group>
+        <name>Program</name>
+        <file>
+            <name>$PROJ_DIR$\calibrate.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\circle.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\main.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\program.c</name>
+        </file>
+    </group>
+    <group>
+        <name>Serial</name>
+        <file>
+            <name>$PROJ_DIR$\commands.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\iot.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\pc.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\ring_buffer.c</name>
+>>>>>>> b117484771621bb0e6ac1b03d80fe6db86e19d5f
         </file>
     </group>
     <group>
