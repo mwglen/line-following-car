@@ -2306,44 +2306,43 @@
     <group>
         <name>Display</name>
         <file>
-            <name>$PROJ_DIR$\display.c</name>
+            <name>$PROJ_DIR$\src\display.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\display_iot.c</name>
+            <name>$PROJ_DIR$\src\display_iot.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\text.c</name>
+            <name>$PROJ_DIR$\src\text.c</name>
         </file>
     </group>
     <group>
         <name>Program</name>
         <file>
-            <name>$PROJ_DIR$\calibrate.c</name>
+            <name>$PROJ_DIR$\src\calibrate.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\circle.c</name>
+            <name>$PROJ_DIR$\src\circle.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\main.c</name>
+            <name>$PROJ_DIR$\src\main.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\program.c</name>
+            <name>$PROJ_DIR$\src\program.c</name>
         </file>
     </group>
     <group>
         <name>Serial</name>
         <file>
-            <name>$PROJ_DIR$\commands.c</name>
+            <name>$PROJ_DIR$\src\commands.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\iot.c</name>
+            <name>$PROJ_DIR$\src\iot.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\pc.c</name>
+            <name>$PROJ_DIR$\src\pc.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\ring_buffer.c</name>
->>>>>>> b117484771621bb0e6ac1b03d80fe6db86e19d5f
+            <name>$PROJ_DIR$\src\ring_buffer.c</name>
         </file>
     </group>
     <group>
@@ -2362,31 +2361,13 @@
         <name>$PROJ_DIR$\src\clocks.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\src\display.c</name>
-    </file>
-    <file>
         <name>$PROJ_DIR$\src\init.c</name>
-    </file>
-    <file>
-        <name>$PROJ_DIR$\src\interrupts.c</name>
     </file>
     <file>
         <name>$PROJ_DIR$\src\led.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\src\main.c</name>
-    </file>
-    <file>
-        <name>$PROJ_DIR$\src\main_menu.c</name>
-    </file>
-    <file>
         <name>$PROJ_DIR$\src\ports.c</name>
-    </file>
-    <file>
-        <name>$PROJ_DIR$\src\program.c</name>
-    </file>
-    <file>
-        <name>$PROJ_DIR$\src\serial.c</name>
     </file>
     <file>
         <name>$PROJ_DIR$\src\switches.c</name>
