@@ -152,7 +152,7 @@
                     <name>NoRwDynamicInit</name>
                     <state>0</state>
                 </option>
-               <option>
+                <option>
                     <name>GRuntimeLibThreads</name>
                     <state>0</state>
                 </option>
@@ -405,7 +405,7 @@
                 </option>
                 <option>
                     <name>newCCIncludePaths</name>
-                    <state>./</state>
+                    <state>$PROJ_DIR$\inc</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -2376,6 +2376,6 @@
         <name>$PROJ_DIR$\src\system.c</name>
     </file>
     <file>
-       <name>$PROJ_DIR$\src\wheels.c</name>
+        <name>$PROJ_DIR$\src\wheels.c</name>
     </file>
 </project>
