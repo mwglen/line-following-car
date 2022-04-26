@@ -7,7 +7,7 @@ void clear_program_timer(void);
 
 /// Defines
 // CHANGE ME
-#define TB0CCR0_SR  (50) // Every  50ms
+#define TB0CCR0_SR  (25) // Every  50ms
 #define TB0CCR1_SR (100) // Every 100ms
 #define TB0CCR2_SR (100) // Every 100ms
 

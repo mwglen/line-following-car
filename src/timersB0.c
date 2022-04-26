@@ -77,7 +77,7 @@ __interrupt void Timer0_B0_ISR(void){
   }
   
   // Set Wheel Process Flag
-  if (++WHEEL_COUNT == TIME_50_MS) {
+  if (++WHEEL_COUNT == TIME_25_MS) {
     wheels_process_flag = true; 
     WHEEL_COUNT = 0;
   } 

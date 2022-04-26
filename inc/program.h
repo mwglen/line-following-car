@@ -30,6 +30,7 @@ typedef enum {
 } ProjectState;
 
 /// Defines
+#define TIME_25_MS   (25  / TB0CCR0_SR)
 #define TIME_50_MS   (50  / TB0CCR0_SR)
 #define TIME_100_MS  (100 / TB0CCR0_SR)
 #define TIME_150_MS  (150 / TB0CCR0_SR)

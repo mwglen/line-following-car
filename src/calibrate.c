@@ -8,10 +8,10 @@
 
 /// Globals
 CalibrationState calibration_state = PLACE_ON_W;
-int max_left_white;
-int max_right_white;
-int max_left_black;
-int max_right_black;
+int max_left_white  = 76;
+int max_right_white = 94;
+int max_left_black  = 595;
+int max_right_black = 582;
 extern void monitor_ir_sensors(void);
 
 

@@ -99,11 +99,15 @@ void run_program(void) {
       
     // Intercept circle and then continue
     case INTERCEPTING:
-      if (intercept_circle()) program_state++;
+      if (intercept_circle2()) program_state++;
       break;
       
     // Follow the circle until the exit command was recieved
     case CIRCLING:
+      if (PROGRAM_COUNT >= 120*TIME_1_SECS) {
+         center_cpy(display_line[0], "BL CIRCLE");
+         display_changed = true;
+      }
       if (exit_cmd_recieved) program_state++;
       else follow_circle();
       break;
@@ -119,8 +123,8 @@ void run_program(void) {
         center_cpy(display_line[0], " BL STOP  ");
         center_cpy(display_line[1], " That was ");
         center_cpy(display_line[2], "easy!! ;-)");
-        center_cpy(display_line[3], "      ");
-        center_cpy(display_line[3], "Time: ");
+        strcpy(display_line[3], "          ");
+        strcpy(display_line[3], "Time: ");
         display_changed = true;
         
         // Advance to next state
