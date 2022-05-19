@@ -7,6 +7,9 @@
 #include "switches.h"
 #include "program.h"
 #include "iot.h"
+#include "text.h"
+#include "adc.h"
+#include <string.h>
 #include <stdbool.h>
 
 /// Globals
@@ -15,6 +18,11 @@ bool iot_process_flag = false;
 bool wheels_process_flag  = false;
 bool pc_process_flag = false;
 bool adc_process_flag = false;
+
+// Timer
+unsigned int timer_count = 0;
+bool timer_enable = false;
+bool timer_updated = false;
 
 /// Functions
 void init_timer_B0(void) {
@@ -40,9 +48,7 @@ void init_timer_B0(void) {
   TB0CTL &= ~TBIFG; // Clear Overflow Interrupt flag
 }
 
-// 50 ms timer
 unsigned int IOT_EN_COUNT  = 0;
-//extern short unsigned int DISPLAY_COUNT = 0;
 unsigned int DISPLAY_COUNT = 0;
 long unsigned int PROGRAM_COUNT = 0;
 long unsigned int TASK_COUNT = 0;
@@ -50,6 +56,7 @@ unsigned int WHEEL_COUNT = 0;
 unsigned int PC_COUNT = 0;
 unsigned int IOT_COUNT = 0;
 unsigned int ADC_COUNT = 0;
+unsigned int DISPLAY_TIMER_COUNT = 0;
 
 #pragma vector = TIMER0_B0_VECTOR
 __interrupt void Timer0_B0_ISR(void){
@@ -64,28 +71,28 @@ __interrupt void Timer0_B0_ISR(void){
   }
   
   // Set IOT EN Process Flag
-  //if (++IOT_EN_COUNT == TIME_200_MS) {
-  //  P3OUT |= IOT_EN_CPU; 
-  //  IOT_EN_COUNT = 0;
-  //}
+  if (++IOT_EN_COUNT == TIME_200_MS) {
+    P3OUT |= IOT_EN_CPU; 
+    IOT_EN_COUNT = 0;
+  }
   
   // Set Wheel Process Flag
-  if (++WHEEL_COUNT == TIME_50_MS) {
+  if (++WHEEL_COUNT == TIME_25_MS) {
     wheels_process_flag = true; 
     WHEEL_COUNT = 0;
   } 
   
   // Set IOT Process Flag  
-  //if (++IOT_COUNT   == TIME_50_MS) {
-  //  iot_process_flag = true; 
-  //  IOT_COUNT = 0;
-  //}
+  if (++IOT_COUNT   == TIME_50_MS) {
+    iot_process_flag = true; 
+    IOT_COUNT = 0;
+  }
   
   // Set PC Process Flag
-  //if (++PC_COUNT    == TIME_50_MS) {
-  //  pc_process_flag = true; 
-  //  PC_COUNT = 0;
-  //}   
+  if (++PC_COUNT   == TIME_50_MS) {
+    pc_process_flag = true; 
+    PC_COUNT = 0;
+  }   
 
   // Set ADC Process Flag
   if (++ADC_COUNT == TIME_50_MS) {
@@ -93,17 +100,25 @@ __interrupt void Timer0_B0_ISR(void){
     ADC_COUNT = 0;
   } 
   
+  if (++DISPLAY_TIMER_COUNT == TIME_1_SECS) {
+    DISPLAY_TIMER_COUNT = 0;
+    if (timer_enable) {
+      // Increment Timer
+      timer_count++;
+      timer_updated = true;
+    }
+  }
+  
   TB0CCR0 += TB0CCR0_INTERVAL; // Add Offset to TBCCR0
 }
 
 unsigned short int DEBOUNCE_COUNT = 0;
 #pragma vector=TIMER0_B1_VECTOR
-__interrupt void TIMER0_B1_ISR(void){
+__interrupt void TIMER0_B1_ISR(void) {
   switch(__even_in_range(TB0IV,14)){
     case 0: break; // No interrupt
     
-    case 2:
-      break;
+    case 2: break; // Unused CCR
     
     case 4: // Debounce Timer
       TB0CCR2 += TB0CCR2_INTERVAL; // Add Offset to TBCCR2

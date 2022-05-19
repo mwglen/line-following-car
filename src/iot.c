@@ -51,8 +51,6 @@ void transmit_iot(char *message) {
 }
 
 void parse_iot_res(char *res) {
-    strcpy(display_line[0], "THERE");
-
   // +CWJAP:"my_ssid"
   if (starts_with(res, "+CWJAP:\"")) {
     strcpy(ssid, "");
@@ -74,7 +72,6 @@ void parse_iot_res(char *res) {
     unsigned int tcp_num_chr = atoi(num_chr_str);
     char *k = c; // Save current index
     while (c != k + tcp_num_chr) strncat(tcp_msg, c++, 1);
-    strcpy(display_line[0], "HERE");
     run_cmd(tcp_msg);
   }
   
@@ -136,10 +133,8 @@ __interrupt void eUSCI_A0_ISR(void){
 
          // Read IOT Responses
          if (temp_char == '\n') {
-           if (iot_res[0] != '\r' && iot_res[0] != '\n') {
-             strcpy(display_line[0], "TEST");
+           if (iot_res[0] != '\r' && iot_res[0] != '\n')
              write_buffer(&iot_rx_buffer, iot_res);
-           }
            strcpy(iot_res, "");
            iot_count = 0;
          } break;

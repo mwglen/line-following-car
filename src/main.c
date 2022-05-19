@@ -13,15 +13,8 @@
 #include "adc.h"
 #include "iot.h"
 #include "pc.h"
+#include "circle.h"
 #include <string.h>
-
-/// Global Variables
-volatile char slow_input_down;
-unsigned int test_value;
-char chosen_direction;
-char change;
-bool transmission_sent = false;
-bool transmission_recieved = false;
 
 /// External Functions
 void Init_LCD(void);
@@ -40,16 +33,18 @@ void main(void){
   init_display();
   init_wheels();
   init_timer_B0();
-  //init_timer_B1();
   init_adc();
   init_pc(4, 0x5551); //115200 
   init_iot(4, 0x5551); //115200
    
   while(true) {
     
-    // Run Program
-    program_start();
+    // Make sure wheels aren't moving forwards and 
+    // backwords at the same time
     check_wheels();
+
+    // Run Program
+    run_program();
     
     // Run processes
     adc_process();
@@ -57,6 +52,7 @@ void main(void){
     wheels_process();
     iot_process();
     pc_process();
+
     P3OUT ^= TEST_PROBE; // Change State of TEST_PROBE OFF
   }
 }

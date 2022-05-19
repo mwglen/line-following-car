@@ -405,7 +405,7 @@
                 </option>
                 <option>
                     <name>newCCIncludePaths</name>
-                    <state>./</state>
+                    <state>$PROJ_DIR$\inc</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -2300,88 +2300,82 @@
     <group>
         <name>Compiled</name>
         <file>
-            <name>$PROJ_DIR$\Compiled\LCD.r43</name>
+            <name>$PROJ_DIR$\src\Compiled\LCD.r43</name>
         </file>
     </group>
     <group>
         <name>Display</name>
         <file>
-            <name>$PROJ_DIR$\display.c</name>
+            <name>$PROJ_DIR$\src\display.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\display_iot.c</name>
+            <name>$PROJ_DIR$\src\display_iot.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\text.c</name>
+            <name>$PROJ_DIR$\src\text.c</name>
         </file>
     </group>
     <group>
         <name>Program</name>
         <file>
-            <name>$PROJ_DIR$\main.c</name>
+            <name>$PROJ_DIR$\src\calibrate.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\main_menu.c</name>
+            <name>$PROJ_DIR$\src\circle.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\program.c</name>
+            <name>$PROJ_DIR$\src\main.c</name>
         </file>
-    </group>
-    <group>
-        <name>Projects</name>
         <file>
-            <name>$PROJ_DIR$\project_7.c</name>
+            <name>$PROJ_DIR$\src\program.c</name>
         </file>
     </group>
     <group>
         <name>Serial</name>
         <file>
-            <name>$PROJ_DIR$\commands.c</name>
+            <name>$PROJ_DIR$\src\commands.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\iot.c</name>
+            <name>$PROJ_DIR$\src\iot.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\pc.c</name>
+            <name>$PROJ_DIR$\src\pc.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\ring_buffer.c</name>
+            <name>$PROJ_DIR$\src\ring_buffer.c</name>
         </file>
     </group>
     <group>
         <name>Timers</name>
         <file>
-            <name>$PROJ_DIR$\timersB0.c</name>
+            <name>$PROJ_DIR$\src\timersB0.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\timersB1.c</name>
+            <name>$PROJ_DIR$\src\timersB1.c</name>
         </file>
     </group>
     <file>
-        <name>$PROJ_DIR$\adc.c</name>
+        <name>$PROJ_DIR$\src\adc.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\clocks.c</name>
+        <name>$PROJ_DIR$\src\clocks.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\init.c</name>
+        <name>$PROJ_DIR$\src\init.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\interrupts.c</name>
+        <name>$PROJ_DIR$\src\led.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\led.c</name>
+        <name>$PROJ_DIR$\src\ports.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\ports.c</name>
+        <name>$PROJ_DIR$\src\switches.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\switches.c</name>
+        <name>$PROJ_DIR$\src\system.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\system.c</name>
-    </file>
-    <file>
-        <name>$PROJ_DIR$\wheels.c</name>
+        <name>$PROJ_DIR$\src\wheels.c</name>
     </file>
 </project>

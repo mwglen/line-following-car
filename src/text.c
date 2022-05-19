@@ -25,8 +25,7 @@ bool starts_with(char *src1, char *src2) {
   else return false;
 }
 
-
-// Hashes a string so that it can be matched in constant time
+// Hashes a string so that it can be pattern matched in constant time
 uint32_t hash(char *str) {
     uint32_t hash = 5381;
     int c;
